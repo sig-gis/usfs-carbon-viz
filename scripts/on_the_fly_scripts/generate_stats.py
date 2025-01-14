@@ -85,3 +85,23 @@ def generate_band_histograms(image, boundary_geometry):
     # Convert the dictionary to a JSON string.
     histograms_json = json.dumps(histograms)
     return histograms_json
+
+def feature_collection_to_json(fc, limit=None):
+    """
+    Converts an Earth Engine FeatureCollection to JSON.
+    
+    Args:
+        fc (ee.FeatureCollection): The FeatureCollection to convert.
+        limit (int, optional): Number of features to include. Defaults to None (all features).
+    
+    Returns:
+        str: The JSON string of the FeatureCollection.
+    """
+    # Convert to GeoJSON (client-side)
+    if limit:
+        fc = fc.limit(limit)
+    geojson = fc.getInfo()  # Brings the FeatureCollection to client-side
+
+    # Convert to JSON string
+    json_string = json.dumps(geojson, indent=2)
+    return json_string
