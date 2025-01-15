@@ -110,3 +110,24 @@ def download_files_2(bucket_name, file_id):
         except requests.RequestException as e:
             logger.error(f"Error downloading {file_name}: {e}")
         time.sleep(1)  # Sleep to mimic the behavior of sleep in JavaScript
+
+def delete_files_gcs(bucket,file_id):
+    # Initialize the GCS client
+    storage_client = storage.Client()
+
+    # Get the bucket object
+    bucket = storage_client.bucket(bucket)
+
+    # List files in the bucket
+    blobs = bucket.list_blobs()
+
+    # Filter files based on file_id
+    filtered_files = [blob for blob in blobs if file_id in blob.name]
+
+    # Delete the filtered files
+    for blob in filtered_files:
+        try:
+            blob.delete()
+            logger.info(f"Deleted {blob.name}")
+        except Exception as e:
+            logger.error(f"Error deleting {blob.name}: {e}")
