@@ -14,15 +14,20 @@ maxPixels = 1e13
 states = ee.FeatureCollection("TIGER/2018/States")
 louisiana = states.filter(ee.Filter.eq('STATEFP', '22')).first().geometry()
 counties = ee.FeatureCollection("TIGER/2018/Counties")
-example_boundary = counties.filter(ee.Filter.eq('STATEFP', '22')).first().geometry()
+example_boundary1 = counties.filter(ee.Filter.eq('STATEFP', '22')).first().geometry()
+example_boundary2 = counties.filter(ee.Filter.eq('STATEFP', '48')).first().geometry()
 
 request_dict1 = {'image_asset_id': 'projects/usfs-carbon-viz-test/assets/Carbon_Emissions/Carbon_Emissions_tile2',
-                  'export_region': louisiana,
-                  'file_name': 'Carbon_Emissions_tile2_louisiana',
+                  'export_region': example_boundary1,
+                  'file_name': 'Carbon_Emissions_tile2_example_boundary1',
                 }
 request_dict2 = {'image_asset_id': 'projects/usfs-carbon-viz-test/assets/Carbon_Emissions/Carbon_Emissions_tile2',
-                    'export_region': example_boundary,
-                    'file_name': 'Carbon_Emissions_tile2_example_boundary',}
+                    'export_region': example_boundary2,
+                    'file_name': 'Carbon_Emissions_tile2_example_boundary2',}
+
+request_dict3 = {'image_asset_id': 'projects/usfs-carbon-viz-test/assets/Carbon_Emissions/Carbon_Emissions_tile2',
+                    'export_region': louisiana,
+                    'file_name': 'Carbon_Emissions_tile2_louisiana',}
 
 requests = [request_dict1, request_dict2]
 
