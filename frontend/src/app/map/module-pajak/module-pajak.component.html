@@ -1,0 +1,195 @@
+<div class="icon-text-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="25"
+    viewBox="0 0 32 32"
+  >
+    <path
+      d="M21.074 3.211c-5.144 0-5.927 1.657-10.735 1.657A14.99 14.99 0 0 1 5 3.9L1 28a16.273 16.273 0 0 0 7.538 1.8c6.876 0 8.048-2.6 14.924-2.6A33.153 33.153 0 0 1 31 28L27 3.9a26.401 26.401 0 0 0-5.926-.689zM23.462 26.2a22.376 22.376 0 0 0-7.77 1.348A20.416 20.416 0 0 1 8.539 28.8a15.986 15.986 0 0 1-6.43-1.366L5.795 5.217a15.6 15.6 0 0 0 4.544.651 17.433 17.433 0 0 0 5.445-.846 16.633 16.633 0 0 1 5.29-.81 26.266 26.266 0 0 1 5.05.517l3.651 22a37.271 37.271 0 0 0-6.313-.529zM21.074 6.21a14.759 14.759 0 0 0-4.736.733 19.375 19.375 0 0 1-5.999.925 18.297 18.297 0 0 1-2.918-.231L4.348 26.148a14.05 14.05 0 0 0 4.19.652 18.509 18.509 0 0 0 6.54-1.155 24.388 24.388 0 0 1 8.384-1.445c1.444 0 2.76.079 3.898.19L24.383 6.458a23.564 23.564 0 0 0-3.309-.247zM8.25 8.757a19.57 19.57 0 0 0 2.09.112 20.235 20.235 0 0 0 6.276-.964 14.641 14.641 0 0 1 3.073-.638L14.997 15H7.212zm6.52 15.938A17.461 17.461 0 0 1 8.539 25.8a12.838 12.838 0 0 1-3.056-.372L7.046 16h7.98l5.915 7.316a26.442 26.442 0 0 0-6.171 1.378zm8.693-1.494c-.456 0-.886.013-1.304.032l-6.276-7.763 5.007-8.255c.064 0 .12-.003.185-.003a21.74 21.74 0 0 1 2.444.143l2.645 15.935c-.9-.059-1.804-.089-2.7-.089zM11.5 11.5a1 1 0 1 1 1 1 1 1 0 0 1-1-1zm11 4a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-10 5a1 1 0 1 1-1-1 1 1 0 0 1 1 1z"
+    />
+    <path fill="none" d="M0 0h32v32H0z" />
+  </svg>
+  <h5>Analysis by Area</h5>
+</div>
+<br />
+
+<!-- <h5>Analisis Aset</h5> -->
+<div class="card mb-2 blue-card">
+  <div class="card-body p-2">
+    <div class="row">
+      <div class="col-12">
+        <h6 class="asset-title card-title mb-1">
+          <i class="las la-lg la-coins"></i> Area Analysis
+        </h6>
+        <h2>1100 Ha</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="card mb-2 red-card">
+  <div class="card-body p-2">
+    <div class="row">
+      <div class="col-12">
+        <h6 class="asset-title card-title mb-1">
+          <i class="las la-lg la-coins"></i> Total SPPT Piutang 2023
+        </h6>
+        <h2>Rp {{ pajakTerhutang }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mb-2 green-card">
+  <div class="card-body p-2">
+    <div class="row">
+      <div class="col-12">
+        <h6 class="asset-title card-title mb-1">
+          <i class="las la-lg la-coins"></i> Total SPPT Terbayar 2023
+        </h6>
+        <h2>Rp {{ pajakTerbayar }}</h2>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<br />
+
+<div class="button-container">
+  <button
+    type="button"
+    class="btn"
+    [ngClass]="identifyActive ? 'btn-primary' : 'btn-secondary'"
+    (click)="calculateZonalStatistics()"
+  >
+    {{ identifyActive ? "Draw Area" : "Stop Draw" }}
+  </button>
+  &nbsp;
+  <button type="button" class="btn btn-secondary" (click)="getBoundStat()">
+    Select by Admin Boundary
+  </button>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+<hr />
+<div class="icon-text-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="25"
+    viewBox="0 0 32 32"
+  >
+    <path
+      d="M28.5 7h-25A1.502 1.502 0 0 0 2 8.5v15A1.502 1.502 0 0 0 3.5 25h25a1.502 1.502 0 0 0 1.5-1.5v-15A1.502 1.502 0 0 0 28.5 7zm.5 16.5a.5.5 0 0 1-.5.5h-25a.5.5 0 0 1-.5-.5v-15a.5.5 0 0 1 .5-.5h25a.5.5 0 0 1 .5.5zM7.5 11.557A2.08 2.08 0 0 1 9 11v1c-.74 0-.948.417-1 .571v6.86c.048.143.251.569 1 .569v1a2.086 2.086 0 0 1-1.43-.5h-.14A2.086 2.086 0 0 1 6 21v-1c.74 0 .948-.417 1-.571v-6.86C6.952 12.426 6.749 12 6 12v-1a2.08 2.08 0 0 1 1.5.557zM13 20h1v1h-1zm-2 0h1v1h-1zm10 0h1v1h-1zm4 0h1v1h-1zm-2 0h1v1h-1zm-4 0h1v1h-1zm-2 0h1v1h-1zm-2 0h1v1h-1z"
+    />
+    <path fill="none" d="M0 0h32v32H0z" />
+  </svg>
+  <h6>Search Areas</h6>
+</div>
+
+<!-- <input type="text" class="two-digit" placeholder="32" />
+<input type="text" class="two-digit" placeholder="17" />
+<input type="text" class="three-digit" placeholder="030" />
+<input type="text" class="three-digit" placeholder="005" />
+<input type="text" class="three-digit" placeholder="016" />
+<input type="text" class="four-digit" placeholder="1201" />
+<input type="text" class="one-digit" placeholder="2" /> -->
+
+<br />
+<div class="centered-container">
+  <div class="input-container">
+    <input id="phone-mask" type="text" [(ngModel)]="nopValue" />
+  </div>
+  <br />
+  <div class="button-form-container">
+    <button
+      type="button"
+      class="btn btn-primary btn-search"
+      (click)="handleFormSubmit()"
+    >
+      Terapkan Pencarian
+    </button>
+  </div>
+</div>
+
+<style>
+  .asset-title {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .one-digit {
+    width: 20px;
+    margin-right: 2px;
+  }
+
+  .two-digit {
+    width: 25px;
+    margin-right: 2px;
+  }
+
+  .three-digit {
+    width: 35px;
+    margin-right: 2px;
+  }
+
+  .four-digit {
+    width: 45px;
+    margin-right: 2px;
+  }
+
+  .blue-card {
+    background-color: #0e2f52; /* blue color */
+    color: white; /* text color */
+  }
+
+  .red-card {
+    background-color: #b03c03; /* pastel green color */
+    color: white; /* text color */
+  }
+
+  .green-card {
+    background-color: #1c6432; /* pastel orange color */
+    color: white; /* text color */
+  }
+
+  .card.mb-2 h2 {
+    text-align: right;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the buttons */
+    align-items: center; /* Vertically center the buttons if needed */
+    gap: 2rem; /* Add space between the buttons */
+  }
+
+  .centered-container {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+    gap: 1rem; /* Add some space between the input and button */
+  }
+
+  .input-container {
+    flex: 1; /* Take all available space */
+    display: flex;
+    justify-content: center; /* Horizontally center the input */
+    align-items: center; /* Vertically center the input */
+  }
+
+  .button-form-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-bottom: 2rem; /* Provide some space at the bottom */
+  }
+
+  .icon-text-container {
+    display: flex;
+    gap: 5px; /* Add some space between the SVG and the text */
+  }
+</style>

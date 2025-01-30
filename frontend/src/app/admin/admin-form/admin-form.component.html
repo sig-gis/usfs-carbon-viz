@@ -1,0 +1,569 @@
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <!-- <div class="row">
+      <div class="col-8">
+        <h5><i class="las la-lg la-table"></i> LAYER & DATA</h5>
+      </div>     
+    </div>
+    <hr />   -->
+  <div class="row">
+    <div class="col-4 layer-column">
+      <div class="row">
+        <div class="col-6">
+          <h5>Layer List</h5>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-primary btn-right" (click)="addLayerForm()">
+            <i class="las la-plus-circle la-lg fa-fw" aria-hidden="true"></i
+            >&nbsp;Add Layer
+          </button>
+        </div>
+      </div>
+
+      <div *ngFor="let number of [0, 1, 2, 3, 4, 5]">
+        <div
+          *ngIf="!mapCatalogueLoaded"
+          class="map-card mt-3"
+          style="height: 100px"
+        >
+          <div class="row">
+            <div class="col-4">
+              <div class="skeleton-image" style="height: 100px"></div>
+            </div>
+            <div class="col-6 map-text">
+              <div class="row">
+                <span class="skeleton-text"></span>
+                <!-- <span class="skeleton-text"></span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="mapCatalogueLoaded">
+        <div class="map-card mt-3" *ngFor="let layer of layerList">
+          <div class="row" (click)="editLayer(layer)" style="cursor: pointer">
+            <div class="col-4">
+              <img src="{{ layer.image }}" class="map-image" />
+            </div>
+            <div class="col-6 map-text">
+              <div class="row">
+                <span
+                  ><strong>{{ layer.title }}</strong></span
+                >
+                <span>{{ layer.description }}</span>
+              </div>
+            </div>
+            <div class="col-1 map-button">
+              <i class="las la-ellipsis-h"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-5 form-column" *ngIf="isAdd">
+      <h5>Layer Form</h5>
+
+      <form [formGroup]="layerForm" class="mt-3">
+        <div class="row">
+          <span>Type</span>
+          <select
+            formControlName="type"
+            class="form-control"
+            (change)="onChangeType($event)"
+          >
+            <option value="">Select Type</option>
+            <option value="line">Line</option>
+            <option value="point">Point</option>
+            <option value="wms">WMS</option>
+          </select>
+          <div
+            *ngIf="getLayerForm.type.touched && getLayerForm.type.invalid"
+            class="text-danger mt-2"
+          >
+            <div *ngIf="getLayerForm.type.errors?.required">
+              Type is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4" *ngIf="selectedType == 'wms'">
+          <h6>Layer Info</h6>
+        </div>
+
+        <div class="layer-info" *ngIf="selectedType == 'wms'">
+          <div class="row mt-2">
+            <span>Layer Name</span>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="Enter Layer Name"
+            />
+            <div
+              *ngIf="getLayerForm.name.touched && getLayerForm.name.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.name.errors?.required">
+                Layer Name is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Layer ID</span>
+            <input
+              type="text"
+              formControlName="id"
+              class="form-control"
+              placeholder="Enter Layer ID"
+            />
+            <div
+              *ngIf="getLayerForm.id.touched && getLayerForm.id.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.id.errors?.required">
+                Layer ID is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Group</span>
+            <input
+              type="text"
+              formControlName="group"
+              class="form-control"
+              placeholder="Enter Group"
+            />
+            <div
+              *ngIf="getLayerForm.group.touched && getLayerForm.group.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.group.errors?.required">
+                Group is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Layer Description</span>
+            <textarea
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter Layer Description"
+            ></textarea>
+          </div>
+
+          <div class="row mt-4">
+            <span>Image</span>
+
+            <div class="py-4" *ngIf="msg || url">
+              <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+              <img
+                style="
+                  max-width: 300px;
+                  width: 100%;
+                  height: 100%;
+                  max-height: 300px;
+                "
+                [src]="url"
+                *ngIf="url"
+              />
+            </div>
+
+            <input
+              formControlName="image"
+              class="form-control"
+              type="file"
+              id="formFile"
+              type="file"
+              (change)="selectFile($event)"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4" *ngIf="selectedType == 'wms'">
+          <h6>Configuration</h6>
+        </div>
+
+        <div class="config-info" *ngIf="selectedType == 'wms'">
+          <div class="row mt-2">
+            <span>URL</span>
+            <input
+              type="text"
+              formControlName="url"
+              class="form-control"
+              placeholder="Enter URL"
+            />
+            <div
+              *ngIf="getLayerForm.url.touched && getLayerForm.url.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.url.errors?.required">
+                URL is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Opacity</span>
+            <input
+              type="number"
+              formControlName="opacity"
+              class="form-control"
+              placeholder="Enter Opacity"
+            />
+            <div
+              *ngIf="
+                getLayerForm.opacity.touched && getLayerForm.opacity.invalid
+              "
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.opacity.errors?.required">
+                Opacity is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-5">&nbsp;</div>
+          <div class="col-7">
+            <button
+              class="btn btn-primary btn-right btn-left-margin"
+              (click)="saveForm()"
+            >
+              <i class="las la-check-square la-lg fa-fw" aria-hidden="true"></i
+              >&nbsp;Submit
+            </button>
+            <button class="btn btn-danger btn-right" (click)="cancelForm()">
+              <i class="las la-ban la-lg fa-fw" aria-hidden="true"></i
+              >&nbsp;Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-5 form-column" *ngIf="isEdit">
+      <h5>Edit Form</h5>
+
+      <form [formGroup]="editLayerForm" class="mt-3">
+        <div class="row">
+          <span>Type</span>
+          <select
+            formControlName="type"
+            class="form-control"
+            (change)="onChangeType($event)"
+          >
+            <option value="">Select Type</option>
+            <option value="line">Line</option>
+            <option value="point">Point</option>
+            <option value="wms">WMS</option>
+          </select>
+          <div
+            *ngIf="getLayerForm.type.touched && getLayerForm.type.invalid"
+            class="text-danger mt-2"
+          >
+            <div *ngIf="getLayerForm.type.errors?.required">
+              Type is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4" *ngIf="selectedType == 'wms'">
+          <h6>Layer Info</h6>
+        </div>
+
+        <div class="layer-info" *ngIf="selectedType == 'wms'">
+          <div class="row mt-2">
+            <span>Layer Name</span>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="Enter Layer Name"
+            />
+            <div
+              *ngIf="getLayerForm.name.touched && getLayerForm.name.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.name.errors?.required">
+                Layer Name is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Layer ID</span>
+            <input
+              type="text"
+              formControlName="id"
+              class="form-control"
+              placeholder="Enter Layer ID"
+            />
+            <div
+              *ngIf="getLayerForm.id.touched && getLayerForm.id.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.id.errors?.required">
+                Layer ID is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Group</span>
+            <input
+              type="text"
+              formControlName="group"
+              class="form-control"
+              placeholder="Enter Group"
+            />
+            <div
+              *ngIf="getLayerForm.group.touched && getLayerForm.group.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.group.errors?.required">
+                Group is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Layer Description</span>
+            <textarea
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter Layer Description"
+            ></textarea>
+          </div>
+
+          <div class="row mt-4">
+            <span>Image</span>
+
+            <div class="py-4" *ngIf="msg || url">
+              <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+              <img
+                style="
+                  max-width: 300px;
+                  width: 100%;
+                  height: 100%;
+                  max-height: 300px;
+                "
+                [src]="url"
+                *ngIf="url"
+              />
+            </div>
+
+            <input
+              formControlName="image"
+              class="form-control"
+              type="file"
+              id="formFile"
+              type="file"
+              (change)="selectFile($event)"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4" *ngIf="selectedType == 'wms'">
+          <h6>Configuration</h6>
+        </div>
+
+        <div class="config-info" *ngIf="selectedType == 'wms'">
+          <div class="row mt-2">
+            <span>URL</span>
+            <input
+              type="text"
+              formControlName="url"
+              class="form-control"
+              placeholder="Enter URL"
+            />
+            <div
+              *ngIf="getLayerForm.url.touched && getLayerForm.url.invalid"
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.url.errors?.required">
+                URL is required
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <span>Opacity</span>
+            <input
+              type="number"
+              formControlName="opacity"
+              class="form-control"
+              placeholder="Enter Opacity"
+            />
+            <div
+              *ngIf="
+                getLayerForm.opacity.touched && getLayerForm.opacity.invalid
+              "
+              class="text-danger mt-2"
+            >
+              <div *ngIf="getLayerForm.opacity.errors?.required">
+                Opacity is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-5">&nbsp;</div>
+          <div class="col-7">
+            <button
+              class="btn btn-primary btn-right btn-left-margin"
+              (click)="saveEditForm()"
+            >
+              <i class="las la-check-square la-lg fa-fw" aria-hidden="true"></i
+              >&nbsp;Submit
+            </button>
+            <button class="btn btn-danger btn-right" (click)="cancelForm()">
+              <i class="las la-ban la-lg fa-fw" aria-hidden="true"></i
+              >&nbsp;Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-3"></div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Page Content -->
+  <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app-style-switcher.js"></script>
+<!--Wave Effects -->
+<!-- <script src="../js/waves.js"></script> -->
+<!--Menu sidebar -->
+<script src="../js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../js/custom.js"></script>
+
+<style>
+  /* Style the tab */
+  .page-wrapper {
+    padding-left: 120px;
+    padding-right: 50px;
+    padding-top: 20px;
+    background-color: #ffffff;
+  }
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #fff;
+  }
+
+  .tab button.inactive {
+    background-color: #ddd;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    position: absolute;
+    width: 300px;
+    height: 80%;
+    top: 80px;
+    bottom: 0;
+    overflow-y: auto;
+    background: #fff;
+    left: 100px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+  }
+
+  .map-card {
+    border: 1px solid #ccc;
+  }
+
+  .map-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .map-text {
+    padding: 10px;
+  }
+
+  .map-button {
+    padding: 10px;
+  }
+
+  .layer-column {
+    border-right: 1px #ccc solid;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .form-column {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+
+  .border-column {
+    border-left: 1px #ccc solid;
+  }
+
+  .btn-right {
+    float: right;
+  }
+
+  .layer-info {
+    padding-left: 20px;
+  }
+
+  .config-info {
+    padding-left: 20px;
+  }
+
+  .btn-left-margin {
+    margin-left: 5px;
+  }
+</style>

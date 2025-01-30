@@ -1,0 +1,14 @@
+// @import '~bootstrap/scss/bootstrap';
+// already import in style.cscc
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+// @import '_app';
+
+@import '~animate.css/animate.min.css';
+@import 'variable';
+@import 'components';
+@import '~widgets/widgets';
+@import 'responsive';
+@import 'custom';

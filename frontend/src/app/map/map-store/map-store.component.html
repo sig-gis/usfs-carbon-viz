@@ -1,0 +1,442 @@
+  <div
+    class="tab"
+    style="
+      position: absolute;
+      top: 80px;
+      bottom: 0;
+      height: 80%;
+      background: #fff;
+      width: 1200px;
+      left: 400px;
+    "
+  >
+    <button
+      class="tablinks"
+      (click)="currentSearch = 'one'"
+      [ngClass]="currentSearch == 'one' ? 'active' : 'inactive'"
+      style="position: relative; width: 25%"
+    >
+      <i class="lar la-images"></i>
+    </button>
+
+    <button
+      class="tablinks"
+      (click)="currentSearch = 'two'"
+      [ngClass]="currentSearch == 'two' ? 'active' : 'inactive'"
+      style="position: relative; width: 25%"
+    >
+      <i class="las la-database"></i>
+    </button>
+
+    <button
+      class="tablinks"
+      (click)="currentSearch = 'three'"
+      [ngClass]="currentSearch == 'three' ? 'active' : 'inactive'"
+      style="position: relative; width: 25%"
+    >
+      <i class="las la-chart-bar"></i>
+    </button>
+
+    <button
+      class="tablinks"
+      (click)="currentSearch = 'four'"
+      [ngClass]="currentSearch == 'four' ? 'active' : 'inactive'"
+      style="position: relative; width: 25%"
+    >
+      <i class="las la-satellite"></i>
+    </button>
+  </div>
+
+  <div
+    id="one"
+    class="tabcontent"
+    *ngIf="currentSearch == 'one'"
+    style="
+      position: absolute;
+      top: 134px;
+      bottom: 0;
+      height: 82%;
+      overflow-x: hidden;
+      background: #fff;
+      width: 1200px;
+      left: 400px;
+    "
+  >
+    <ul class="list-group">
+      <li
+        class="
+          list-group-item
+          d-flex
+          justify-content-between
+          align-items-center
+        "
+        style="padding: 5px 0; border: none"
+      >
+        &nbsp;
+        <!-- <span>
+          <i class="las la-lg la-times-circle"></i>
+        </span> -->
+        <i class="las la-lg la-times-circle pointer close-button" (click)="closeModal()"></i>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-3">
+        <div class="search-column">
+          <span>Pencarian</span> <br />
+          <div class="row mt-2">
+            <div class="col-11">
+              <form [formGroup]="searchForm" (ngSubmit)="doSearch()">
+                <input class="form-control form-control-sm"
+                type="text"
+                placeholder="Cari" formControlName="search" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-9 pd-left">
+        <div class="row pe-5 map-list-column" *ngIf="!catalogListLoaded">
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body p-0">
+                <span class="skeleton-image"></span>
+                <br />
+                <div class="row p-2">
+                  <div class="map-store-title">
+                    <span class="skeleton-text"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-icon"></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="skeleton-button btn-right"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pe-5 map-list-column" *ngIf="catalogListLoaded">
+          <ng-container *ngFor="let catalog of catalogList">
+            <app-map-store-list [catalog]="catalog" class="col-4"> </app-map-store-list>
+          </ng-container>
+          <p *ngIf="total == 0" class="text-center" style="display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 560px;">Data tidak ditemukan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer pt-4">
+      <div class="col-12">
+
+          <ul class="pagination" style="justify-content:center">
+            <li [ngClass]="page == 1 ? 'disabled' : '' " ><button class="page-link height-but" (click)="onFirst()" style=" border-top-left-radius: .5rem;
+              border-bottom-left-radius: .5rem;">First</button></li>
+            <li  [ngClass]="page == 1 ? 'disabled' : '' " ><button class="page-link height-but" (click)="onPrev()" >Prev</button></li>     
+
+          <li  style="width:70px;">
+            <ng-select [(ngModel)]="page" style="width:100%;height:100%" [clearable]="false" (ngModelChange)="loadNumberofPagination($event)">
+              <ng-option *ngFor="let numb of numberpagination" [value]="numb.name">{{numb.name}}</ng-option>
+           </ng-select>
+          </li>
+
+            <li  [ngClass]="page == maxpage ? 'disabled' : '' " ><button class="page-link height-but" (click)="onNext()">Next</button></li>
+            <li  [ngClass]="page == maxpage ? 'disabled' : '' " ><button class="page-link height-but" (click)="onLast()" style="border-top-right-radius: 0.5rem;
+              border-bottom-right-radius: 0.5rem;">Last</button></li>
+          </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <div
+    id="two"
+    class="tabcontent"
+    *ngIf="currentSearch == 'two'"
+    style="
+      position: absolute;
+      top: 134px;
+      bottom: 0;
+      height: 82%;
+      overflow-y: auto;
+      background: #fff;
+      width: 1200px;
+      left: 400px;
+    "
+  >
+    <div class="no-data"><br /><br />Tidak ada data</div>
+  </div>
+
+  <div
+    id="three"
+    class="tabcontent"
+    *ngIf="currentSearch == 'three'"
+    style="
+      position: absolute;
+      top: 134px;
+      bottom: 0;
+      height: 82%;
+      overflow-y: auto;
+      background: #fff;
+      width: 1200px;
+      left: 400px;
+    "
+  >
+    <div class="no-data"><br /><br />Tidak ada data</div>
+  </div>
+
+  <div
+    id="four"
+    class="tabcontent"
+    *ngIf="currentSearch == 'four'"
+    style="
+      position: absolute;
+      top: 134px;
+      bottom: 0;
+      height: 82%;
+      overflow-y: auto;
+      background: #fff;
+      width: 1200px;
+      left: 400px;
+    "
+  >
+    <div class="no-data"><br /><br />Tidak ada data</div>
+  </div>
+
+<style>
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    z-index: 10;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #fff;
+  }
+
+  .tab button.inactive {
+    background-color: #ddd;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    padding-top: 6px;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 10;
+  }
+
+  .vertical-tab {
+    position: absolute;
+    padding: 15px;
+    margin-top: 20px;
+    top: 0;
+    bottom: 0;
+    height: 103%;
+    overflow-y: auto;
+    background: transparent;
+    width: 310px;
+    left: 80px;
+  }
+
+  .wrapper {
+    position: relative;
+    overflow-x: hidden;
+    width: 275px;
+    height: 100%;
+    top: -20px;
+    left: -15px;
+    background: transparent;
+  }
+
+  #slide {
+    position: absolute;
+    left: -275px;
+    width: 275px;
+    height: 100%;
+    background: blue;
+    transition: 1s;
+  }
+
+  .slider {
+    position: absolute;
+    left: -275px;
+    width: 275px;
+    height: auto;
+    padding: 20px;
+    background: white;
+    transition: 1s;
+  }
+
+  .wrapper:hover #slide {
+    transition: 0.5s;
+    left: 0;
+  }
+
+  .wrapper:hover .slider {
+    transition: 0.5s;
+    left: 0;
+  }
+
+  .high-z-index {
+    z-index: 1000;
+  }
+
+  .button-row{
+    text-align: right;
+  }
+
+  .page-number{
+    width: 60px;
+    height: 36px;
+    border: 2px #ccc solid;
+  }
+
+  .search-column{
+    width: auto;
+    height: 62%;
+    padding-left: 20px;
+    padding-right: 50px;
+    position: fixed;
+    border-right: 1px #ccc solid;
+  }
+
+  .modal-footer{
+    clear: both;
+    width: 101%;
+    position: sticky;
+    bottom: 0px;
+    background-color: #eee;
+    z-index: 1055;
+    text-align: center;
+    border-top: #ccc solid 1px;
+    padding-top:5px;
+    padding-bottom:5px;
+  }
+
+  .map-list-column{
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .map-store-title{
+    height: 4rem;
+  }
+</style>

@@ -1,0 +1,121 @@
+<div class="main-wrapper">
+  <div class="d-lg-flex half">
+    <div
+      class="bg order-1 order-md-2"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1465447142348-e9952c393450?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80');
+      "
+    ></div>
+    <div class="contents order-2 order-md-1">
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7">
+            <div class="mb-4">
+              <h3>Login</h3>
+              <p class="mb-4">Wildfire Carbon Risk</p>
+            </div>
+
+            <form
+              [formGroup]="authentificationForm"
+              (ngSubmit)="onSubmitloginform()"
+              class="signin-form"
+            >
+              <div class="mb-4" *ngIf="error_message !== ''">
+                <div class="label text-danger pl-0">
+                  <span class="error-message">{{ error_message }}</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label d-flex pl-0 mb-9" for="email">
+                  Email *
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      getAuthForm.email.errors?.email &&
+                      getAuthForm.email.touched
+                    "
+                  >
+                    &nbsp; invalid email address
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      getAuthForm.email.errors?.required &&
+                      getAuthForm.email.touched
+                    "
+                  >
+                    &nbsp; Required
+                  </div>
+                </div>
+                <!-- <div class="label d-flex pl-0 mb-9" for="email">Email * <div  class="text-danger" *ngIf="getAuthForm.email.errors?.required && getAuthForm.email.touched"> &nbsp; Required</div></div> -->
+                <input
+                  class="form-control"
+                  formControlName="email"
+                  type="text"
+                  [ngClass]="
+                    (getAuthForm.email.errors?.required ||
+                      getAuthForm.email.errors?.email) &&
+                    getAuthForm.email.touched
+                      ? 'form-control-danger'
+                      : 'form-control'
+                  "
+                  id="email"
+                  placeholder="example@datacomm.co.id"
+                />
+              </div>
+
+              <div class="form-group">
+                <div class="label d-flex pl-0 mb-9" for="email">
+                  Password *
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      getAuthForm.password.errors?.required &&
+                      getAuthForm.password.touched
+                    "
+                  >
+                    &nbsp; Required
+                  </div>
+                </div>
+                <input
+                  class="form-control"
+                  [ngClass]="
+                    getAuthForm.password.errors?.required &&
+                    getAuthForm.password.touched
+                      ? 'form-control-danger'
+                      : 'form-control'
+                  "
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="*********"
+                />
+              </div>
+              <div class="d-flex mb-5 align-items-center">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Remember me
+                  </label>
+                </div>
+              </div>
+
+              <input
+                type="submit"
+                value="Log In"
+                class="btn btn-block btn-primary"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

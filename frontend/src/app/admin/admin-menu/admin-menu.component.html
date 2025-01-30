@@ -1,0 +1,456 @@
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<!-- <div class="preloader">
+      <div class="lds-ripple">
+          <div class="lds-pos"></div>
+          <div class="lds-pos"></div>
+      </div>
+  </div> -->
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div
+  id="main-wrapper"
+  data-layout="vertical"
+  data-navbarbg="skin5"
+  data-sidebartype="full"
+  data-sidebar-position="absolute"
+  data-header-position="absolute"
+  data-boxed-layout="full"
+>
+  <!-- ============================================================== -->
+  <!-- Topbar header - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <!-- <div class="col-lg-12 text-center test-class">
+        <div class="p-5 mb-0 rounded-3">
+          <div class="">
+            <i class="las la-hdd la-4x mt-4"></i>
+            <h5>NFS</h5>
+          </div>
+          <button class="btn btn-primary"><i class="las la-plus-circle la-lg fa-fw" aria-hidden="true"></i>&nbsp;Create</button>
+        </div>
+      </div> -->
+
+  <header class="topbar" data-navbarbg="skin6">
+    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+      <div class="navbar-header" data-logobg="skin6">
+        <!-- ============================================================== -->
+        <!-- Logo -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- toggle and nav items -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Logo -->
+      <!-- ============================================================== -->
+      <div
+        class="navbar-collapse collapse"
+        id="navbarSupportedContent"
+        data-navbarbg="skin5"
+      >
+        <!-- ============================================================== -->
+        <!-- toggle and nav items -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav me-auto mt-md-0">
+          <!-- ============================================================== -->
+          <!-- Search -->
+          <!-- ============================================================== -->
+        </ul>
+
+        <!-- ============================================================== -->
+        <!-- Right side toggle and nav items -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav">
+          <!-- ============================================================== -->
+          <!-- User profile and search -->
+          <!-- ============================================================== -->
+          <form class="app-search ps-3">
+            <input
+              type="text"
+              class="form-control search-bar"
+              placeholder="Search for..."
+            />
+            <a class="srh-btn"><i class="ti-search"></i></a>
+          </form>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle waves-effect waves-dark"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://img.freepik.com/free-icon/user_318-159711.jpg"
+                alt="user"
+                class="profile-pic me-2"
+              />Administrator
+            </a>
+            <ul
+              class="dropdown-menu show"
+              aria-labelledby="navbarDropdown"
+            ></ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn" (click)="clickLogout()">Logout</button>
+      </div>
+    </nav>
+  </header>
+  <!-- ============================================================== -->
+  <!-- End Topbar header -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <aside class="left-sidebar" data-sidebarbg="skin6">
+    <div class="logo-icon">
+      <!-- Dark Logo icon -->
+      <img
+        src="../assets/images/idmap.png"
+        alt="homepage"
+        class="dark-logo"
+        style="width: 60px; height: auto"
+      />
+    </div>
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+      <!-- Sidebar navigation-->
+      <nav class="sidebar-nav">
+        <ul id="sidebarnav">
+          <li
+            class="sidebar-item pointer"
+            style="line-height: 1"
+            [ngClass]="href == '/admin' ? 'active' : ''"
+          >
+            <a href="/admin">
+              <div class="icon-menu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                  <path
+                    d="M27 3.9L31 28a33.153 33.153 0 0 0-7.538-.8c-6.876 0-8.048 2.6-14.924 2.6A16.273 16.273 0 0 1 1 28l2.705-16.295.869.869-2.466 14.86a15.986 15.986 0 0 0 6.43 1.366 20.416 20.416 0 0 0 7.155-1.252 22.375 22.375 0 0 1 7.77-1.348 37.271 37.271 0 0 1 6.312.528L26.124 4.73a26.266 26.266 0 0 0-5.05-.518 15.769 15.769 0 0 0-4.322.541l-.814-.814a17.085 17.085 0 0 1 5.136-.727A26.401 26.401 0 0 1 27 3.9zM16 7h9v17H8v-9h8zM9 23h3.244l.039-.137a6.509 6.509 0 0 1 .546-1.23 3.2 3.2 0 0 0 .337-.757.576.576 0 0 0-.101-.327 1.52 1.52 0 0 1-.217-.787c0-1.236 1.963-2.573 2.62-2.573H16V16H9zm7 0v-4.812h-.533c-.346.075-1.62 1.021-1.62 1.574a.556.556 0 0 0 .099.313 1.544 1.544 0 0 1 .22.801 2.887 2.887 0 0 1-.454 1.227 6.576 6.576 0 0 0-.414.897zm8 0v-4.918a10.154 10.154 0 0 0-2.276.865c-1.58.79-3.622.08-4.724-.427V23zm0-7h-7v1.41c.751.388 2.868 1.346 4.276.643A10.437 10.437 0 0 1 24 17.058zm-7-1h7V8h-7zM6 14V5h9v9zm8-8H7v5.145a.836.836 0 0 0 .627-.21 2.073 2.073 0 0 0 .663-1.392 1.508 1.508 0 0 1 1.448-1.558 1.895 1.895 0 0 1 1.194.494 1.292 1.292 0 0 0 .467.255.517.517 0 0 0 .122.034c.317 0 .486-.183.739-.608.04-.069.078-.129.125-.212A2.777 2.777 0 0 1 14 6.428zm0 7V7.513a2.365 2.365 0 0 0-.743.926c-.334.592-.749 1.329-1.736 1.329a1.737 1.737 0 0 1-1.069-.403c-.042-.03-.086-.061-.124-.09a.995.995 0 0 0-.59-.29c-.256 0-.448.294-.448.558a2.6 2.6 0 0 1-.112.672 3.02 3.02 0 0 1-.908 1.487 1.856 1.856 0 0 1-1.204.46c-.022 0-.044-.005-.066-.006V13z"
+                    fill="#808080"
+                  />
+                  <path fill="none" d="M0 0h20v20H0z" />
+                </svg>
+              </div>
+              <br />
+              <span class="icon-text">MY MAPS</span>
+            </a>
+          </li>
+
+          <!-- <li
+            class="sidebar-item pointer"
+            style="line-height: 1"
+            [ngClass]="href == '/admin/form' ? 'active' : ''"
+          >
+            <a href="admin/form">
+              <div class="icon-menu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                  <path
+                    d="M27 3.9L31 28a33.153 33.153 0 0 0-7.538-.8c-6.876 0-8.048 2.6-14.924 2.6A16.273 16.273 0 0 1 1 28l2.705-16.295.869.869-2.466 14.86a15.986 15.986 0 0 0 6.43 1.366 20.416 20.416 0 0 0 7.155-1.252 22.375 22.375 0 0 1 7.77-1.348 37.271 37.271 0 0 1 6.312.528L26.124 4.73a26.266 26.266 0 0 0-5.05-.518 15.769 15.769 0 0 0-4.322.541l-.814-.814a17.085 17.085 0 0 1 5.136-.727A26.401 26.401 0 0 1 27 3.9zM16 7h9v17H8v-9h8zM9 23h3.244l.039-.137a6.509 6.509 0 0 1 .546-1.23 3.2 3.2 0 0 0 .337-.757.576.576 0 0 0-.101-.327 1.52 1.52 0 0 1-.217-.787c0-1.236 1.963-2.573 2.62-2.573H16V16H9zm7 0v-4.812h-.533c-.346.075-1.62 1.021-1.62 1.574a.556.556 0 0 0 .099.313 1.544 1.544 0 0 1 .22.801 2.887 2.887 0 0 1-.454 1.227 6.576 6.576 0 0 0-.414.897zm8 0v-4.918a10.154 10.154 0 0 0-2.276.865c-1.58.79-3.622.08-4.724-.427V23zm0-7h-7v1.41c.751.388 2.868 1.346 4.276.643A10.437 10.437 0 0 1 24 17.058zm-7-1h7V8h-7zM6 14V5h9v9zm8-8H7v5.145a.836.836 0 0 0 .627-.21 2.073 2.073 0 0 0 .663-1.392 1.508 1.508 0 0 1 1.448-1.558 1.895 1.895 0 0 1 1.194.494 1.292 1.292 0 0 0 .467.255.517.517 0 0 0 .122.034c.317 0 .486-.183.739-.608.04-.069.078-.129.125-.212A2.777 2.777 0 0 1 14 6.428zm0 7V7.513a2.365 2.365 0 0 0-.743.926c-.334.592-.749 1.329-1.736 1.329a1.737 1.737 0 0 1-1.069-.403c-.042-.03-.086-.061-.124-.09a.995.995 0 0 0-.59-.29c-.256 0-.448.294-.448.558a2.6 2.6 0 0 1-.112.672 3.02 3.02 0 0 1-.908 1.487 1.856 1.856 0 0 1-1.204.46c-.022 0-.044-.005-.066-.006V13z"
+                    fill="#808080"
+                  />
+                  <path fill="none" d="M0 0h20v20H0z" />
+                </svg>
+              </div>
+              <br />
+              <span class="icon-text">LAYER LIST</span>
+            </a>
+
+          </li> -->
+        </ul>
+      </nav>
+      <!-- End Sidebar navigation -->
+    </div>
+
+    <!-- <div class="form">  
+      <div class="tabcontent">        
+          <ul class="list-group" *ngIf="currentTab == 1">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+              style="padding: 5px 0; border: none">
+              <a href="" class="text-dark-emphasis">
+                <i class="las la-braille"></i> New Layer
+              </a>
+            </li>  
+            <hr>
+
+          <form [formGroup]="layerForm">
+            <div class="row">
+              <div class="col-4"><span>Name</span></div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  placeholder="Enter Name"
+                />
+                <div
+                  *ngIf="getLayerForm.name.touched && getLayerForm.name.invalid"
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getLayerForm.name.errors?.required">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4"><span>Type</span></div>
+              <div class="col-8">
+                <select formControlName="type" class="form-control">
+                  <option value="">Select Type</option>
+                  <option value="line">Line</option>
+                  <option value="point">Point</option>
+                  <option value="wms">WMS</option>
+                </select>
+                <div
+                  *ngIf="getLayerForm.type.touched && getLayerForm.type.invalid"
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getLayerForm.type.errors?.required">
+                    Type is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4"><span>Langitude</span></div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="langitude"
+                  class="form-control"
+                  placeholder="Set Coordinate"
+                />
+                <div
+                  *ngIf="
+                    getLayerForm.langitude.touched &&
+                    getLayerForm.langitude.invalid
+                  "
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getLayerForm.langitude.errors?.required">
+                    Langitude is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4"><span>Longitude</span></div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="longitude"
+                  class="form-control"
+                  placeholder="Set Coordinate"
+                />
+                <div
+                  *ngIf="
+                    getLayerForm.longitude.touched &&
+                    getLayerForm.longitude.invalid
+                  "
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getLayerForm.longitude.errors?.required">
+                    Longitude is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4">&nbsp;</div>
+              <div class="col-8">
+                <button class="btn btn-primary">
+                  <i
+                    class="las la-plus-circle la-lg fa-fw"
+                    aria-hidden="true"
+                  ></i
+                  >&nbsp;Add Layer
+                </button>
+              </div>
+            </div>
+          </form>
+        </ul>
+
+        <ul class="list-group" *ngIf="currentTab == 2">
+          <li
+            class="
+              list-group-item
+              d-flex
+              justify-content-between
+              align-items-center
+            "
+            style="padding: 5px 0; border: none"
+          >
+            <a href="" class="text-dark-emphasis">
+              <i class="las la-braille"></i> Set Role
+            </a>
+          </li>
+          <hr />
+          <form [formGroup]="roleForm">
+            <div class="row">
+              <div class="col-4"><span>User</span></div>
+              <div class="col-8">
+                <select formControlName="user" class="form-control">
+                  <option value="">Select User</option>
+                  <option value="1">Andika Noor</option>
+                  <option value="2">Reza Waskita</option>
+                  <option value="3">Warizmi Wafiq</option>
+                </select>
+                <div
+                  *ngIf="getRoleForm.user.touched && getRoleForm.user.invalid"
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getRoleForm.user.errors?.required">
+                    User is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4"><span>Role</span></div>
+              <div class="col-8">
+                <select formControlName="role" class="form-control">
+                  <option value="">Select Role</option>
+                  <option value="1">Adminstrator</option>
+                  <option value="2">Customer</option>
+                </select>
+                <div
+                  *ngIf="getRoleForm.role.touched && getRoleForm.role.invalid"
+                  class="text-danger mt-2"
+                >
+                  <div *ngIf="getRoleForm.role.errors?.required">
+                    Role is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-4">&nbsp;</div>
+              <div class="col-8">
+                <button class="btn btn-primary">
+                  <i
+                    class="las la-plus-circle la-lg fa-fw"
+                    aria-hidden="true"
+                  ></i
+                  >&nbsp;Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </div>  -->
+    <!-- End Sidebar scroll-->
+  </aside>
+  <!-- ============================================================== -->
+  <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Page wrapper  -->
+  <!-- ============================================================== -->
+  <div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- <div class="container-fluid"> -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- </div> -->
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Page wrapper  -->
+  <!-- ============================================================== -->
+</div>
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app-style-switcher.js"></script>
+<!--Wave Effects -->
+<!-- <script src="../js/waves.js"></script> -->
+
+<style>
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #fff;
+  }
+
+  .tab button.inactive {
+    background-color: #ddd;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    position: absolute;
+    width: 300px;
+    height: 80%;
+    top: 80px;
+    bottom: 0;
+    overflow-y: auto;
+    background: #fff;
+    left: 100px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+  }
+</style>

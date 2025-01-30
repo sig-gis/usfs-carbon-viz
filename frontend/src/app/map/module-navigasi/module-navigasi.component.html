@@ -1,0 +1,117 @@
+<div class="icon-text-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="25"
+    viewBox="0 0 32 32"
+  >
+    <path
+      d="M9 21L3 31h27l-6-10zm.566 1h13.868l2.4 4h-7.716l-4-2H8.366zm-4.8 8l3-5h6.116l4 2h8.552l1.8 3zM4 16H3v-1h1zm0 2H3v-1h1zm0 2H3v-1h1zm0 1.999H3V21h1zM4 28H3v-1h1zm5-9h1v1H9zm20 8h1v1h-1zm-6-8h1v1h-1zM4 26H3v-1h1zm0-2H3v-1h1zm0-10H3v-1h1zm6 2H9v-1h1zm14 0h-1v-1h1zm-14 2H9v-1h1zm0-4H9v-1h1zm19 1h1v1h-1zm0 2h1v1h-1zm0 2h1v1h-1zm0 2h1v.999h-1zm0 4h1v1h-1zm0-2h1v1h-1zm0-10h1v1h-1zm-5 5h-1v-1h1zm0-4h-1v-1h1zm0-12H9L3 12h27zm4.234 9H17V7.56l.882.44h8.552zm-2.4-4h-7.716L17 6.44V3h6.434zM9.566 3H16v2.94L14.118 5H8.366zm-1.8 3h6.116L16 7.06V11H4.766z"
+    />
+    <path fill="none" d="M0 0h32v32H0z" />
+  </svg>
+  <h5>Navigasi</h5>
+</div>
+<br />
+<button
+  type="button"
+  class="btn"
+  [ngClass]="clickMapActive ? 'btn-primary' : 'btn-secondary'"
+  (click)="toggleIdentify()"
+>
+  {{ clickMapActive ? "ON" : "OFF" }}
+</button>
+&nbsp;
+<button type="button" class="btn btn-secondary">Hitung Statistik</button>
+
+<br /><br />
+
+<div class="route-planner">
+  <div class="route-planner-header">
+    <div class="location-input">
+      <input
+        type="text"
+        placeholder="Your location"
+        [(ngModel)]="startLocation"
+      />
+    </div>
+    <div class="destination-input">
+      <input
+        type="text"
+        placeholder="National Monument"
+        [(ngModel)]="endLocation"
+      />
+    </div>
+    <div class="add-stop">
+      <button (click)="addStop()">+ Add stop</button>
+    </div>
+  </div>
+
+  <div class="transportation-options">
+    <button (click)="selectTransport('car')" class="transport-option selected">
+      Car
+    </button>
+    <button
+      (click)="selectTransport('public-transport')"
+      class="transport-option"
+    >
+      Public Transport
+    </button>
+    <button (click)="selectTransport('bike')" class="transport-option">
+      Bike
+    </button>
+    <button (click)="selectTransport('walk')" class="transport-option">
+      Walk
+    </button>
+  </div>
+
+  <div class="route-options">
+    <div class="route-option" *ngFor="let route of routes">
+      <div class="route-time">
+        <span>{{ route.time }}</span>
+        <span class="route-delay">{{ route.delay }}</span>
+      </div>
+      <div class="route-distance">{{ route.distance }}</div>
+      <div class="route-leave-time">{{ route.leaveTime }}</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button (click)="share()">Share</button>
+    <button (click)="save()">Save</button>
+  </div>
+</div>
+
+<h6 class="mb-2">LAYER ANALISIS</h6>
+
+<div class="route-details">
+  <div class="header">
+    <div class="route-summary">
+      <span class="time">{{ time }}</span>
+      <span class="delay">{{ delay }}</span>
+      <span class="distance">{{ distance }}</span>
+      <div class="transport-mode"><span class="mode-icon">🚗</span> Car</div>
+    </div>
+    <div class="close-button">
+      <button (click)="close()">✖️</button>
+    </div>
+  </div>
+
+  <div class="directions-container">
+    <div class="directions">
+      <div class="direction" *ngFor="let step of route">
+        <div class="instruction">
+          <span class="maneuver">{{ step.maneuver }}</span>
+          {{ step.instruction }}
+        </div>
+        <div class="distance">{{ step.distance }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="destination">
+    <div class="location">{{ endLocation2.name }}</div>
+    <div class="address">{{ endLocation2.address }}</div>
+    <div class="arrival-time">{{ arrivalTime }}</div>
+  </div>
+</div>

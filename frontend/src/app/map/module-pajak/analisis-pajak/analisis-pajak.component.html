@@ -1,0 +1,129 @@
+<div class="analysis-tab">
+  <div class="row">
+    <div class="col-3">
+      <svg width="32" height="32">
+        <path
+          d="M27 3.9L31 28a33.153 33.153 0 0 0-7.538-.8c-6.876 0-8.048 2.6-14.924 2.6A16.273 16.273 0 0 1 1 28L5 3.9a15.376 15.376 0 0 0 4 .905v1.008a15.34 15.34 0 0 1-3.205-.596L2.108 27.434a15.986 15.986 0 0 0 6.43 1.366 20.416 20.416 0 0 0 7.155-1.252 22.375 22.375 0 0 1 7.77-1.348 37.271 37.271 0 0 1 6.312.528L26.124 4.73a27.018 27.018 0 0 0-3.143-.437 4.484 4.484 0 0 0-.201-1.02A25.792 25.792 0 0 1 27 3.9zm-17 .708C10 2.455 12.258 0 16 0s6 2.455 6 4.608v10.665l-6 5.996-6-5.996zm1 0v10.251l5 4.997 5-4.997V4.607C21 3.095 19.262 1 16 1s-5 2.095-5 3.607zm5-.609a3 3 0 1 1-3 3 3 3 0 0 1 3-3zm-2 3a2 2 0 1 0 2-2 2.002 2.002 0 0 0-2 2z"
+        ></path>
+      </svg>
+    </div>
+    <div class="col-9">
+      <span class="field-title">LON</span>&nbsp;&nbsp;
+      <span class="field-text">{{ lon }}1</span>
+      <br />
+      <span class="field-title">LAT</span>&nbsp;&nbsp;
+      <span class="field-text">{{ lat }}</span>
+    </div>
+  </div>
+  <div class="row tags">
+    <span class="analysis-tag pointer">{{ Prov }}</span>
+    <span class="analysis-tag pointer">{{ KabKot }}</span>
+    <span class="analysis-tag pointer">{{ Kec }}</span>
+    <span class="analysis-tag pointer">{{ Kel }}</span>
+  </div>
+  <hr />
+  <h6 class="analysis-title">Informasi Detail Persil Lahan</h6>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">NOP</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ nop }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">NIB</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ id }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">Penggunaan</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ penggunaan }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">Tipe Hak</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ tipeHak }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">Luas Tanah</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ luas }} m2</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">L. Bangunan</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">0 m2</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">ZNT</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ znt }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">PBB/m2</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ nilaiPajak }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">Tagihan PBB</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ pbb }}</span>
+    </div>
+  </div>
+  <hr />
+  <h6 class="analysis-title">Informasi Data Pemilik</h6>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">NIK</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">3127281119940007</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">Nama</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">{{ namaPemilik }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="field-title">TTL</span>
+    </div>
+    <div class="col-7">
+      <span class="field-text">Bandung, 19 Maret 1982</span>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <button type="button" class="btn-history">Histori Kepemilikan</button>
+  </div>
+  <br />
+</div>

@@ -1,0 +1,76 @@
+<!-- Floating box with radio buttons -->
+<div class="radio-box" style="display: none">
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      id="rupabumiRadio"
+      (click)="onStyleChange('Rupabumi')"
+      checked
+    />
+    <label class="form-check-label" for="flexRadioDefault1">
+      Peta Rupabumi
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      id="rupabumiRadio2"
+      (click)="onStyleChange('Rupabumi2')"
+      checked
+    />
+    <label class="form-check-label" for="flexRadioDefault1">
+      Peta Rupabumi2
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      id="citraRadio"
+      (click)="onStyleChange('Citra Satelit')"
+    />
+    <label class="form-check-label" for="flexRadioDefault2">
+      Citra Satelit
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      id="brightRadio"
+      (click)="onStyleChange('Bright Style')"
+    />
+    <label class="form-check-label" for="flexRadioDefault3">
+      Bright Style
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      id="mapfanRadio"
+      (click)="onStyleChange('Mapfan')"
+    />
+    <label class="form-check-label" for="flexRadioDefault3"> Mapfan </label>
+  </div>
+</div>
+
+<style>
+  .radio-box {
+    position: absolute;
+    top: 50%; /* Adjust this value to move the box vertically */
+    right: 20px; /* Adjust this value to move the box horizontally */
+    transform: translateY(-50%); /* Center the box vertically */
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>
