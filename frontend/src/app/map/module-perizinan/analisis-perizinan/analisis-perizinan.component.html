@@ -1,0 +1,112 @@
+<div class="analysis-tab">
+  <div class="row">
+    <h6 class="analysis-title">Analisis Sistem Perizinan</h6>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <span
+        ><img
+          src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/exclamation-mark-circle-32-f.svg"
+      /></span>
+    </div>
+    <div class="col-8 mt-2">
+      <span class="row field-title">Terbatas, Bersyarat</span>
+      <span class="row field-text"
+        >Perizinan dibolehkan ketika sudah melengkapi syarat sesuai
+        ketentuan.</span
+      >
+    </div>
+  </div>
+
+  <br /><br />
+
+  <div class="row">
+    <h6 class="analysis-title">Cek Dokumen Perizinan</h6>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <img
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/number-circle-1-32.svg"
+      />
+    </div>
+    <div class="col-8">
+      <span>Pilih Layer Analisis</span>
+      <br />
+      <a href="#">Link Dokumen</a>
+    </div>
+    <div class="col-2">
+      <img
+        class="check-document"
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/check-circle-32-f.svg"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <img
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/number-circle-2-32.svg"
+      />
+    </div>
+    <div class="col-8">
+      <span>Parameter Analisis</span>
+      <br />
+      <a href="#">Link Dokumen</a>
+    </div>
+    <div class="col-2">
+      <img
+        class="check-document"
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/check-circle-32-f.svg"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <img
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/number-circle-3-32.svg"
+      />
+    </div>
+    <div class="col-8">
+      <span>Output Analisis</span>
+      <br />
+      <a href="#">Link Dokumen</a>
+    </div>
+    <div class="col-2">
+      <img
+        class="check-document"
+        src="https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/circle-32.svg"
+      />
+    </div>
+  </div>
+
+  <br /><br />
+
+  <div class="row">
+    <h6 class="analysis-title">Lampiran Foto</h6>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <img class="attachment-photo" [src]="photo1" />
+    </div>
+    <div class="col-6">
+      <img class="attachment-photo" [src]="photo2" />
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <a class="street-view" href="#">Cek Google Street View</a>
+  </div>
+  <br />
+  <div class="row">
+    <textarea class="evaluator"></textarea>
+  </div>
+  <br />
+  <div class="row mb-2">
+    <button type="button" class="btn btn-primary">Setujui Izin</button>
+  </div>
+  <div class="row mb-2">
+    <button type="button" class="btn btn-secondary">Tidak Lengkap</button>
+  </div>
+  <div class="row mb-2">
+    <button type="button" class="btn btn-danger">Tolak Izin</button>
+  </div>
+</div>
