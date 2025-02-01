@@ -45,13 +45,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 1 (<2 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP1"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP1_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 1 (<2 feet)", color: "#ffb3b3"}
+            { value: "Fire Intensity Level 1 (<2 feet)", color: "#ffb3b3" }
           ],
           placed_before: "",
           eeVisParams: {
@@ -67,13 +67,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 2 (2-4 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP2"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP2_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 2 (2-4 feet)", color: "#ff8080"}
+            { value: "Fire Intensity Level 2 (2-4 feet)", color: "#ff8080" }
           ],
           placed_before: "fire_instensity_level_1",
           eeVisParams: {
@@ -89,13 +89,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 3 (4-6 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP3"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP3_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 3 (4-6 feet)", color: "#ff4d4d"}
+            { value: "Fire Intensity Level 3 (4-6 feet)", color: "#ff4d4d" }
           ],
           placed_before: "fire_instensity_level_2",
           eeVisParams: {
@@ -111,13 +111,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 4 (6-8 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP4"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP4_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 4 (6-8 feet)", color: "#ff1a1a"}
+            { value: "Fire Intensity Level 4 (6-8 feet)", color: "#ff1a1a" }
           ],
           placed_before: "fire_instensity_level_3",
           eeVisParams: {
@@ -133,13 +133,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 5 (8-12 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP5"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP5_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 5 (8-12 feet)", color: "#cc0000"}
+            { value: "Fire Intensity Level 5 (8-12 feet)", color: "#cc0000" }
           ],
           placed_before: "fire_instensity_level_3",
           eeVisParams: {
@@ -155,13 +155,13 @@ export class AppconfigService {
           description: "Area with fire intensity level 6 (>12 feet)",
           type: "eeTiles",
           url: [
-            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP6"
+            "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP6_2016"
           ],
           visible: false,
           group: "atr",
           opacity: 0.9,
           legend: [
-            { value: "Fire Intensity Level 6 (8-12 feet)", color: "#800000"}
+            { value: "Fire Intensity Level 6 (8-12 feet)", color: "#800000" }
           ],
           placed_before: "fire_instensity_level_5",
           eeVisParams: {
@@ -199,7 +199,7 @@ export class AppconfigService {
             "bands": ['b1'],
             "min": 0,
             "max": 25,
-            "palette": ['ffffcc','fbec9a','f4cc68','eca855','e48751','d2624d','a54742','73382f','422818','1a1a01']
+            "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
           }
         },
         {
@@ -230,9 +230,9 @@ export class AppconfigService {
             "bands": ['b7'],
             "min": 0,
             "max": 0.2,
-            "palette": ['ffffcc','fbec9a','f4cc68','eca855','e48751','d2624d','a54742','73382f','422818','1a1a01']
+            "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
           }
-        },{
+        }, {
           id: "carbon_remaining_byfl",
           title: "Carbon Remaining by Flame Length",
           description: "Conditional carbon remaining by flame length",
@@ -262,7 +262,7 @@ export class AppconfigService {
             "max": 200,
             "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
           }
-        },{
+        }, {
           id: "expected_carbon_remaining",
           title: "Expected Annual Carbon Remaining",
           description: "Expected annual conditional carbon remaining",
