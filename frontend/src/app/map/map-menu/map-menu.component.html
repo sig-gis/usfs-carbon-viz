@@ -16,69 +16,22 @@
           ><i class="las la-bars la-lg"></i
         ></a>
       </div>
-      <div
-        class="navbar-collapse collapse"
-        id="navbarSupportedContent"
-        data-navbarbg="skin5"
-      >
-        <!-- ============================================================== -->
-        <!-- toggle and nav items -->
-        <!-- ============================================================== -->
-        <ul class="navbar-nav me-auto mt-md-0">
-          <!-- ============================================================== -->
-          <!-- Search -->
-          <!-- ============================================================== -->
-
-          <li class="nav-item hidden-sm-down">&nbsp;</li>
-        </ul>
-
-        <!-- ============================================================== -->
-        <!-- Right side toggle and nav items -->
-        <!-- ============================================================== -->
-        <ul class="navbar-nav">
-          <!-- ============================================================== -->
-          <!-- User profile and search -->
-          <!-- ============================================================== -->
-
-          <form class="app-search ps-3">
-            <input
-              type="text"
-              class="form-control search-bar"
-              placeholder="Search..."
-            />
-            <a class="srh-btn"><i class="ti-search"></i></a>
-          </form>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle waves-effect waves-dark"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://img.freepik.com/free-icon/user_318-159711.jpg"
-                alt="user"
-                class="profile-pic me-2"
-              />User
-            </a>
-            <ul
-              class="dropdown-menu show"
-              aria-labelledby="navbarDropdown"
-            ></ul>
-          </li>
-        </ul>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn" (click)="clickLogout()">Logout</button>
-      </div>
     </nav>
   </header>
 
   <!-- LOADING -->
   <div *ngIf="!config?.mapInterface" class="progress-1"></div>
+
+  <div class="loading-overlay" *ngIf="config?.status?.screenLoading">
+    <div class="loading-content">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="loading-text text-light mt-3">
+        Loading Earth Engine Layers...
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================== -->
   <!-- End Topbar header -->
@@ -247,18 +200,34 @@
                 <h5>Data Catalog</h5>
               </div>
 
-              <div class="col-4">
+              <!-- <div class="col-4">
                 <button class="btn btn-light btn-sm" (click)="showmapstore()">
                   <i class="las la-plus-square"></i> Add
                 </button>
-              </div>
+              </div> -->
             </div>
 
             <br />
 
-            <h6 class="mb-2">CARBON DATA</h6>
+            <h6 class="mb-2">FOREST CARBON</h6>
             <ng-container *ngFor="let layer of config.layers">
-              <ng-container *ngIf="layer.group === 'dataAset'">
+              <ng-container *ngIf="layer.group === 'carbon'">
+                <app-layer-list [layer]="layer"> </app-layer-list>
+              </ng-container>
+            </ng-container>
+            <hr />
+
+            <h6 class="mb-2">CARBON STANDING LIVE AND DEAD TREES</h6>
+            <ng-container *ngFor="let layer of config.layers">
+              <ng-container *ngIf="layer.group === 'carbon_market'">
+                <app-layer-list [layer]="layer"> </app-layer-list>
+              </ng-container>
+            </ng-container>
+            <hr />
+
+            <h6 class="mb-2">RANGELAND CARBON</h6>
+            <ng-container *ngFor="let layer of config.layers">
+              <ng-container *ngIf="layer.group === 'rangeland'">
                 <app-layer-list [layer]="layer"> </app-layer-list>
               </ng-container>
             </ng-container>
@@ -266,23 +235,15 @@
 
             <h6 class="mb-2">FSim Wildfire Risk</h6>
             <ng-container *ngFor="let layer of config.layers">
-              <ng-container *ngIf="layer.group === 'atr'">
+              <ng-container *ngIf="layer.group === 'fsim'">
                 <app-layer-list [layer]="layer"> </app-layer-list>
               </ng-container>
             </ng-container>
             <hr />
 
-            <h6 class="mb-2">TREE DATA</h6>
+            <h6 class="mb-2">FSim Future Wildfire Risk</h6>
             <ng-container *ngFor="let layer of config.layers">
-              <ng-container *ngIf="layer.group === 'utility'">
-                <app-layer-list [layer]="layer"> </app-layer-list>
-              </ng-container>
-            </ng-container>
-            <hr />
-
-            <h6 class="mb-2">OTHER LAYERS</h6>
-            <ng-container *ngFor="let layer of config.layers">
-              <ng-container *ngIf="layer.group === 'socio'">
+              <ng-container *ngIf="layer.group === 'fsim_cc'">
                 <app-layer-list [layer]="layer"> </app-layer-list>
               </ng-container>
             </ng-container>
@@ -582,3 +543,27 @@
     <app-map-store (click)="$event.stopPropagation()"></app-map-store>
   </div>
 </div>
+
+<style>
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .loading-content {
+    text-align: center;
+  }
+
+  .loading-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+</style>
