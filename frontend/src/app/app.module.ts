@@ -29,11 +29,11 @@ import { IMaskModule } from 'angular-imask';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-  }, 
-  AuthGuard, 
-  NumberSuffixPipe,
+  },
+    AuthGuard,
+    NumberSuffixPipe,
   ],
-  
+
 
   bootstrap: [AppComponent]
 })

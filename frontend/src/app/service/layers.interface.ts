@@ -9,6 +9,25 @@ export interface LegendItem {
     color: string;
 }
 
+export interface GraduatedSymbol {
+    value: string;
+    color: string;
+}
+
+export interface ContinuousSymbol {
+    minValue: number;
+    maxValue: number;
+    palette: string[];
+}
+
+export interface Legend {
+    type: 'graduated' | 'continuous';
+    title: string;
+    unit?: string;
+    symbols: GraduatedSymbol[] | ContinuousSymbol;
+}
+
+
 export interface Analysis {
     output: AnalisisPajak | AnalisisTataRuang | AnalisisPerizinan;
 }
@@ -95,9 +114,10 @@ export interface ConfigLayer {
     id: string;
     description: string;
     visible: boolean;
-    type: string;
+    type: 'wms' | 'line' | 'point' | 'eeTiles' | 'highlightLayer' | 'layerGroup'
     url: string[] | any
     opacity: number;
+    groupLayers?: ConfigLayer[];
     group?: string;
     layout?: {
         iconAllowOverlap?: boolean;
@@ -109,13 +129,19 @@ export interface ConfigLayer {
         color?: string;
         width?: number;
     };
-    legend?: LegendItem[];
+    legend?: Legend;
     placed_before?: string;
     eeVisParams?: any;
+    activeLayerId?: string;
     //SEMENTAR DI BUAT OPTIONAL
 }
 
 export interface AppConfig {
+    status: {
+        screenLoading: boolean;
+        loading: boolean;
+        error: boolean;
+    };
     mapInterface?: MapInterface;
     mapConfig: MapConfig;
     highlight?: ConfigLayer[];

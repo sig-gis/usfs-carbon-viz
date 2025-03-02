@@ -7,14 +7,14 @@ import { AppConfig } from 'src/app/service/layers.interface';
 @Component({
   selector: 'app-map-view',
   template: `
-      <mgl-map
-        [style]="config.mapConfig.style"
-        [zoom]="[4]"
-        [center]="[-98.63567370723634, 40.034319079065874]"
-        (mapLoad)="onMapLoad($event)"
-        (mapClick)="onMapClick($event)"
-        >
-        
+        <mgl-map
+          [style]="config.mapConfig.style"
+          [zoom]="[4]"
+          [center]="[-98.63567370723634, 40.034319079065874]"
+          (mapLoad)="onMapLoad($event)"
+          (mapClick)="onMapClick($event)"
+          >
+          
         <ng-container *ngIf="config.highlight && config.highlight.length > 0">
             <app-highlight-layer
               *ngFor="let highlightLayer of config.highlight" [highlightLayer] = "highlightLayer"
@@ -23,6 +23,12 @@ import { AppConfig } from 'src/app/service/layers.interface';
 
         <ng-container *ngFor="let layer of config.layers">
           <ng-container [ngSwitch]="layer.type">
+
+            <!-- Layer Group -->
+            <ng-container *ngSwitchCase="'layerGroup'">
+              <app-layer-group [layer]="layer"></app-layer-group>
+            </ng-container>
+
             <!-- WMS Layer -->
             <ng-container *ngSwitchCase="'wms'">
               <app-wms-layer [layer]="layer"></app-wms-layer>
@@ -39,21 +45,23 @@ import { AppConfig } from 'src/app/service/layers.interface';
             </ng-container>
 
           </ng-container>
-       </ng-container>
+        </ng-container>
 
-      <mgl-control
-        mglNavigation position="top-right">
-      </mgl-control>
+        <mgl-control
+          mglNavigation position="top-right">
+        </mgl-control>
 
-      </mgl-map>
+        </mgl-map>
 
-      <app-basemap-control (styleSelected)="updateStyle($event)"></app-basemap-control>`,
+        <app-basemap-control (styleSelected)="updateStyle($event)"></app-basemap-control>
+        
+        <app-map-attribution></app-map-attribution>`,
   styles: [`
-      mgl-map {
-        height: calc(100vh - 70px);
-        width: 100%;
-      }
-  `]
+        mgl-map {
+          height: calc(100vh - 70px);
+          width: 100%;
+        }
+    `]
 })
 export class MapViewComponent implements OnInit {
 

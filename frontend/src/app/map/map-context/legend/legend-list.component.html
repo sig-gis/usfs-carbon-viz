@@ -52,13 +52,67 @@
   </div>
   <div class="card-content">
     <!-- Insert your content here -->
-    <a href="" class="text-dark-emphasis">
+    <a class="text-dark-emphasis">
+      <!-- Layer Group Dropdown -->
+      <div
+        *ngIf="layer.type === 'layerGroup' && layer.groupLayers"
+        class="group-selector"
+      >
+        <div class="description-text mb-1">
+          {{ layer.description }}
+        </div>
+        <div class="dropdown-container">
+          <select
+            class="form-select form-select-sm mb-2"
+            (change)="onGroupLayerSelect($event)"
+            [disabled]="!visible"
+          >
+            <option
+              *ngFor="let groupLayer of layer.groupLayers"
+              [value]="groupLayer.id"
+              [selected]="layer.activeLayerId === groupLayer.id"
+            >
+              {{ groupLayer.title }}
+            </option>
+          </select>
+        </div>
+        <br />
+      </div>
+
+      <ng-container *ngIf="legend" [ngSwitch]="legend.type">
+        <!-- Graduated Symbol Legend -->
+        <div *ngSwitchCase="'graduated'" class="graduated-legend">
+          <div class="legend-title">{{ legend.title }}</div>
+          <ng-container *ngIf="!isContinuousSymbol(legend.symbols)">
+            <div *ngFor="let symbol of legend.symbols" class="legend-item">
+              <i class="las la-square-full" [style.color]="symbol.color"></i>
+              <span>{{ symbol.value }}</span>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Continuous Color Ramp Legend -->
+        <div *ngSwitchCase="'continuous'" class="continuous-legend">
+          <div class="legend-title">{{ legend.title }}</div>
+          <ng-container *ngIf="isContinuousSymbol(legend.symbols)">
+            <div
+              class="color-ramp"
+              [style.background]="getContinuousGradient(legend.symbols.palette)"
+            ></div>
+            <div class="ramp-values">
+              <span>{{ legend.symbols.minValue }} {{ legend.unit }}</span>
+              <span>{{ legend.symbols.maxValue }} {{ legend.unit }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
       <!-- FOR Legend in legends. -->
-      <ng-container *ngFor="let legend of legends">
+      <!-- <ng-container *ngFor="let legend of legends">
         <i class="las la-square-full" [style.color]="legend.color"></i>
         {{ legend.value }}
         <br />
-      </ng-container>
+      </ng-container> -->
       <!-- <button>Show More</button> -->
       <!-- <button *ngIf="isExpanded" (click)="toggleExpand()">Show Less</button> -->
     </a>
@@ -108,13 +162,28 @@
     margin: 0 10px;
   }
 
+  .description-text {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .form-select {
+    padding: 5px;
+  }
+
   .card-container {
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-height: 140px;
+    max-height: 340px;
   }
 
   .card-header {
@@ -135,5 +204,29 @@
 
   .card-content {
     padding: 10px;
+  }
+
+  .graduated-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .color-ramp-container {
+    margin: 10px 0;
+  }
+  .color-ramp {
+    height: 20px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  .ramp-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
   }
 </style>

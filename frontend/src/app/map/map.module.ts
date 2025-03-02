@@ -27,12 +27,15 @@ import { AnalisisPerizinanComponent } from './module-perizinan/analisis-perizina
 import { MapContextComponent } from './map-context/map-context.component';
 import { VectorLayerComponent } from './layers/vector-layer.component';
 import { ModuleNavigasiComponent } from './module-navigasi/module-navigasi.component';
+import { LayerGroupComponent } from './layers/layer-group.component';
+import { MapAttributionComponent } from './map-attribution/map-attribution.component';
 
 @NgModule({
   declarations: [
     MapComponent,
     MapViewComponent,
     MapStoreComponent,
+    LayerGroupComponent,
     WmsLayerComponent,
     LineLayerComponent,
     PointLayerComponent,
@@ -52,6 +55,7 @@ import { ModuleNavigasiComponent } from './module-navigasi/module-navigasi.compo
     AnalisisPerizinanComponent,
     MapContextComponent,
     ModuleNavigasiComponent,
+    MapAttributionComponent,
   ],
   imports: [
     CommonModule,

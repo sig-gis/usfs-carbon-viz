@@ -10,10 +10,10 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 export class EarthEngineService {
 
   ngZone = inject(NgZone);
-  
+
   private token$ = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Authenticate with the backend and initialize Earth Engine.
@@ -21,25 +21,25 @@ export class EarthEngineService {
    */
   authenticate(): Observable<boolean> {
     console.log('[EarthEngineService] Starting authentication...');
-    
-    return this.http.post<any>('http://216.218.220.163/api/auth/usfs', {}).pipe(
+
+    return this.http.post<any>('https://app.wildfireriskcarbon.org/api/auth/usfs', {}).pipe(
       switchMap((response) => {
         console.log('[EarthEngineService] Backend response:', response);
-        
+
         const { token, user } = response;
         if (!token || !user) {
           throw new Error('Invalid response: missing token or user');
         }
 
         console.log('[EarthEngineService] Token received:', token);
-    
+
         console.log('[EarthEngineService] Token received:', token.substring(0, 50) + '...');
         console.log('[EarthEngineService] User info:', user);
-        
+
         return from(new Promise<boolean>((resolve, reject) => {
           try {
             console.log('[EarthEngineService] Setting auth token...');
-            
+
             ee.data.setAuthToken(
               null,  // client ID not needed for bearer token
               "Bearer",
@@ -53,20 +53,20 @@ export class EarthEngineService {
                 console.log('[EarthEngineService] Current auth token:', authToken);
                 // console.log('[EarthEngineService] Current auth token:', authToken ? 'present' : 'missing');
                 // console.log('[EarthEngineService] Current auth token:', authToken);
-                
-                console.log('[EarthEngineService] Starting EE initialization...');         
-                  ee.initialize(
-                    'https://earthengine.googleapis.com',
-                    'https://earthengine.googleapis.com',
-                    () => {
-                      console.log('[EarthEngineService] EE initialized successfully');
-                      resolve(true);
-                    },
-                    (error: any) => {
-                      console.error('[EarthEngineService] EE initialization error:', error);
-                      reject(error);
-                    }
-                  );    
+
+                console.log('[EarthEngineService] Starting EE initialization...');
+                ee.initialize(
+                  'https://earthengine.googleapis.com',
+                  'https://earthengine.googleapis.com',
+                  () => {
+                    console.log('[EarthEngineService] EE initialized successfully');
+                    resolve(true);
+                  },
+                  (error: any) => {
+                    console.error('[EarthEngineService] EE initialization error:', error);
+                    reject(error);
+                  }
+                );
               },
               (error: any) => {
                 console.error('[EarthEngineService] Error setting auth token:', error);
