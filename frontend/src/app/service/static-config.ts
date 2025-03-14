@@ -21,6 +21,7 @@ export const staticConfig: AppConfig = {
             description: "Annual burn probability for the conterminous United States",
             type: "eeTiles",
             url: [
+                // "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014_BINNED"
                 "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014"
             ],
             visible: false,
@@ -33,15 +34,39 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 30,
-                    palette: ['fee5d9', 'fcae91', 'fb6a4a', 'de2d26', 'a50f15']
+                    palette: [
+                        'ffffff', // 0 - White (inside CONUS only)
+                        '0000ff', // 1 - Blue
+                        '3366ff', // 2 - Lighter Blue
+                        '3399ff', // 3 - Light Blue
+                        '008080', // 4 - Teal
+                        '00ff00', // 5 - Lime or Light Green
+                        'ccff33', // 6 - Light Yellow or Green Yellow
+                        'ffff00', // 7 - Yellow or Gold
+                        'ff9900', // 8 - Orange
+                        'ff3300', // 9 - Orange Red
+                        'ff0000'  // 10 - Red
+                      ]
                 }
             },
             placed_before: "",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.30,
-                "palette": ['fee5d9', 'fcae91', 'fb6a4a', 'de2d26', 'a50f15']
+                "max": 10,
+                "palette": [
+                    'ffffff', // 0 - White (inside CONUS only)
+                    '0000ff', // 1 - Blue
+                    '3366ff', // 2 - Lighter Blue
+                    '3399ff', // 3 - Light Blue
+                    '008080', // 4 - Teal
+                    '00ff00', // 5 - Lime or Light Green
+                    'ccff33', // 6 - Light Yellow or Green Yellow
+                    'ffff00', // 7 - Yellow or Gold
+                    'ff9900', // 8 - Orange
+                    'ff3300', // 9 - Orange Red
+                    'ff0000'  // 10 - Red
+                  ]
             }
         },
         {
@@ -67,7 +92,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -82,7 +107,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -97,7 +122,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -112,7 +137,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -127,7 +152,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -142,7 +167,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
             ],
@@ -154,7 +179,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 100,
-                    palette: ['fef0d9', '990000']
+                    palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             }
         },
@@ -165,6 +190,7 @@ export const staticConfig: AppConfig = {
             description: "Projected annual burn probability for the conterminous United States, circa 2047",
             type: "eeTiles",
             url: [
+                // "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040_BINNED"
                 "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040"
             ],
             visible: false,
@@ -177,15 +203,39 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 30,
-                    palette: ['fee5d9', 'fcae91', 'fb6a4a', 'de2d26', 'a50f15']
+                    palette: [
+                        'ffffff', // 0 - White (inside CONUS only)
+                        '0000ff', // 1 - Blue
+                        '3366ff', // 2 - Lighter Blue
+                        '3399ff', // 3 - Light Blue
+                        '008080', // 4 - Teal
+                        '00ff00', // 5 - Lime or Light Green
+                        'ccff33', // 6 - Light Yellow or Green Yellow
+                        'ffff00', // 7 - Yellow or Gold
+                        'ff9900', // 8 - Orange
+                        'ff3300', // 9 - Orange Red
+                        'ff0000'  // 10 - Red
+                      ]
                 }
             },
             placed_before: "fire_instensity_level_1",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.30,
-                "palette": ['fee5d9', 'fcae91', 'fb6a4a', 'de2d26', 'a50f15']
+                "max": 10,
+                "palette": [
+                    'ffffff', // 0 - White (inside CONUS only)
+                    '0000ff', // 1 - Blue
+                    '3366ff', // 2 - Lighter Blue
+                    '3399ff', // 3 - Light Blue
+                    '008080', // 4 - Teal
+                    '00ff00', // 5 - Lime or Light Green
+                    'ccff33', // 6 - Light Yellow or Green Yellow
+                    'ffff00', // 7 - Yellow or Gold
+                    'ff9900', // 8 - Orange
+                    'ff3300', // 9 - Orange Red
+                    'ff0000'  // 10 - Red
+                  ]
             }
         },
         {
@@ -211,7 +261,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', 'fdd49e']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -226,7 +276,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', 'fdbb84']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -241,7 +291,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', 'fc8d59']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -256,7 +306,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', 'ef6548']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -271,7 +321,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', 'd7301f']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -286,7 +336,7 @@ export const staticConfig: AppConfig = {
                         "bands": ['b1'],
                         "min": 0.001,
                         "max": 1,
-                        "palette": ['FFFFFFFF', '990000']
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
             ],
@@ -298,13 +348,10 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 100,
-                    palette: ['fef0d9', 'fdd49e', 'fdbb84', 'fc8d59', 'ef6548', 'd7301f', '990000']
+                    palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             }
         },
-
-
-
         {
             id: "carbon_total_initial",
             title: "Total Initial Forest Carbon 2014",
@@ -323,22 +370,17 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 200,
+                    maxValue: 1190,
                     palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
                 }
             },
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 200,
+                "max": 83.67,
                 "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
             }
         },
-
-
-
-
-
         {
             id: "carbon_emission_group",
             title: "Total Forest Carbon Emissions by Flame Length 2014",
@@ -362,8 +404,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 9.79,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -378,8 +420,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 11.47,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -394,8 +436,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 13.49,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -410,8 +452,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 14.49,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -426,8 +468,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 17.50,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -442,8 +484,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 100,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 17.50,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
             ],
@@ -485,7 +527,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 0.2,
+                "max": 0.0078,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -515,8 +557,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 67.69,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -531,8 +573,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 67.76,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -547,8 +589,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 67.77,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -563,8 +605,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 67.68,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -579,8 +621,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 67.31,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -595,8 +637,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 200,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.63,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 }
             ],
@@ -608,7 +650,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1172,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             }
         },
@@ -631,14 +673,14 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1190,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 200,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "max": 83.67,
+                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
             }
         },
 
@@ -668,7 +710,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 200,
+                "max": 59.61,
                 "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
             }
         },
@@ -695,8 +737,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 0.086,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -711,8 +753,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 0.53,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -727,8 +769,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 1.84,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -743,8 +785,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 2.72,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -759,8 +801,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 3.69,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
                 {
@@ -775,8 +817,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 40,
-                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751']
+                        "max": 4.11,
+                        "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
             ],
@@ -818,7 +860,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 0.55,
+                "max": 0.0056,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -846,8 +888,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.61,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -862,8 +904,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.62,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -878,8 +920,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.60,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -894,8 +936,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.46,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -910,8 +952,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.64,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 },
                 {
@@ -926,8 +968,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 1161,
-                        "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                        "max": 59.61,
+                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                     }
                 }
             ],
@@ -939,7 +981,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1161,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             }
         },
@@ -962,14 +1004,14 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1161,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 200,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "max": 59.62,
+                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
             }
         },
 
@@ -991,16 +1033,16 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 1,
-                    palette: ['ccffcc', '99e699', '66b266', '338033', '1a661a', '004d00']
+                    maxValue: 14.68,
+                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
                 }
             },
             placed_before: "expected_carbon_market_remaining",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 1,
-                "palette": ['ccffcc', '99e699', '66b266', '338033', '1a661a', '004d00']
+                "max": 2.34,
+                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
             }
         },
         {
@@ -1020,16 +1062,16 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 1,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    maxValue: 6.20,
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             },
             placed_before: "rangeland_total_initial_carbon",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 1,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "max": 0.45,
+                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
             }
         },
         {
@@ -1049,7 +1091,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 0.1,
+                    maxValue: 11.71,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
@@ -1057,7 +1099,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.1,
+                "max": 1.91,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -1074,20 +1116,20 @@ export const staticConfig: AppConfig = {
             opacity: 0.9,
             legend: {
                 type: 'continuous',
-                title: 'Total Conditional Rangeland Carbon Emission 2014',
+                title: 'Total Annual Expected Rangeland Carbon 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 0.1,
-                    palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
+                    maxValue: 14.68,
+                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
                 }
             },
             placed_before: "rangeland_expected_carbon_emission",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.1,
-                "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
+                "max": 2.35,
+                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
             }
         },
         {
@@ -1103,11 +1145,11 @@ export const staticConfig: AppConfig = {
             opacity: 0.9,
             legend: {
                 type: 'continuous',
-                title: 'Total Conditional Rangeland Carbon Emission 2014',
+                title: 'Total Annual Expected Rangeland Carbon Emissions 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 0.1,
+                    maxValue: 1.11,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
@@ -1115,7 +1157,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.1,
+                "max": 0.011,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
