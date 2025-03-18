@@ -21,37 +21,33 @@ export const staticConfig: AppConfig = {
             description: "Annual burn probability for the conterminous United States",
             type: "eeTiles",
             url: [
-                // "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014_BINNED"
-                "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014"
+                "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014_BINNED"
+                // "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014"
             ],
             visible: false,
             group: "fsim",
             opacity: 0.9,
             legend: {
-                type: 'continuous',
-                title: 'Burn Probability 2014',
+                type: 'graduated',
+                title: 'Burn Probability 2014 (%)',
                 unit: '%',
-                symbols: {
-                    minValue: 0,
-                    maxValue: 30,
-                    palette: [
-                        'ffffff', // 0 - White (inside CONUS only)
-                        '0000ff', // 1 - Blue
-                        '3366ff', // 2 - Lighter Blue
-                        '3399ff', // 3 - Light Blue
-                        '008080', // 4 - Teal
-                        '00ff00', // 5 - Lime or Light Green
-                        'ccff33', // 6 - Light Yellow or Green Yellow
-                        'ffff00', // 7 - Yellow or Gold
-                        'ff9900', // 8 - Orange
-                        'ff3300', // 9 - Orange Red
-                        'ff0000'  // 10 - Red
-                      ]
-                }
+                symbols: [
+                    { value: '0 ', color: '#ffffff' },   // 0 - White (inside CONUS only)
+                    { value: '0-0.0001', color: '#0000ff' },   // 1 - Blue
+                    { value: '0.0001-0.0003', color: '#3366ff' },   // 2 - Lighter Blue
+                    { value: '0.0003-0.0005', color: '#3399ff' },   // 3 - Light Blue
+                    { value: '0.0005-0.001', color: '#008080' },   // 4 - Teal
+                    { value: '0.001-0.003', color: '#00ff00' },   // 5 - Lime or Light Green
+                    { value: '0.003-0.005', color: '#ccff33' },   // 6 - Light Yellow or Green Yellow
+                    { value: '0.005-0.01', color: '#ffff00' },   // 7 - Yellow or Gold
+                    { value: '0.01-0.03', color: '#ff9900' },   // 8 - Orange
+                    { value: '0.03-0.05', color: '#ff3300' },   // 9 - Orange Red
+                    { value: '0.05-0.1', color: '#ff0000' }   // 10 - Red
+                ]
             },
             placed_before: "",
             eeVisParams: {
-                "bands": ['b1'],
+                "bands": ['constant'],
                 "min": 0,
                 "max": 10,
                 "palette": [
@@ -186,41 +182,37 @@ export const staticConfig: AppConfig = {
 
         {
             id: "climate_change_burn_probability_2014",
-            title: "Projected Burn Probability circa 2047",
+            title: "Projected Burn Probability 2047",
             description: "Projected annual burn probability for the conterminous United States, circa 2047",
             type: "eeTiles",
             url: [
-                // "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040_BINNED"
-                "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040"
+                "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040_BINNED"
+                // "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040"
             ],
             visible: false,
             group: "fsim_cc",
             opacity: 0.9,
             legend: {
-                type: 'continuous',
-                title: 'Projected Burn Probability circa 2047',
+                type: 'graduated',
+                title: 'Projected Burn Prob. 2047 (%)',
                 unit: '%',
-                symbols: {
-                    minValue: 0,
-                    maxValue: 30,
-                    palette: [
-                        'ffffff', // 0 - White (inside CONUS only)
-                        '0000ff', // 1 - Blue
-                        '3366ff', // 2 - Lighter Blue
-                        '3399ff', // 3 - Light Blue
-                        '008080', // 4 - Teal
-                        '00ff00', // 5 - Lime or Light Green
-                        'ccff33', // 6 - Light Yellow or Green Yellow
-                        'ffff00', // 7 - Yellow or Gold
-                        'ff9900', // 8 - Orange
-                        'ff3300', // 9 - Orange Red
-                        'ff0000'  // 10 - Red
-                      ]
-                }
+                symbols: [
+                    { value: '0 ', color: '#ffffff' },   // 0 - White (inside CONUS only)
+                    { value: '0-0.0001', color: '#0000ff' },   // 1 - Blue
+                    { value: '0.0001-0.0003', color: '#3366ff' },   // 2 - Lighter Blue
+                    { value: '0.0003-0.0005', color: '#3399ff' },   // 3 - Light Blue
+                    { value: '0.0005-0.001', color: '#008080' },   // 4 - Teal
+                    { value: '0.001-0.003', color: '#00ff00' },   // 5 - Lime or Light Green
+                    { value: '0.003-0.005', color: '#ccff33' },   // 6 - Light Yellow or Green Yellow
+                    { value: '0.005-0.01', color: '#ffff00' },   // 7 - Yellow or Gold
+                    { value: '0.01-0.03', color: '#ff9900' },   // 8 - Orange
+                    { value: '0.03-0.05', color: '#ff3300' },   // 9 - Orange Red
+                    { value: '0.05-0.1', color: '#ff0000' }   // 10 - Red
+                ]
             },
             placed_before: "fire_instensity_level_1",
             eeVisParams: {
-                "bands": ['b1'],
+                "bands": ['constant'],
                 "min": 0,
                 "max": 10,
                 "palette": [
