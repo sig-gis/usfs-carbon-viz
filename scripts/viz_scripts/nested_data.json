@@ -1,0 +1,116 @@
+{
+    "Total Initial Forest Carbon 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Carbon/TM_2014_Carbon_TotalInitial",
+        "Min": 0,
+        "Max": 1190,
+        "Bands": ["b1"]
+    },
+    "Total Forest Carbon Emissions by Flame Length 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions",
+        "Min": 0,
+        "Max": 61.5,
+        "Bands": ["b1","b2","b3","b4","b5","b6"]
+    },
+    "Expected Annual Forest Carbon Emissions 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions",
+        "Min": 0,
+        "Max": 14,
+        "Bands": ["b7"]
+    },
+    "Total Forest Carbon Remaining by Flame Length 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining",
+        "Min": 0,
+        "Max": 1172,
+        "Bands": ["b1","b2","b3","b4","b5","b6"]
+    },
+    "Expected Annual Forest Carbon Remaining 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining",
+        "Min": 0,
+        "Max": 1190,
+        "Bands": ["b7"]
+    },
+    "Total Initial Standing Live and Dead Tree Carbon 2014": {
+        "AssetID": "projects/usfs-carbon-viz-backup/assets/CarbonMarket/TM2014_CarbonMarket_Initial",
+        "Min": 0,
+        "Max": 1161,
+        "Bands": ["b1"]
+    },
+    "Carbon Loss from Standing Live and Dead Trees by Flame Length 2014": {
+        "AssetID": "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss",
+        "Min": 0,
+        "Max": 40,
+        "Bands": ["b1","b2","b3","b4","b5","b6"]
+    },
+    "Expected Annual Carbon Loss from Standing Live and Dead Trees 2014": {
+        "AssetID": "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss",
+        "Min": 0,
+        "Max": 0.55,
+        "Bands": ["b7"]
+    },
+    "Remaining Carbon in Standing Live and Dead Trees by Flame Length 2014": {
+        "AssetID": "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining",
+        "Min": 0,
+        "Max": 1161,
+        "Bands": ["b1","b2","b3","b4","b5","b6"]
+    },
+    "Expected Annual Carbon Remaining in Standing Live and Dead Trees 2014": {
+        "AssetID": "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining",
+        "Min": 0,
+        "Max": 1161,
+        "Bands": ["b7"]
+    },
+    "Total Initial Rangeland Carbon 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_total_initial_carbon",
+        "Min": 0,
+        "Max": 1,
+        "Bands": ["b1"]
+    },
+    "Total Conditional Rangeland Carbon Remaining 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_total_conditional_carbon_remaining",
+        "Min": 0,
+        "Max": 1,
+        "Bands": ["b1"]
+    },
+    "Total Conditional Rangeland Carbon Emission 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_total_conditional_carbon_emissions",
+        "Min": 0,
+        "Max": 0.1,
+        "Bands": ["b1"]
+    },
+    "Total Annual Expected Rangeland Carbon 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_annual_expected_carbon",
+        "Min": 0,
+        "Max": 0.1,
+        "Bands": ["b1"]
+    },
+    "Total Annual Expected Rangeland Carbon Emissions 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_annual_expected_carbon_emissions",
+        "Min": 0,
+        "Max": 0.1,
+        "Bands": ["b1"]
+    },
+    "Burn Probability 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014",
+        "Min": 0,
+        "Max": 0.3,
+        "Bands": ["b1"]
+    },
+    "Flame Length Probability FSim 2014": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/FSIM/Fire_Intensity_Level/FLP1_2014",
+        "Min": 0,
+        "Max": 1,
+        "Bands": ["b1"]
+    },
+    "Projected Burn Probability circa 2047": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040",
+        "Min": 0,
+        "Max": 0.3,
+        "Bands": ["b1"]
+    },
+    "Projected Flame Length Probability circa 2047": {
+        "AssetID": "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP1_2040",
+        "Min": 0,
+        "Max": 1,
+        "Bands": ["b1"]
+    }
+}
