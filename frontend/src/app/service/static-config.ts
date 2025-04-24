@@ -1075,21 +1075,24 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 6.20,
-                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                    // palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                    palette:  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
                 }
             },
             placed_before: "rangeland_total_initial_carbon",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.45,
-                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                // "max": 0.45,
+                "max": 0.95,
+                // "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                "palette":  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']    
             }
         },
         {
             id: "rangeland_expected_carbon_emission",
             title: "Total Conditional Rangeland Carbon Emission 2014",
-            description: "Represents the total rangealnd carbon emissions from burning",
+            description: "Represents the total rangeland carbon emissions from burning",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_total_conditional_carbon_emissions"
@@ -1111,7 +1114,8 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 1.91,
+                // "max": 1.91,
+                "max": 1.61,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
