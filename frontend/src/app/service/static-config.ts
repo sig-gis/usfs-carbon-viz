@@ -360,7 +360,8 @@ export const staticConfig: AppConfig = {
             description: "Calculated by simulating TreeMap stands in the fire and fuels extension to the forest vegetation simulator and extracting the total stand carbon from the carbon table",
             type: "eeTiles",
             url: [
-                "projects/usfs-carbon-viz-test/assets/Carbon/TM_2014_Carbon_TotalInitial"
+                // "projects/usfs-carbon-viz-test/assets/Carbon/TM_2014_Carbon_TotalInitial"
+                "projects/usfs-carbon-viz-test/assets/Carbon/TM_2014_Carbon_TotalInitial_BINNED"
             ],
             visible: false,
             group: "carbon",
@@ -373,14 +374,16 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1190,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             eeVisParams: {
                 "bands": ['b1'],
-                "min": 0,
-                "max": 83.67,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "min": 1,
+                // "max": 1190,
+                // "max": 83.67,
+                "max": 18,
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
         {
@@ -413,7 +416,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_emissions_byfl_2",
                     title: "2-4 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"],
                     visible: false,
@@ -429,7 +432,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_emissions_byfl_3",
                     title: "4-6 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"],
                     visible: false,
@@ -445,7 +448,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_emissions_byfl_4",
                     title: "6-8 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"],
                     visible: false,
@@ -461,7 +464,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_emissions_byfl_5",
                     title: "8-12 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"],
                     visible: false,
@@ -477,7 +480,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_emissions_byfl_6",
                     title: ">12 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"],
                     visible: false,
@@ -552,15 +555,16 @@ export const staticConfig: AppConfig = {
                     title: "< 2 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: true,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 67.69,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 67.69,
+                        "max": 17,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -568,15 +572,16 @@ export const staticConfig: AppConfig = {
                     title: "2-4 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 67.76,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 67.76,
+                        "max": 17,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -584,15 +589,16 @@ export const staticConfig: AppConfig = {
                     title: "4-6 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 67.77,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 67.77,
+                        "max": 17,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -600,15 +606,16 @@ export const staticConfig: AppConfig = {
                     title: "6-8 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 67.68,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 67.68,
+                        "max": 17,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -616,15 +623,16 @@ export const staticConfig: AppConfig = {
                     title: "8-12 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 67.31,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 67.31,
+                        "max": 17,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -632,15 +640,16 @@ export const staticConfig: AppConfig = {
                     title: ">12 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 59.63,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.63,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 }
             ],
@@ -652,7 +661,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1172,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             }
         },
@@ -662,7 +671,7 @@ export const staticConfig: AppConfig = {
             description: "Calculated using the expected carbon framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
-                "projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining"
+                "projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED_B7"
             ],
             visible: false,
             group: "carbon",
@@ -675,14 +684,16 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1190,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
-                "min": 0,
-                "max": 83.67,
-                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                // "min": 0,
+                "min": 1,
+                // "max": 83.67,
+                "max": 18,
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
 
@@ -693,7 +704,7 @@ export const staticConfig: AppConfig = {
             description: "Calculated by simulating TreeMap stands in the fire and fuels extension to the forest vegetation simulator and extracting the carbon estimates from four poos: aboveground total live, standing dead, aboveground dead, and belowground dead.",
             type: "eeTiles",
             url: [
-                "projects/usfs-carbon-viz-backup/assets/CarbonMarket/TM2014_CarbonMarket_Initial"
+                "projects/usfs-carbon-viz-backup/assets/CarbonMarket/TM2014_CarbonMarket_Initial_BINNED"
             ],
             visible: false,
             group: "carbon_market",
@@ -706,14 +717,16 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1161,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             eeVisParams: {
                 "bands": ['b1'],
+                // "min": 0,
+                // "max": 59.61,
                 "min": 0,
-                "max": 59.61,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "max": 18,
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
         {
@@ -746,7 +759,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_market_emissions_byfl_2",
                     title: "2-4 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"],
                     visible: false,
@@ -762,7 +775,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_market_emissions_byfl_3",
                     title: "4-6 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"],
                     visible: false,
@@ -778,7 +791,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_market_emissions_byfl_4",
                     title: "6-8 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"],
                     visible: false,
@@ -794,7 +807,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_market_emissions_byfl_5",
                     title: "8-12 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"],
                     visible: false,
@@ -810,7 +823,7 @@ export const staticConfig: AppConfig = {
                 {
                     id: "carbon_market_emissions_byfl_6",
                     title: ">12 feet",
-                    description: "Conditional carbon remaining by flame length",
+                    description: "Conditional carbon emissions by flame length",
                     type: "eeTiles",
                     url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"],
                     visible: false,
@@ -883,15 +896,16 @@ export const staticConfig: AppConfig = {
                     title: "< 2 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 59.61,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.61,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -899,15 +913,16 @@ export const staticConfig: AppConfig = {
                     title: "2-4 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 59.62,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.62,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -915,15 +930,16 @@ export const staticConfig: AppConfig = {
                     title: "4-6 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 59.60,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.60,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -931,15 +947,16 @@ export const staticConfig: AppConfig = {
                     title: "6-8 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 59.46,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.46,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -947,15 +964,16 @@ export const staticConfig: AppConfig = {
                     title: "8-12 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 59.64,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.64,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 },
                 {
@@ -963,15 +981,16 @@ export const staticConfig: AppConfig = {
                     title: ">12 feet",
                     description: "Conditional carbon remaining by flame length",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"],
+                    url: ["projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED"],
                     visible: false,
                     group: "dataAset",
                     opacity: 0.9,
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 59.61,
-                        "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                        // "max": 59.61,
+                        "max": 18,
+                        "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     }
                 }
             ],
@@ -983,7 +1002,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1161,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             }
         },
@@ -993,7 +1012,7 @@ export const staticConfig: AppConfig = {
             description: "Calculated using the expected carbon framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
-                "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining"
+                "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED_B7"
             ],
             visible: false,
             group: "carbon_market",
@@ -1006,14 +1025,15 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 1161,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 59.62,
-                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                // "max": 59.62,
+                "max": 18,
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
 
@@ -1036,7 +1056,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 14.68,
-                    palette: ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             placed_before: "expected_carbon_market_remaining",
@@ -1044,7 +1064,7 @@ export const staticConfig: AppConfig = {
                 "bands": ['b1'],
                 "min": 0,
                 "max": 2.34,
-                "palette": ['c4ea67', '98cb6d', '7bae74', '60927b', '497b85', '396b94', '2e599f', '1a33b3']
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
         {
@@ -1065,21 +1085,24 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 6.20,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    // palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                    palette:  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
                 }
             },
             placed_before: "rangeland_total_initial_carbon",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.45,
-                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                // "max": 0.45,
+                "max": 0.95,
+                // "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
+                "palette":  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']    
             }
         },
         {
             id: "rangeland_expected_carbon_emission",
             title: "Total Conditional Rangeland Carbon Emission 2014",
-            description: "Represents the total rangealnd carbon emissions from burning",
+            description: "Represents the total rangeland carbon emissions from burning",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/Rangeland/rangeland_total_conditional_carbon_emissions"
@@ -1101,7 +1124,8 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 1.91,
+                // "max": 1.91,
+                "max": 1.61,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -1123,7 +1147,7 @@ export const staticConfig: AppConfig = {
                 symbols: {
                     minValue: 0,
                     maxValue: 14.68,
-                    palette: ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                    palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
             placed_before: "rangeland_expected_carbon_emission",
@@ -1131,7 +1155,7 @@ export const staticConfig: AppConfig = {
                 "bands": ['b1'],
                 "min": 0,
                 "max": 2.35,
-                "palette": ['e7b868', 'd59d5f', 'b7845c', '9c6d56', '81574f', '674245', '503437', '3a262a']
+                "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
         {
