@@ -242,6 +242,8 @@ export class ModulePajakComponent implements OnInit {
   }
 
   calculateZonalStatistics(): void {
+    const visibleLayers = this.configService.getVisibleLayersWithBands();
+    console.log('Visible layers with bands:', visibleLayers);
     const assetId = 'USFS/GTAC/TreeMap/v2016/TreeMap2016';
     const band = 'ALSTK';
     const region = ee.Geometry.Polygon([[

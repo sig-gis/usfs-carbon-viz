@@ -6,7 +6,17 @@ export const staticConfig: AppConfig = {
         loading: false,
         error: false,
     },
-    highlight: [],
+    highlight: [{
+        id: "US_States",
+        title: "US States Highlight",
+        description: "Highlight Layer",
+        visible: true,
+        type: "highlightLayer",
+        url: ["https://api.maptiler.com/tiles/019652dc-9815-7723-bb77-f4b6748047df/{z}/{x}/{y}.pbf?key=TUeJmK9d5lh6wwNUyq6u"],
+        opacity: 1.0,
+        sourceLayer: "cb_2018_us_state_500k",
+        //add size and opacity of layers
+    }],
     analysis: [],
     mapConfig: {
         style: "https://api.maptiler.com/maps/winter-v2/style.json?key=TUeJmK9d5lh6wwNUyq6u",
@@ -62,7 +72,7 @@ export const staticConfig: AppConfig = {
                     'ff9900', // 8 - Orange
                     'ff3300', // 9 - Orange Red
                     'ff0000'  // 10 - Red
-                  ]
+                ]
             }
         },
         {
@@ -227,7 +237,7 @@ export const staticConfig: AppConfig = {
                     'ff9900', // 8 - Orange
                     'ff3300', // 9 - Orange Red
                     'ff0000'  // 10 - Red
-                  ]
+                ]
             }
         },
         {

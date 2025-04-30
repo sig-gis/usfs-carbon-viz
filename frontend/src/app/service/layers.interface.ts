@@ -133,6 +133,7 @@ export interface ConfigLayer {
     placed_before?: string;
     eeVisParams?: any;
     activeLayerId?: string;
+    sourceLayer?: string;
     //SEMENTAR DI BUAT OPTIONAL
 }
 

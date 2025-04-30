@@ -458,4 +458,35 @@ export class AppconfigService {
     this.config$.next(updatedConfig);
   }
 
+  // Helper function to recursively collect visible layers (not groups)
+  getVisibleLayersWithBands(): { id: string, url: string, bands?: string[] }[] {
+    const result: { id: string, url: string, bands?: string[] }[] = [];
+    const currentConfig = this.config$.value;
+
+    function processLayer(layer: ConfigLayer, parentVisible = true) {
+      // Only process if parent group is visible
+      if (!parentVisible) return;
+
+      if (layer.visible && layer.type !== 'layerGroup') {
+        result.push({
+          id: layer.id,
+          url: layer.url?.[0] ?? '',
+          bands: layer.eeVisParams?.bands
+        });
+      }
+      if (layer.type === 'layerGroup' && Array.isArray(layer.groupLayers)) {
+        // Only process groupLayers if this group is visible
+        if (layer.visible) {
+          layer.groupLayers.forEach(child => processLayer(child, true));
+        }
+      }
+    }
+
+    if (Array.isArray(currentConfig.layers)) {
+      currentConfig.layers.forEach(layer => processLayer(layer, true));
+    }
+
+    return result;
+  }
+
 }
