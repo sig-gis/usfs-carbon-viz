@@ -29,6 +29,8 @@ import { VectorLayerComponent } from './layers/vector-layer.component';
 import { ModuleNavigasiComponent } from './module-navigasi/module-navigasi.component';
 import { LayerGroupComponent } from './layers/layer-group.component';
 import { MapAttributionComponent } from './map-attribution/map-attribution.component';
+// import { ModuleDefaultComponent } from './module-default/module-default.component';
+// import { AnalisisDefaultComponent } from './module-default/analisis-default/analisis-default.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,7 @@ import { MapAttributionComponent } from './map-attribution/map-attribution.compo
     AnalisisPerizinanComponent,
     MapContextComponent,
     ModuleNavigasiComponent,
-    MapAttributionComponent,
+    MapAttributionComponent
   ],
   imports: [
     CommonModule,

@@ -32,6 +32,7 @@ export interface Analysis {
     output: AnalisisPajak | AnalisisTataRuang | AnalisisPerizinan;
 }
 
+
 export interface AnalisisPajak {
     type: 'pajak';
     id: number;
@@ -137,6 +138,17 @@ export interface ConfigLayer {
     //SEMENTAR DI BUAT OPTIONAL
 }
 
+export interface ZonalResult {
+    id: string;
+    title: string;
+    description: string;
+    min: number | string;
+    max: number | string;
+    avg: number | string;
+    pixelval: number | string;
+    downloadUrl: string;
+}
+
 export interface AppConfig {
     status: {
         screenLoading: boolean;
@@ -148,4 +160,8 @@ export interface AppConfig {
     highlight?: ConfigLayer[];
     layers: ConfigLayer[];
     analysis?: Analysis[];
+    selectedGeometry?: GeoJSON.Geometry | null;
+    selectedGeometryAreaHa?: number | null;
+    adminModeActive: boolean;
+    zonalResults?: ZonalResult[];
 }

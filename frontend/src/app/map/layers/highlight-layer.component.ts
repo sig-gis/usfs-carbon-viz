@@ -1,58 +1,84 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GeoJsonObject } from 'geojson';
-import { GeoJSONFeature } from 'maplibre-gl';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { FeatureCollection } from 'geojson';
 import { ConfigLayer } from 'src/app/service/layers.interface';
+import { AppconfigService } from 'src/app/service/appconfig.service';
 
 @Component({
   selector: 'app-highlight-layer',
   template: `
-  <mgl-vector-source [id]="id" [tiles]="url" [scheme]="'xyz'">
+    <mgl-vector-source [id]="id" [tiles]="url" [scheme]="'xyz'"></mgl-vector-source>
 
-  <!-- <mgl-geojson-source [id]="id" [data]="url"> </mgl-geojson-source> -->
+    <mgl-layer
+      [id]="id"
+      type="line"
+      [source]="id"
+      [layout]="{}"
+      [paint]="{
+        'line-color': color,
+        'line-width': width
+      }"
+      [before]="before"
+      [sourceLayer]="sourceLayer"
+    ></mgl-layer>
 
-  <mgl-layer
-    [id]="id"
-    type="line"
-    [source]="id"
-    [layout]="{}"
-    [paint]="{
-      'line-color': color,
-      'line-width': width
-    }"
-    [before]="before"
-    [sourceLayer]="sourceLayer"
-  >
-  </mgl-layer>
+    <mgl-layer
+      *ngIf="adminModeActive"
+      [id]="id + '-clickable'"
+      type="fill"
+      [source]="id"
+      [paint]="{
+        'fill-color': '#000000',
+        'fill-opacity': 0
+      }"
+      [sourceLayer]="sourceLayer"
+      (layerClick)="onLayerClick($event)"
+    ></mgl-layer>
 
-  <mgl-layer
-    [id]="id + '-clickable'"
-    type="fill"
-    [source]="id"
-    [paint]="{
-      'fill-color': '#000000',
-      'fill-opacity': 0
-    }"
-    [sourceLayer]="sourceLayer"
-    (layerClick)="onLayerClick($event)"
-  ></mgl-layer>
+    <mgl-geojson-source
+      *ngIf="selectedFeature"
+      id="selected-feature-source"
+      [data]="selectedFeature"
+    ></mgl-geojson-source>
 
-  <mgl-popup
-    *ngIf="popupCoords"
-    [lngLat]="popupCoords"
-    (close)="popupCoords = null"
-  >
-    <div>
-      <strong>Properties:</strong>
-      <pre>{{ popupFeature?.properties | json }}</pre>
-      <button (click)="logGeometry()">Log Geometry</button>
-    </div>
-  </mgl-popup>
+    <mgl-layer
+      *ngIf="selectedFeature"
+      id="selected-feature-layer"
+      type="fill"
+      source="selected-feature-source"
+      [paint]="{
+        'fill-color': '#FF0000',
+        'fill-opacity': 0.1
+      }"
+    ></mgl-layer>
+
+    <mgl-layer
+      *ngIf="selectedFeature"
+      id="selected-feature-outline"
+      type="line"
+      source="selected-feature-source"
+      [paint]="{
+        'line-color': '#FF0000',
+        'line-width': 2
+      }"
+    ></mgl-layer>
+
+    <mgl-popup
+      *ngIf="popupCoords"
+      [lngLat]="popupCoords"
+      (close)="popupCoords = null"
+    >
+      <div>
+        <strong>Properties:</strong>
+        <pre>{{ popupFeature?.properties | json }}</pre>
+        <button (click)="logGeometry()">Select this admin boundary</button>
+      </div>
+    </mgl-popup>
   `,
   styles: []
 })
-export class HighlightLayerComponent implements OnInit {
-
+export class HighlightLayerComponent implements OnInit, OnChanges {
   @Input() highlightLayer!: ConfigLayer;
+  @Input() adminModeActive: boolean = false;
 
   title!: string;
   id!: string;
@@ -61,46 +87,54 @@ export class HighlightLayerComponent implements OnInit {
   sourceLayer?: string;
   color?: string;
   width?: number;
-  lineJoin?: "round" | "bevel" | "miter";
-  lineCap?: "round" | "butt" | "square";
-  //TODO: add more variable support.
+  lineJoin?: 'round' | 'bevel' | 'miter';
+  lineCap?: 'round' | 'butt' | 'square';
   before?: string;
-  //TODO: do not hardcode this variable.
-  //instead get it from the first "symbol" in styles json.
 
   popupCoords: [number, number] | null = null;
   popupFeature: any = null;
+  selectedFeature: FeatureCollection | null = null;
 
-  constructor() { }
+  constructor(private configService: AppconfigService) {}
 
   ngOnInit(): void {
     this.title = this.highlightLayer.title;
     this.id = this.highlightLayer.id;
     this.url = this.highlightLayer.url;
     this.sourceLayer = this.highlightLayer.sourceLayer;
-    this.color = this.highlightLayer.style?.color || "cyan";
+    this.color = this.highlightLayer.style?.color || 'cyan';
     this.width = this.highlightLayer.style?.width || 0.2;
-    this.lineJoin = this.highlightLayer.layout?.lineJoin || "round";
-    this.lineCap = this.highlightLayer.layout?.lineCap || "round";
-    this.before = "";
+    this.lineJoin = this.highlightLayer.layout?.lineJoin || 'round';
+    this.lineCap = this.highlightLayer.layout?.lineCap || 'round';
+    this.before = '';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['adminModeActive'] && changes['adminModeActive'].currentValue === false) {
+      this.selectedFeature = null;
+      this.popupCoords = null;
+      this.popupFeature = null;
+    }
   }
 
   onLayerClick(event: any) {
-    console.log('Layer clicked:', event);
-    // event.features[0] contains the clicked feature
-    // event.lngLat contains the coordinates
     if (event.features && event.features.length > 0) {
       this.popupFeature = event.features[0];
       this.popupCoords = [event.lngLat.lng, event.lngLat.lat];
+      this.selectedFeature = {
+        type: 'FeatureCollection',
+        features: [this.popupFeature]
+      };
     }
   }
 
   logGeometry() {
-    if (this.popupFeature && this.popupFeature.geometry) {
-      console.log('Geometry:', this.popupFeature.geometry);
+    if (this.popupFeature?.geometry) {
+      this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
+      // Close the popup after selecting geometry
+      this.popupCoords = null;
     } else {
       console.log('No geometry found on feature.');
     }
   }
-
 }

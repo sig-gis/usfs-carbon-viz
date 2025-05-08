@@ -27,7 +27,6 @@ export class AdminFormContainerComponent implements OnInit {
     this.config$.subscribe((config) => {
       console.log(config);
     })
-
   }
 
   ngAfterViewInit() {

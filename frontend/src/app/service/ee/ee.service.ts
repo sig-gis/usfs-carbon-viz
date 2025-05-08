@@ -152,4 +152,91 @@ export class EarthEngineService {
       }
     });
   }
+
+  getZonalStatsWithDownloadUrl(assetId: string, band: string, region: any): Observable<any> {
+    return new Observable((observer) => {
+      try {
+        const image = ee.Image(assetId).select(band);
+        const clipped = image.clip(region);
+        // Zonal statistics: mean, min, max
+        const reducer = ee.Reducer.mean()
+        .combine(ee.Reducer.min(), '', true)
+        .combine(ee.Reducer.max(), '', true);
+    
+        // Zonal statistics
+        const stats = clipped.reduceRegion({
+          reducer: reducer,
+          geometry: region,
+          scale: 30,
+          maxPixels: 1e15
+        });
+  
+        // Download URL for the clipped image
+        const downloadOptions = {
+          name: `${band}_${Date.now()}`,
+          region: region,
+          scale: 300,
+          maxPixels: 1e15,
+          crs: 'EPSG:4326',
+          fileFormat: 'GeoTIFF',
+          formatOptions: {
+            cloudOptimized: true
+          }
+        };
+  
+        clipped.getDownloadURL(downloadOptions, (url: string | null, error: any) => {
+          if (error) {
+            observer.error(error);
+          } else {
+            // Evaluate statistics and return both result and download URL
+            stats.evaluate((result: any, error: any) => {
+              if (error) {
+                observer.error(error);
+              } else {
+                observer.next({
+                  stats: {
+                    mean: result[`${band}_mean`],
+                    min: result[`${band}_min`],
+                    max: result[`${band}_max`]
+                  },
+                  downloadUrl: url
+                });
+                observer.complete();
+              }
+            });
+          }
+        });
+  
+      } catch (error) {
+        observer.error(error);
+      }
+    });
+  }
+
+  getPixelValueAtPoint(assetId: string, band: string, point: any): Observable<any> {
+    return new Observable((observer) => {
+      try {
+        const image = ee.Image(assetId).select(band);
+  
+        image.reduceRegion({
+          reducer: ee.Reducer.first(),
+          geometry: point,
+          scale: 30,
+          maxPixels: 1e9
+        }).evaluate((result: any, error: any) => {
+          if (error) {
+            observer.error(error);
+          } else {
+            observer.next(result);
+            observer.complete();
+          }
+        });
+  
+      } catch (error) {
+        observer.error(error);
+      }
+    });
+  }
+  
+  
 }

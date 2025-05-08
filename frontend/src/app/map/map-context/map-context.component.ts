@@ -1,5 +1,5 @@
 import { Component, Inject, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AppConfig, ConfigLayer, LegendItem } from 'src/app/service/layers.interface';
+import { AppConfig, ConfigLayer, LegendItem, ZonalResult } from 'src/app/service/layers.interface';
 import { BasemapControlComponent } from '../basemap-control/basemap-control.component';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AppconfigService } from 'src/app/service/appconfig.service';
@@ -17,9 +17,10 @@ export class MapContextComponent implements OnInit, OnChanges {
   @Input() currentLegend: string;
   @Input() legendVisible: boolean;
 
+  // zonalResults: ZonalResult[] = [];
+
   configService = inject(AppconfigService);
   mapInterface!: Map | undefined;
-
 
   visibleLayersCount: number;
   visibleLayerIds: string[];
@@ -39,6 +40,7 @@ export class MapContextComponent implements OnInit, OnChanges {
     if (this.config.mapInterface?.map) {
       this.setupLayers();
     }
+    // console.log(this.zonalResults)
   }
 
   ngOnChanges(changes: SimpleChanges) {

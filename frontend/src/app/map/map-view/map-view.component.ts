@@ -4,6 +4,7 @@ import { AppconfigService } from 'src/app/service/appconfig.service';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
 import { AppConfig } from 'src/app/service/layers.interface';
+
 @Component({
   selector: 'app-map-view',
   template: `
@@ -14,48 +15,36 @@ import { AppConfig } from 'src/app/service/layers.interface';
           (mapLoad)="onMapLoad($event)"
           (mapClick)="onMapClick($event)"
           >
-          
         <ng-container *ngIf="config.highlight && config.highlight.length > 0">
             <app-highlight-layer
               *ngFor="let highlightLayer of config.highlight" [highlightLayer] = "highlightLayer"
+              [adminModeActive]="config.adminModeActive" 
             ></app-highlight-layer>
         </ng-container>
 
         <ng-container *ngFor="let layer of config.layers">
           <ng-container [ngSwitch]="layer.type">
-
-            <!-- Layer Group -->
             <ng-container *ngSwitchCase="'layerGroup'">
               <app-layer-group [layer]="layer"></app-layer-group>
             </ng-container>
-
-            <!-- WMS Layer -->
             <ng-container *ngSwitchCase="'wms'">
               <app-wms-layer [layer]="layer"></app-wms-layer>
             </ng-container>
-
-            <!-- Line Layer -->
             <ng-container *ngSwitchCase="'line'">
               <app-line-layer [layer]="layer"></app-line-layer>
             </ng-container>
-
-            <!-- Point Layer -->
             <ng-container *ngSwitchCase="'point'">
               <app-point-layer [layer]="layer"></app-point-layer>
             </ng-container>
-
           </ng-container>
         </ng-container>
 
-        <mgl-control
-          mglNavigation position="top-right">
-        </mgl-control>
-
+        <mgl-control mglNavigation position="top-right"></mgl-control>
         </mgl-map>
 
         <app-basemap-control (styleSelected)="updateStyle($event)"></app-basemap-control>
-        
-        <app-map-attribution></app-map-attribution>`,
+        <app-map-attribution></app-map-attribution>
+    `,
   styles: [`
         mgl-map {
           height: calc(100vh - 70px);
@@ -66,19 +55,17 @@ import { AppConfig } from 'src/app/service/layers.interface';
 export class MapViewComponent implements OnInit {
 
   @Input() config!: AppConfig;
-
   configService = inject(AppconfigService);
 
   map!: Map;
   draw!: MapboxDraw;
 
-  constructor() { }
+  ngOnInit(): void { }
 
-  onMapLoad(map: Map) {
+  onMapLoad(map: Map): void {
     this.map = map;
     this.configService.setMap(map);
 
-    // Define custom styles for drawing
     const drawStyles = [
       {
         'id': 'gl-draw-polygon-fill',
@@ -164,71 +151,59 @@ export class MapViewComponent implements OnInit {
       }
     ];
 
-    // Initialize Mapbox Draw
     this.draw = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
         polygon: true,
+        point: true,
         trash: true
       },
       styles: drawStyles
     });
+
+    // Add control to the map safely
     (this.map as any).addControl(this.draw);
 
-    // Handle draw events
-    // this.map.on('draw.create', this.updateArea.bind(this));
-    // this.map.on('draw.update', this.updateArea.bind(this));
-    // this.map.on('draw.delete', this.updateArea.bind(this));
+    //  Move draw layers to the top after they're added
+    setTimeout(() => {
+      const drawLayerIds = [
+        'gl-draw-polygon-fill',
+        'gl-draw-polygon-stroke-active',
+        'gl-draw-polygon-stroke-inactive',
+        'gl-draw-line-inactive',
+        'gl-draw-line-active',
+        'gl-draw-point-point-stroke-inactive',
+        'gl-draw-point-point-stroke-active',
+        'cb_2018_us_state_500k'
+      ];
+
+      for (const layerId of drawLayerIds) {
+        if ((this.map as any).getLayer(layerId)) {
+          (this.map as any).moveLayer(layerId);
+        }
+      }
+    }, 100);
+
+    // Share draw instance
+    this.configService.setDrawControl(this.draw);
   }
 
-  onMapClick(evt: MapMouseEvent) {
+  onMapClick(evt: MapMouseEvent): void {
     // console.log('Map clicked:', evt.lngLat);
-    //this.map.setStyle("/assets/map_style/style_maptiler_3d.json", ({ diff: true }));
   }
 
-  ngOnInit(): void {
+  updateStyle(selectedStyle: string): void {
+    const styleMap: { [key: string]: string } = {
+      'Rupabumi': 'https://api.maptiler.com/maps/winter-v2/style.json?key=TUeJmK9d5lh6wwNUyq6u',
+      'Rupabumi2': '/assets/map_style/style_rbi_v1_no_building.json',
+      'Citra Satelit': '/assets/map_style/style_sattelite.json',
+      'Bright Style': '/assets/map_style/style_maptiler_3d.json',
+      'Mapfan': '/assets/map_style/style_rbi_v1_mapfan.json',
+    };
 
-  }
-
-  ngAfterViewInit() {
-
-  }
-
-  updateStyle(selectedStyle: string) {
-
-    switch (selectedStyle) {
-      case 'Rupabumi':
-        // this.configService.updateStyle("/assets/map_style/style_rbi_v1.json");
-        this.map.setStyle("https://api.maptiler.com/maps/winter-v2/style.json?key=TUeJmK9d5lh6wwNUyq6u", ({ diff: true }));
-        console.log('Updating map style to Rupabumi');
-        break;
-      case 'Rupabumi2':
-        // this.configService.updateStyle("/assets/map_style/style_rbi_v1_no_building.json");
-        this.map.setStyle("/assets/map_style/style_rbi_v1_no_building.json", ({ diff: true }));
-        // console.log('Updating map style to Rupabumi2');
-        break;
-      case 'Citra Satelit':
-        // this.configService.updateStyle("/assets/map_style/style_sattelite.json");
-        this.map.setStyle("/assets/map_style/style_sattelite.json", ({ diff: true }));
-        // console.log('Updating map style to Citra Satelit');
-        break;
-      case 'Bright Style':
-        // this.style = "/assets/map_style/style_maptiler_3d.json"
-        // Code to update the map style to 'Citra Satelit' style
-        // this.configService.updateStyle("/assets/map_style/style_maptiler_3d.json");
-        console.log(this.map.getStyle());
-        this.map.setStyle("/assets/map_style/style_maptiler_3d.json", ({ diff: true }));
-        // console.log('Bright Style');
-        break;
-      case 'Mapfan':
-        // this.style = "/assets/map_style/style_maptiler_3d.json"
-        // Code to update the map style to 'Citra Satelit' style
-        // this.configService.updateStyle("/assets/map_style/style_maptiler_3d.json");
-        console.log(this.map.getStyle());
-        this.map.setStyle("/assets/map_style/style_rbi_v1_mapfan.json", ({ diff: true }));
-        // console.log('Bright Style');
-        break;
+    const selected = styleMap[selectedStyle];
+    if (selected) {
+      this.map.setStyle(selected, { diff: true });
     }
   }
-
 }

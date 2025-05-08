@@ -1189,5 +1189,6 @@ export const staticConfig: AppConfig = {
         },
 
         // ...other layers...
-    ]
+    ], 
+    adminModeActive: false,
 };

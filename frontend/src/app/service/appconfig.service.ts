@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { AppConfig, ConfigLayer, MapConfig, Analysis } from './layers.interface';
+import { AppConfig, ConfigLayer, MapConfig, Analysis, ZonalResult } from './layers.interface';
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Map } from 'maplibre-gl';
 import { EarthEngineService } from './ee/ee.service';
 import { map } from 'rxjs/operators';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import area from '@turf/area';
+import { Geometry, Feature } from 'geojson';
+
 import { staticConfig } from './static-config';
 
 @Injectable({
@@ -17,13 +21,12 @@ export class AppconfigService {
 
   constructor(private httpClient: HttpClient, private eeService: EarthEngineService) { }
 
-  private config$ = new BehaviorSubject<AppConfig>(this.layerconfig);
+  public config$ = new BehaviorSubject<AppConfig>(this.layerconfig);
 
   public getConfig(map_code: any = ""): Observable<AppConfig> {
     this.config$.next(staticConfig);
     return this.config$;
   }
-
 
   convertEETilesToWMS(layers: ConfigLayer[]): Observable<ConfigLayer[]> {
     const processLayer = (layer: ConfigLayer): Observable<ConfigLayer> => {
@@ -454,13 +457,12 @@ export class AppconfigService {
     }
 
     const updatedConfig: AppConfig = { ...currentConfig, analysis: analysisArray };
-
     this.config$.next(updatedConfig);
   }
 
   // Helper function to recursively collect visible layers (not groups)
-  getVisibleLayersWithBands(): { id: string, url: string, bands?: string[] }[] {
-    const result: { id: string, url: string, bands?: string[] }[] = [];
+  getVisibleLayersWithBands(): { id: string, url: string, bands?: string[], title: string, description: string }[] {
+    const result: { id: string, url: string, bands?: string[], title: string, description: string }[] = [];
     const currentConfig = this.config$.value;
 
     function processLayer(layer: ConfigLayer, parentVisible = true) {
@@ -471,7 +473,9 @@ export class AppconfigService {
         result.push({
           id: layer.id,
           url: layer.url?.[0] ?? '',
-          bands: layer.eeVisParams?.bands
+          bands: layer.eeVisParams?.bands,
+          title: layer.title,
+          description: layer.description
         });
       }
       if (layer.type === 'layerGroup' && Array.isArray(layer.groupLayers)) {
@@ -489,4 +493,67 @@ export class AppconfigService {
     return result;
   }
 
+  // Share MapboxDraw via a service
+  private drawControl: MapboxDraw | undefined;
+
+  setDrawControl(draw: MapboxDraw) {
+    this.drawControl = draw;
+  }
+
+  getDrawControl(): MapboxDraw | undefined {
+    return this.drawControl;
+  }
+
+  public updateAdminModeActive(value: boolean): void {
+    const currentConfig = this.config$.value;
+
+    const updatedConfig: AppConfig = {
+      ...currentConfig,
+      adminModeActive: value ?? false
+    };
+
+    this.config$.next(updatedConfig);
+  }
+
+  public updateSelectedGeometryWithArea(geometry: Geometry | null): void {
+    const currentConfig = this.config$.value;
+  
+    let areaHa = 0;
+    if (geometry && (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon')) {
+      const geojsonFeature: Feature = {
+        type: 'Feature',
+        geometry,
+        properties: {}
+      };
+      const squareMeters = area(geojsonFeature);
+      areaHa = squareMeters / 10_000;
+    } else if (geometry && (geometry.type === 'Point' || geometry.type === 'LineString')) {
+      areaHa = 0;
+    }
+  
+    const updatedConfig: AppConfig = {
+      ...currentConfig,
+      selectedGeometry: geometry,
+      selectedGeometryAreaHa: geometry ? Number(areaHa.toFixed(2)) : null
+    };
+  
+    this.config$.next(updatedConfig);
+  }
+
+  public updateZonalResults(results: ZonalResult[] | null): void {
+    const currentConfig = this.config$.value;
+  
+    if (!results) {
+      results = [];
+    }
+    const updatedConfig: AppConfig = {
+      ...currentConfig,
+      zonalResults: results
+    };
+  
+    this.config$.next(updatedConfig);
+  }
+  
 }
+
+
