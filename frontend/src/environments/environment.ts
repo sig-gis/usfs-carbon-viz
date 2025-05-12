@@ -9,7 +9,8 @@ export const environment = {
   api_baseurl                           : 'http://127.0.0.1:123',
   // backend_baseurl                       : 'http://localhost:12351',
   backend_baseurl                       : 'http://38.47.70.195:12351',
-  token_header                          : 'Bearer',
+  token_header: 'Bearer',
+  gee_backend_baseurl                 : 'http://127.0.0.1:8002',
 
   // router use hash for development & no hash for production
   router_hash                           : false,

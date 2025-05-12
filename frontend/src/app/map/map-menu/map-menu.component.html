@@ -549,6 +549,11 @@
   <div class="backdrop" *ngIf="showMapStore" (click)="hideMapStore()">
     <app-map-store (click)="$event.stopPropagation()"></app-map-store>
   </div>
+
+  <app-export-task-panel [tasks]="(exportTaskService.tasks$ | async) ?? []"></app-export-task-panel>
+
+
+
 </div>
 
 <style>

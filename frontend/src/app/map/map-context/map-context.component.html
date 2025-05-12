@@ -111,65 +111,120 @@
 
 
     <ng-container *ngIf="config?.zonalResults?.length; else emptyArray">
-      <div class="zonal-results-list">
-        <div *ngFor="let result of config.zonalResults;" class="result-card">
-          <div class="card-container">
-            <div class="card-header">
-              <div class="icon">
-                <!-- Insert your icon here -->
-                <i class="las la-braille"></i>
+      
+      <div *ngIf="config?.selectedGeometry?.type == 'Point'; else displayZonal">
+        <div class="zonal-results-list">
+          <div class="result-card">
+            <div class="card-container"> 
+              <div class="card-header">
+                <div class="icon">
+                  <i class="las la-braille"></i>
+                </div>
+                <div class="title-text">Pixel Value</div>
               </div>
-              <div class="title-text">{{ result.title }}</div>
-              <div class="actions">
-                <a *ngIf="result.downloadUrl" [href]="result.downloadUrl" download target="_blank" title="Download" style="color: #333">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download pointer">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div class="card-content">
-              <div>{{ result.description }}</div>
-              <div *ngIf="result.pixelval else displayZonal" >
-                <p><strong>Pixel value is</strong> {{ result.pixelval }}</p>
-              </div>
+              <div class="card-content">
+                <div *ngIf="getSelectedPointCoordinates() as coords">
+                  <p>
+                    <strong>Point:</strong>
+                    ({{ coords[0] | number:'1.4-4' }}, {{ coords[1] | number:'1.4-4' }})
+                  </p>
+                </div>
 
-              <ng-template #displayZonal>
                 <table class="table-auto border-collapse border border-gray-300 w-full text-sm">
-                  <thead>
-                    <tr class="bg-gray-100">
-                      <th class="border border-gray-300 px-2 py-1 text-left">Statistic</th>
-                      <th class="border border-gray-300 px-2 py-1 text-left">Value</th>
-                    </tr>
-                  </thead>
                   <tbody>
-                    <tr>
-                      <td class="border border-gray-300 px-2 py-1">Min</td>
-                      <td class="border border-gray-300 px-2 py-1">{{ result.min }}</td>
-                    </tr>
-                    <tr>
-                      <td class="border border-gray-300 px-2 py-1">Mean</td>
-                      <td class="border border-gray-300 px-2 py-1">{{ result.avg }}</td>
-                    </tr>
-                    <tr>
-                      <td class="border border-gray-300 px-2 py-1">Max</td>
-                      <td class="border border-gray-300 px-2 py-1">{{ result.max }}</td>
+                    <tr *ngFor="let result of config.zonalResults;">
+                      <td class="border border-gray-300 px-2 py-1"><strong>{{ result.title }}</strong></td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.pixelval }}</td>
                     </tr>
                   </tbody>
                 </table>
-              </ng-template>
-              
-              
+              </div>
             </div>
           </div>
-
         </div>
       </div>
+
+
+      <ng-template #displayZonal>
+        <div class="zonal-results-list">
+          <div *ngFor="let result of config.zonalResults;" class="result-card">
+            <div class="card-container">
+              <div class="card-header">
+                <div class="icon">
+                  <!-- Insert your icon here -->
+                  <i class="las la-braille"></i>
+                </div>
+                <div class="title-text">{{ result.title }}</div>
+
+
+                <div class="actions">
+                  <!-- Export button -->
+                  <button
+                    *ngIf="!downloadUrl && !isExporting"
+                    (click)="exportImage(result.title, result.assetId, result.band, result.id)"
+                    title="Export"
+                    style="background: none; border: none; cursor: pointer;"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                  </button>
+                
+                  <!-- Loading state -->
+                  <span *ngIf="isExporting">Exporting...</span>
+                
+                  <!-- Download link -->
+                  <a
+                    *ngIf="downloadUrl"
+                    [href]="downloadUrl"
+                    download
+                    target="_blank"
+                    title="Download"
+                    style="color: #333"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                  </a>
+                </div>
+
+                
+              </div>
+              <div class="card-content">
+                  <table class="table-auto border-collapse border border-gray-300 w-full text-sm">
+                    <thead>
+                      <tr class="bg-gray-100">
+                        <th class="border border-gray-300 px-2 py-1 text-left">Statistic</th>
+                        <th class="border border-gray-300 px-2 py-1 text-left">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 px-2 py-1">Min</td>
+                        <td class="border border-gray-300 px-2 py-1">{{ result.min }}</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 px-2 py-1">Mean</td>
+                        <td class="border border-gray-300 px-2 py-1">{{ result.avg }}</td>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-300 px-2 py-1">Max</td>
+                        <td class="border border-gray-300 px-2 py-1">{{ result.max }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      
+      
     </ng-container>
-
-
 
 
     <ng-template #emptyArray>
@@ -217,6 +272,7 @@
 
   .card-content {
     padding: 10px;
+    font-size: 12px;
   }
 
   .icon {

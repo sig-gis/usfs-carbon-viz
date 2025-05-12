@@ -146,7 +146,8 @@ export interface ZonalResult {
     max: number | string;
     avg: number | string;
     pixelval: number | string;
-    downloadUrl: string;
+    assetId: string;
+    band: string;
 }
 
 export interface AppConfig {

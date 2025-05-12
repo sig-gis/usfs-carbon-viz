@@ -1,6 +1,6 @@
 import { Component, Input, NgZone, OnInit, inject, Pipe, Output, EventEmitter } from '@angular/core';
 import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
-import { AppConfig, Analysis, ConfigLayer,ZonalResult } from 'src/app/service/layers.interface';
+import { AppConfig, Analysis, ConfigLayer, ZonalResult } from 'src/app/service/layers.interface';
 import { MapServiceService } from 'src/app/service/map-service/map-service.service';
 import { NumberSuffixPipe } from './numberSuffix.pipe';
 import { AppconfigService } from 'src/app/service/appconfig.service';
@@ -10,6 +10,7 @@ import { EarthEngineService } from 'src/app/service/ee/ee.service';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import * as toGeoJSON from '@tmcw/togeojson';
 import { Geometry } from 'geojson';
+import shp from 'shpjs';
 import { staticConfig } from 'src/app/service/static-config';
 
 @Component({
@@ -50,7 +51,7 @@ export class ModulePajakComponent implements OnInit {
   private readonly uploadSourceId = 'uploaded-geojson';
   private readonly uploadFillLayerId = 'uploaded-fill';
   private readonly uploadLineLayerId = 'uploaded-outline';
-  public zonalResults: { id: string, title: string, description: string, min: number | string, max: number | string, avg: number | string, pixelval: number | string, downloadUrl: string }[] = [];
+  public zonalResults: { id: string, title: string, description: string, min: number | string, max: number | string, avg: number | string, pixelval: number | string, assetId: string, band: string }[] = [];
   drawAreaHa = 0;
   regionGeometry: any;
   selectedGeometry: Geometry | null = null;
@@ -313,16 +314,16 @@ export class ModulePajakComponent implements OnInit {
     }
     return null;
   }
-  
+
   runZonalOrPixelAnalysis(): void {
     const visibleLayers = this.configService.getVisibleLayersWithBands();
     const results: ZonalResult[] = [];
     let completed = 0;
     const total = visibleLayers.length;
-  
+
     let region: any;
     let mode: 'polygon' | 'point';
-  
+
     // Detect geometry type
     if (this.selectedGeometry?.type === 'Point') {
       mode = 'point';
@@ -338,18 +339,17 @@ export class ModulePajakComponent implements OnInit {
       console.warn('Invalid or missing geometry for analysis.');
       return;
     }
-  
+
     visibleLayers.forEach((layer: any) => {
       const assetId = this.getLayerUrlById(this.eeLayers, layer.id);
       if (!assetId) return;
-  
       const band = layer.bands[0];
-  
+
       const service$ =
         mode === 'polygon'
-          ? this.eeService.getZonalStatsWithDownloadUrl(assetId, band, region)
+          ? this.eeService.calculateZonalStatistics(assetId, band, region)
           : this.eeService.getPixelValueAtPoint(assetId, band, region);
-  
+
       service$.subscribe({
         next: (res) => {
           if (mode === 'polygon') {
@@ -362,7 +362,8 @@ export class ModulePajakComponent implements OnInit {
               max: stats['max'] !== null && stats['max'] !== undefined ? Number(stats['max'].toFixed(2)) : 'masked',
               avg: stats['mean'] !== null && stats['mean'] !== undefined ? Number(stats['mean'].toFixed(2)) : 'masked',
               pixelval: 0,
-              downloadUrl: mode === 'polygon' ? res.downloadUrl || '' : ''
+              assetId: assetId,
+              band: band
             });
           } else {
             const val = res?.[band];
@@ -374,7 +375,8 @@ export class ModulePajakComponent implements OnInit {
               max: 0,
               avg: 0,
               pixelval: val !== null && val !== undefined ? Number(val.toFixed(2)) : 'masked',
-              downloadUrl: ''
+              assetId: assetId,
+              band: band
             });
           }
 
@@ -393,7 +395,6 @@ export class ModulePajakComponent implements OnInit {
       });
     });
   }
-  
 
   private removeUploadFeatures(): void {
     if (!this.mapInterface) return;
@@ -411,7 +412,6 @@ export class ModulePajakComponent implements OnInit {
 
   private removeDrawFeatures(): void {
     if (!this.mapInterface || !this.draw) return;
-
     this.draw.deleteAll(); // Clear draw features
   }
 
@@ -444,12 +444,12 @@ export class ModulePajakComponent implements OnInit {
     }, 100);
   }
 
-
   activateDrawMode(): void {
     this.moveSelectedArea();
     this.drawAreaHa = 0;
     this.selectedGeometry = null;
     this.configService.updateSelectedGeometryWithArea(null);
+    this.configService.updateZonalResults(null);
     this.drawModeActive = !this.drawModeActive;
     this.clickedPoint = null;
     if (this.drawModeActive) {
@@ -466,6 +466,7 @@ export class ModulePajakComponent implements OnInit {
     this.drawAreaHa = 0;
     this.selectedGeometry = null;
     this.configService.updateSelectedGeometryWithArea(null);
+    this.configService.updateZonalResults(null);
     this.uploadModeActive = !this.uploadModeActive;
     if (this.uploadModeActive) {
       this.adminModeActive = false;
@@ -482,6 +483,7 @@ export class ModulePajakComponent implements OnInit {
     this.adminModeActive = !this.adminModeActive;
     this.configService.updateSelectedGeometryWithArea(null);
     this.configService.updateAdminModeActive(this.adminModeActive);
+    this.configService.updateZonalResults(null);
     if (this.adminModeActive) {
       this.drawModeActive = false;
       this.uploadModeActive = false;
@@ -494,11 +496,12 @@ export class ModulePajakComponent implements OnInit {
 
   startDraw(mode: 'point' | 'polygon'): void {
     if (!this.draw || !this.mapInterface) return;
+    this.configService.updateZonalResults(null);
     this.drawModeActive = true;
-    if(mode === 'point') {
+    if (mode === 'point') {
       this.drawPointActive = true;
       this.drawPolygonActive = false;
-    } else if(mode === 'polygon') {
+    } else if (mode === 'polygon') {
       this.drawPointActive = false;
       this.drawPolygonActive = true;
       this.clickedPoint = null;
@@ -529,19 +532,26 @@ export class ModulePajakComponent implements OnInit {
     this.removeUploadFeatures();
     this.removeDrawFeatures();
     this.configService.updateSelectedGeometryWithArea(null);
+    this.configService.updateZonalResults(null);
   }
+
 
   onFileUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.uploadedFileName = input.files[0].name;
-    } else {
-      this.uploadedFileName = null;
-    }
     const file = input.files?.[0];
 
     if (!file) return;
 
+    this.uploadedFileName = file.name;
+
+    // Handle ZIP (assumed to contain Shapefile)
+    if (file.name.endsWith('.zip')) {
+      this.handleShapefileUpload(file);
+      return;
+    }
+
+
+    // Fallback for KML / GeoJSON
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const content = e.target?.result as string;
@@ -554,11 +564,35 @@ export class ModulePajakComponent implements OnInit {
         const geojson = JSON.parse(content);
         this.processGeoJSON(geojson);
       } else {
-        alert('Unsupported file type. Please upload a .kml or .geojson file.');
+        alert('Unsupported file type.');
       }
     };
-
     reader.readAsText(file);
+  }
+
+  async handleShapefileUpload(file: File): Promise<void> {
+    try {
+      // Check if it's a ZIP file
+      if (!file.name.endsWith('.zip')) {
+        throw new Error('Shapefile must be uploaded as a ZIP archive containing .shp, .dbf, etc.');
+      }
+
+      const buffer = await this.readFileAsArrayBuffer(file);
+      const geojson = await shp(buffer); // shpjs can handle ZIP files directly
+      this.processGeoJSON(geojson);
+    } catch (error) {
+      console.error('Error processing Shapefile:', error);
+      alert(`Error processing Shapefile: ${error}`);
+    }
+  }
+
+  readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as ArrayBuffer);
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
   }
 
   processGeoJSON(geojson: any): void {
@@ -625,27 +659,26 @@ export class ModulePajakComponent implements OnInit {
       console.warn('No geometry selected');
       return;
     }
-  
+
     const feature = {
       type: 'Feature',
       geometry: this.selectedGeometry,
       properties: {}  // add properties if needed
     };
-  
+
     const geojson = {
       type: 'FeatureCollection',
       features: [feature]
     };
-  
+
     const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' });
     const url = URL.createObjectURL(blob);
-  
+
     const a = document.createElement('a');
     a.href = url;
     a.download = 'usfs-selected-geometry.geojson';
     a.click();
-  
+
     URL.revokeObjectURL(url);
   }
-  
 }

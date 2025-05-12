@@ -1,0 +1,143 @@
+<div class="export-task-panel" *ngIf="tasks.length > 0">
+    <div class="card-container">
+        <div class="card-header">
+            <div class="icon">
+                <i class="las la-braille"></i>
+            </div>
+            <div class="title-text">Export Tasks</div>
+
+        </div>
+        <div class="card-content">
+            <div class="export-task-list" *ngIf="tasks.length > 0">
+                <div class="task-row" *ngFor="let task of tasks">
+                    <div class="task-title">
+                      {{ task.title }} ({{ task.band }})
+                    </div>
+                    <div class="task-status" [ngSwitch]="task.status">
+                      <i *ngSwitchCase="'pending'">Exporting...</i>
+                      <button *ngSwitchCase="'ready'" (click)="handleDownload(task)" class="btn">⬇️</button>
+                      <span *ngSwitchCase="'deleted'" style="color: green;">✅</span>
+                      <span *ngSwitchCase="'error'" style="color: red;">❌</span>
+                    </div>
+                    <div class="task-actions" *ngIf="task.status !== 'ready' && task.status !== 'deleted'">
+                      <button (click)="handleCancel(task)" class="btn cancel-button">Cancel</button>
+                    </div>
+                  </div>
+                  
+       
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn {
+        font-size: 12px;
+        border: 1px solid #ccc;
+        padding: 1px 3px;
+    }
+
+    .export-task-list {
+        border: 1px dashed #ccc;
+        border-collapse: collapse;
+        font-size: 14px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .task-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 12px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .task-row:last-child {
+        border-bottom: none;
+    }
+
+    .task-title {
+        flex: 1;
+        font-size: 12px;
+    }
+
+    .task-status {
+        width: 80px;
+        text-align: right;
+        font-size: 10px;
+    }
+
+    .rotating-hourglass {
+        display: inline-block;
+        animation: rotate 1s linear infinite;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .text-sm {
+        font-size: 12px;
+    }
+
+    .title-text {
+        width: 155px;
+        flex: 1 1 auto;
+        margin: 0 10px;
+    }
+
+    .card-container {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-height: 340px;
+    }
+
+    .card-content {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .icon {
+        flex: 0 0 auto;
+    }
+
+
+    .zonal-results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .actions {
+        flex: 0 0 auto;
+    }
+
+    .result-card {
+        padding: 2px 10px;
+        font-size: 14px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+    }
+</style>

@@ -465,23 +465,22 @@ export class AppconfigService {
     const result: { id: string, url: string, bands?: string[], title: string, description: string }[] = [];
     const currentConfig = this.config$.value;
 
-    function processLayer(layer: ConfigLayer, parentVisible = true) {
-      // Only process if parent group is visible
+    function processLayer(layer: ConfigLayer, parentVisible = true, parentTitle?: string) {
       if (!parentVisible) return;
-
+  
       if (layer.visible && layer.type !== 'layerGroup') {
         result.push({
           id: layer.id,
           url: layer.url?.[0] ?? '',
           bands: layer.eeVisParams?.bands,
-          title: layer.title,
+          title: parentTitle ? `${parentTitle} - ${layer.title}` : layer.title,
           description: layer.description
         });
       }
+  
       if (layer.type === 'layerGroup' && Array.isArray(layer.groupLayers)) {
-        // Only process groupLayers if this group is visible
         if (layer.visible) {
-          layer.groupLayers.forEach(child => processLayer(child, true));
+          layer.groupLayers.forEach(child => processLayer(child, true, layer.title));
         }
       }
     }

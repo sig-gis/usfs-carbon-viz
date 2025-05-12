@@ -4,6 +4,8 @@ import { AuthService } from '../../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 import { AppConfig } from 'src/app/service/layers.interface';
+import { ExportTaskService } from '../export-task/export-task.service'; // adjust path if needed
+
 @Component({
   selector: 'app-map-menu',
   templateUrl: './map-menu.component.html',
@@ -34,6 +36,7 @@ export class MapMenuComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    public exportTaskService: ExportTaskService
   ) { }
 
   ngOnInit() {

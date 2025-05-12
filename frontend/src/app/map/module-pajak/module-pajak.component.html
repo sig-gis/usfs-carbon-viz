@@ -119,7 +119,7 @@
 <div *ngIf="uploadModeActive" class="button-container mt-3">
   <div
     class="border border-2 border-primary border-dashed rounded p-2 bg-light mx-auto d-flex flex-column align-items-center justify-content-center"
-    style="max-width: 600px; min-height: 250px;">
+    style="max-width: 600px; min-height: 220px;">
     <div class="mb-3">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="80px">
         <path
@@ -127,7 +127,8 @@
           fill="#757575" />
       </svg>
     </div>
-    <p class="text-muted mb-4 text-center text-14">Except the file input to only accept .kml and .geojson file</p>
+    <div class="text-muted text-center text-14">Except the file input to only accept .zip, .kml and .geojson file</div>
+    <div class="text-muted mb-4 text-center text-10">To read shapefile. Make sure it is a valid .zip containing .shp, .dbf, .shx.</div>
     <div class="d-inline-block">
       <label for="geometryFile" class="btn btn-outline-primary text-14">
         Upload
@@ -137,7 +138,7 @@
             d="M1.646 5.646a.5.5 0 0 1 .708 0L8 11.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
         </svg>
       </label>
-      <input type="file" id="geometryFile" (change)="onFileUpload($event)" accept=".kml,.geojson,.json" class="d-none">
+      <input type="file" id="geometryFile" (change)="onFileUpload($event)" accept=".kml,.geojson,.json,.zip" class="d-none">
     </div>
   </div>
 </div>

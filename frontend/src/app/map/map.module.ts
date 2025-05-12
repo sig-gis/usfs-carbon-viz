@@ -29,8 +29,8 @@ import { VectorLayerComponent } from './layers/vector-layer.component';
 import { ModuleNavigasiComponent } from './module-navigasi/module-navigasi.component';
 import { LayerGroupComponent } from './layers/layer-group.component';
 import { MapAttributionComponent } from './map-attribution/map-attribution.component';
-// import { ModuleDefaultComponent } from './module-default/module-default.component';
-// import { AnalisisDefaultComponent } from './module-default/analisis-default/analisis-default.component';
+import { ExportTaskPanelComponent } from './export-task/export-task-panel.component';
+import { ConfirmExitModalComponent } from './confirm-exit-modal/confirm-exit-modal.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,9 @@ import { MapAttributionComponent } from './map-attribution/map-attribution.compo
     AnalisisPerizinanComponent,
     MapContextComponent,
     ModuleNavigasiComponent,
-    MapAttributionComponent
+    MapAttributionComponent,
+    ExportTaskPanelComponent,
+    ConfirmExitModalComponent
   ],
   imports: [
     CommonModule,
@@ -65,8 +67,7 @@ import { MapAttributionComponent } from './map-attribution/map-attribution.compo
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    DragDropModule,
-    //MapComponent
+    DragDropModule
   ]
 })
-export class MapModule { }
+export class MapModule {}

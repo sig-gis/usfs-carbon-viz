@@ -4,6 +4,10 @@ import { BasemapControlComponent } from '../basemap-control/basemap-control.comp
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AppconfigService } from 'src/app/service/appconfig.service';
 import { Map } from 'maplibre-gl';
+import type { Point, Position } from 'geojson';
+import { HttpClient } from '@angular/common/http';
+import { ExportTaskService } from '../export-task/export-task.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-map-context',
@@ -34,8 +38,15 @@ export class MapContextComponent implements OnInit, OnChanges {
   accordionState = false;
   currentMapStyle: string = 'Rupabumi';
 
-  constructor(@Inject(BasemapControlComponent) private baseMapControlComponent: BasemapControlComponent) { }
+  isExporting = false;
+  downloadUrl: string | null = null;
 
+  constructor(
+    @Inject(BasemapControlComponent) private baseMapControlComponent: BasemapControlComponent,
+    private http: HttpClient,
+    public exportTaskService: ExportTaskService
+  ) { }
+  
   ngOnInit() {
     if (this.config.mapInterface?.map) {
       this.setupLayers();
@@ -299,5 +310,56 @@ export class MapContextComponent implements OnInit, OnChanges {
     this.baseMapControlComponent.changeMap(this.currentMapStyle);
   }
 
+  getSelectedPointCoordinates(): Position | null {
+    if (this.config?.selectedGeometry?.type === 'Point') {
+      return (this.config.selectedGeometry as Point).coordinates;
+    }
+    return null;
+  }
+
+  exportImage(layerTitle: string, assetId: string, band: string, layerId: string) {
+    // const region = this.config?.selectedGeometry?.coordinates;
+    const defaultRegion = [[[
+      -121.0, 43.5
+    ], [
+      -121.0, 44.5
+    ], [
+      -120.0, 44.5
+    ], [
+      -120.0, 43.5
+    ], [
+      -121.0, 43.5
+      ]]];
+    
+    const region = this.config?.selectedGeometry?.type === 'Polygon'
+    ? this.config.selectedGeometry.coordinates
+    : defaultRegion;
+    
+    const payload = {
+      assetId: assetId,
+      band: band,
+      region: region,
+      layerId: layerId,
+    };
+    this.http.post<any>(`${environment.gee_backend_baseurl}/export-to-gcs/`, payload).subscribe(res => {
+      const fileId = res.fileId;
+      this.exportTaskService.addTask({ fileId, band, title: layerTitle, status: 'pending' , taskId: res.taskId});
+  
+      const poll = setInterval(() => {
+        this.http.get<any>(`${environment.gee_backend_baseurl}/export-status/${fileId}`).subscribe(status => {
+          if (status.ready) {
+            clearInterval(poll);
+            this.exportTaskService.updateTask(fileId, {
+              status: 'ready',
+              downloadUrl: status.files[0].url
+            });
+          }
+        }, error => {
+          clearInterval(poll);
+          this.exportTaskService.updateTask(fileId, { status: 'error' });
+        });
+      }, 10000);
+    });
+  }
 
 }
