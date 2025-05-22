@@ -14,10 +14,6 @@ import { environment } from 'src/environments/environment';
     <ng-container *ngIf="(config$ | async) as config">
       <app-map-menu [config]="config"></app-map-menu>
       <app-map-view [config]="config"></app-map-view>
-      <app-confirm-exit-modal
-        *ngIf="showExitModal"
-        (decision)="handleExitDecision($event)">
-      </app-confirm-exit-modal>
     </ng-container>
   `,
   styles: []
@@ -26,7 +22,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public config$: Observable<AppConfig> = new Observable<AppConfig>();
   configService = inject(AppconfigService);
-  showExitModal = false;
+  // showExitModal = false;
   pendingTasks: ExportTask[] = [];
   visibilityTriggered = false;
 
@@ -65,7 +61,7 @@ export class MapComponent implements OnInit, OnDestroy {
       const tasks = this.exportTaskService.getCurrentTasks();
       if (tasks.length > 0) {
         this.pendingTasks = tasks;
-        this.showExitModal = true;
+        // this.showExitModal = true;
         this.visibilityTriggered = true;
       }
     }
@@ -91,10 +87,10 @@ export class MapComponent implements OnInit, OnDestroy {
         this.http.get(`${environment.gee_backend_baseurl}/export-cancel/${task.taskId}`, {}).subscribe();
       });
       this.exportTaskService.clearTasks();
-      this.showExitModal = false;
+      // this.showExitModal = false;
       this.visibilityTriggered = false;
     } else {
-      this.showExitModal = false;
+      // this.showExitModal = false;
       this.visibilityTriggered = false;
     }
   }
