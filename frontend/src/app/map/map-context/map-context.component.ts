@@ -105,6 +105,11 @@ export class MapContextComponent implements OnInit, OnChanges {
     // Find the index of the first layer with placed_before === 'building'
     const buildingIndex = this.config.layers.findIndex(layer => layer.placed_before === 'building');
 
+    // If not found, return all layers in `above`, none in `under`
+  if (buildingIndex === -1) {
+    return { above: this.config.layers, under: [] };
+  }
+
     // Split the array based on the found index
     const above = this.config.layers.slice(0, buildingIndex);
     const under = this.config.layers.slice(buildingIndex);

@@ -96,7 +96,6 @@ export class ModulePajakComponent implements OnInit {
             const [lng, lat] = geometry.coordinates;
             this.clickedPoint = { lng, lat }; // Add this.clickedPoint as a property in your class
             this.configService.updateSelectedGeometryWithArea(geometry);
-            console.log('Clicked Point:', this.clickedPoint);
           } else if (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon') {
             this.configService.updateSelectedGeometryWithArea(geometry);
           }

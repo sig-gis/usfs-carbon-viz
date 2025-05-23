@@ -38,9 +38,9 @@ export class MapComponent implements OnInit, OnDestroy {
     this.eeService.authenticate().subscribe({
       next: () => {
         this.config$ = this.configService.getConfig(map_code ?? 'tata_ruang');
-        this.config$.subscribe(config => {
-          console.log(config);
-        });
+        // this.config$.subscribe(config => {
+        //   console.log(config);
+        // });
       },
       error: err => {
         console.error('Earth Engine authentication failed:', err);

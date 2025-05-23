@@ -24,9 +24,9 @@ export class AdminFormContainerComponent implements OnInit {
     this.config$ = this.configService.getConfig();
 
     //FOR DEBUGING PURPOSE MONITOR DATA STATE
-    this.config$.subscribe((config) => {
-      console.log(config);
-    })
+    // this.config$.subscribe((config) => {
+    //   console.log(config);
+    // })
   }
 
   ngAfterViewInit() {

@@ -108,7 +108,6 @@ export class AdminFormComponent implements OnInit {
   }
 
   editLayer(obj:any): void{
-    console.log(obj,"edit");
     this.isEdit = true;
     this.isAdd = false;
     this.url = obj.image;
@@ -150,7 +149,6 @@ export class AdminFormComponent implements OnInit {
       error: responseError => {
         // this.loadingService.hide();
         console.log('Error SERVER response.');
-        console.log(responseError);
       }
     })
     );
@@ -163,7 +161,6 @@ export class AdminFormComponent implements OnInit {
     this.subSubscribes.add(
       this.adminService.getMapAppLayerlist(this.searchValue, this.offset, 9, this.orderby, this.ordertype, uuid).subscribe({
         next: (responseData: any) => {
-          console.log(responseData, "data");
           // this.total = responseData.record.total;
           this.mapCatalogueLoaded = true;
           this.layerList = responseData.record.data;
@@ -208,10 +205,6 @@ export class AdminFormComponent implements OnInit {
 			this.msg = "";
 			this.url = reader.result; 
 		}
-
-    console.log(event.target.files[0],"reader");
-
-
 	}
 
   saveForm(): void{

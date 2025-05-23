@@ -1179,7 +1179,7 @@ export const staticConfig: AppConfig = {
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
-            placed_before: "rangeland_expected_annual",
+            placed_before: "rangeland_total_carbon_remaining",
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
@@ -1187,7 +1187,7 @@ export const staticConfig: AppConfig = {
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
-
+        
         // ...other layers...
     ], 
     adminModeActive: false,

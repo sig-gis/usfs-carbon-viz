@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
       // remember: this.authentificationForm.get('remember').value,
     }).subscribe({
       next: responseData => {
-        console.log(responseData);
         if (responseData.token !== undefined) {
  
             this.authService.setToken(responseData.token);
@@ -67,7 +66,6 @@ export class LoginComponent implements OnInit {
         }
       },
       error: responseError => {
-        console.log('Error SERVER response.');
         console.warn(responseError);
         // this.globaltoastService.sendMessage('Error SERVER response.', 'danger');
       }

@@ -40,7 +40,7 @@ export class WmsLayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("WMS Layers Init " + this.layer.title);
+    // console.log("WMS Layers Init " + this.layer.title);
     this.title = this.layer.title;
     this.id = this.layer.id;
     this.vis = this.layer.visible ? "visible" : "none";

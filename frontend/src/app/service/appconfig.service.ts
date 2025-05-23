@@ -195,6 +195,7 @@ export class AppconfigService {
         }
       }
 
+      
       if (layer.id === layerId) {
         const newPlacedBefore = this.calculatePlacedBefore(layer, array, index);
         return {

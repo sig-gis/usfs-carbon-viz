@@ -31,14 +31,14 @@ export class EarthEngineService {
           throw new Error('Invalid response: missing token or user');
         }
 
-        console.log('[EarthEngineService] Token received:', token);
+        // console.log('[EarthEngineService] Token received:', token);
 
-        console.log('[EarthEngineService] Token received:', token.substring(0, 50) + '...');
-        console.log('[EarthEngineService] User info:', user);
+        // console.log('[EarthEngineService] Token received:', token.substring(0, 50) + '...');
+        // console.log('[EarthEngineService] User info:', user);
 
         return from(new Promise<boolean>((resolve, reject) => {
           try {
-            console.log('[EarthEngineService] Setting auth token...');
+            // console.log('[EarthEngineService] Setting auth token...');
 
             ee.data.setAuthToken(
               null,  // client ID not needed for bearer token
@@ -47,23 +47,23 @@ export class EarthEngineService {
               '3600',
               [],
               () => {
-                console.log('[EarthEngineService] Auth token set successfully');
+                // console.log('[EarthEngineService] Auth token set successfully');
                 // Verify the token was set
                 const authToken = ee.data.getAuthToken();
-                console.log('[EarthEngineService] Current auth token:', authToken);
+                // console.log('[EarthEngineService] Current auth token:', authToken);
                 // console.log('[EarthEngineService] Current auth token:', authToken ? 'present' : 'missing');
                 // console.log('[EarthEngineService] Current auth token:', authToken);
 
-                console.log('[EarthEngineService] Starting EE initialization...');
+                // console.log('[EarthEngineService] Starting EE initialization...');
                 ee.initialize(
                   'https://earthengine.googleapis.com',
                   'https://earthengine.googleapis.com',
                   () => {
-                    console.log('[EarthEngineService] EE initialized successfully');
+                    // console.log('[EarthEngineService] EE initialized successfully');
                     resolve(true);
                   },
                   (error: any) => {
-                    console.error('[EarthEngineService] EE initialization error:', error);
+                    // console.error('[EarthEngineService] EE initialization error:', error);
                     reject(error);
                   }
                 );

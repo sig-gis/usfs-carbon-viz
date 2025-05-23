@@ -88,7 +88,6 @@ export class AdminDashboardComponent implements OnInit {
         },
         error: responseError => {
           // this.loadingService.hide();
-          console.log('Error SERVER response.');
           console.log(responseError);
         }
       })
