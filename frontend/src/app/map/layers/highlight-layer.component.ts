@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FeatureCollection } from 'geojson';
-import { ConfigLayer } from 'src/app/service/layers.interface';
+import { ConfigLayer, AppConfig } from 'src/app/service/layers.interface';
 import { AppconfigService } from 'src/app/service/appconfig.service';
-
+import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
 @Component({
   selector: 'app-highlight-layer',
   template: `
@@ -79,6 +79,8 @@ import { AppconfigService } from 'src/app/service/appconfig.service';
 export class HighlightLayerComponent implements OnInit, OnChanges {
   @Input() highlightLayer!: ConfigLayer;
   @Input() adminModeActive: boolean = false;
+  // @Input() mapInstance!: Map;
+  @Input() config!: AppConfig;
 
   title!: string;
   id!: string;
@@ -90,7 +92,6 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   lineJoin?: 'round' | 'bevel' | 'miter';
   lineCap?: 'round' | 'butt' | 'square';
   before?: string;
-
   popupCoords: [number, number] | null = null;
   popupFeature: any = null;
   selectedFeature: FeatureCollection | null = null;
@@ -131,6 +132,26 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   logGeometry() {
     if (this.popupFeature?.geometry) {
       this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
+
+      // Zoom to geometry
+      const bounds = new LngLatBounds();
+      const coords = this.popupFeature.geometry.coordinates.flat(Infinity);
+      for (let i = 0; i < coords.length; i += 2) {
+        bounds.extend([coords[i], coords[i + 1]]);
+      }
+
+      if (this.config?.mapInterface?.map) {
+        const map = this.config.mapInterface.map; // Now safe to use
+        const mapWidth = map.getCanvas().width;
+        const padding = 300;
+        const offset: [number, number] = [mapWidth * 0.05, 0]; // 25% of the map width to the right
+        
+        map.fitBounds(bounds, {
+          padding: padding,
+          offset: offset
+        });
+      }  
+      
       // Close the popup after selecting geometry
       this.popupCoords = null;
     } else {

@@ -18,7 +18,8 @@ import { AppConfig } from 'src/app/service/layers.interface';
         <ng-container *ngIf="config.highlight && config.highlight.length > 0">
             <app-highlight-layer
               *ngFor="let highlightLayer of config.highlight" [highlightLayer] = "highlightLayer"
-              [adminModeActive]="config.adminModeActive" 
+              [adminModeActive]="config.adminModeActive"
+              [config]="config"
             ></app-highlight-layer>
         </ng-container>
 

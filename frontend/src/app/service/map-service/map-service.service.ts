@@ -149,6 +149,9 @@ export class MapServiceService {
     }
   }
 
+
+  
+
   extendBoundsWithOffset(bounds: LngLatBounds, mapWidth: number, offsetX: number): LngLatBounds {
     const offsetLng = (bounds.getEast() - bounds.getWest()) * (offsetX / mapWidth);
     return new LngLatBounds(

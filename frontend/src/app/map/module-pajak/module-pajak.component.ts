@@ -61,6 +61,7 @@ export class ModulePajakComponent implements OnInit {
   drawPointActive = false;
   drawPolygonActive = false;
   analysisButtonActive = true;
+  IsRunning = false;
   clickedPoint: { lng: number; lat: number } | null = null;
   uploadedFileName: string | null = null;
 
@@ -98,6 +99,10 @@ export class ModulePajakComponent implements OnInit {
             this.configService.updateSelectedGeometryWithArea(geometry);
           } else if (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon') {
             this.configService.updateSelectedGeometryWithArea(geometry);
+            // Compute bounds from the polygon
+            if (this.mapInterface) {
+              this.gisService.zoomtogeojson(feature, this.mapInterface);
+            }
           }
         }
         this.drawPointActive = false;
@@ -152,6 +157,7 @@ export class ModulePajakComponent implements OnInit {
   handleFormSubmit() {
     // this.getbynop(this.nopValue);
     this.runZonalOrPixelAnalysis();
+    this.IsRunning = true;
   }
 
   getbynop(nop: string) {
@@ -382,6 +388,10 @@ export class ModulePajakComponent implements OnInit {
           completed++;
           if (completed === total) {
             this.configService.updateZonalResults(results);
+
+            this.IsRunning = false;
+            // active the analysis legend tab
+            this.changeCurrentLegend('Analisis');
           }
         },
         error: (err) => {

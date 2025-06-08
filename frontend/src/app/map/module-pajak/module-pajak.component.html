@@ -209,9 +209,23 @@
           <i class="las la-times-circle pointer" (click)="removeSelectedGeometry()" title="Remove Layer"></i>
         </div>
       </div>
+
     </ng-template>
 
   </div>
+</div>
+
+<div *ngIf="selectedGeometryAreaHa !== null && selectedGeometryAreaHa > 40000000" class="text-muted text-12 mt-1">
+  <p>
+    The selected area is quite large, which may lead to longer processing times or slower results.
+    Consider reducing the area if faster analysis is needed.
+  </p>
+</div>
+
+<div *ngIf="selectedGeometryAreaHa !== null && selectedGeometryAreaHa > 0 && selectedGeometryAreaHa < 50" class="text-muted text-12 mt-1">
+  <p>
+    The selected area is very small. Are you sure you want to proceed with the analysis?
+  </p>
 </div>
 
 <hr>
@@ -222,6 +236,11 @@
       Start Analysis
     </button>
   </div>
+  
+  <div *ngIf="IsRunning" class="">
+    <p class="text-muted text-center text-14">Running zonal statistics...</p>
+  </div>
+  
 </div>
 
 <style>
@@ -327,7 +346,7 @@
     display: flex;
     justify-content: center;
     /* Horizontally center the button */
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     /* Provide some space at the bottom */
   }
 

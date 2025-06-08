@@ -4,7 +4,7 @@ import { AppConfig, ConfigLayer, MapConfig, Analysis, ZonalResult } from './laye
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Map } from 'maplibre-gl';
+import { Map, LngLatBounds } from 'maplibre-gl';
 import { EarthEngineService } from './ee/ee.service';
 import { map } from 'rxjs/operators';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
