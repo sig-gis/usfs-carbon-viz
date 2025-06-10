@@ -22,7 +22,7 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
     ></mgl-layer>
 
     <mgl-layer
-      *ngIf="adminModeActive"
+      *ngIf="adminModeActive && selectedAdminLevel === 'state'"
       [id]="id + '-clickable'"
       type="fill"
       [source]="id"
@@ -35,13 +35,13 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
     ></mgl-layer>
 
     <mgl-geojson-source
-      *ngIf="selectedFeature"
+      *ngIf="selectedFeature && selectedAdminLevel === 'state'"
       id="selected-feature-source"
       [data]="selectedFeature"
     ></mgl-geojson-source>
 
     <mgl-layer
-      *ngIf="selectedFeature"
+      *ngIf="selectedFeature && selectedAdminLevel === 'state'"
       id="selected-feature-layer"
       type="fill"
       source="selected-feature-source"
@@ -52,7 +52,7 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
     ></mgl-layer>
 
     <mgl-layer
-      *ngIf="selectedFeature"
+      *ngIf="selectedFeature && selectedAdminLevel === 'state'"
       id="selected-feature-outline"
       type="line"
       source="selected-feature-source"
@@ -81,6 +81,7 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   @Input() adminModeActive: boolean = false;
   // @Input() mapInstance!: Map;
   @Input() config!: AppConfig;
+  @Input() selectedAdminLevel: string | null = null;
 
   title!: string;
   id!: string;
@@ -96,7 +97,7 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   popupFeature: any = null;
   selectedFeature: FeatureCollection | null = null;
 
-  constructor(private configService: AppconfigService) {}
+  constructor(private configService: AppconfigService) { }
 
   ngOnInit(): void {
     this.title = this.highlightLayer.title;
@@ -145,13 +146,13 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
         const mapWidth = map.getCanvas().width;
         const padding = 300;
         const offset: [number, number] = [mapWidth * 0.05, 0]; // 25% of the map width to the right
-        
+
         map.fitBounds(bounds, {
           padding: padding,
           offset: offset
         });
-      }  
-      
+      }
+
       // Close the popup after selecting geometry
       this.popupCoords = null;
     } else {

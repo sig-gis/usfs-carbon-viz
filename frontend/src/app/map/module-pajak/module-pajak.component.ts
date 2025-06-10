@@ -60,6 +60,8 @@ export class ModulePajakComponent implements OnInit {
   uploadModeActive = false;
   drawPointActive = false;
   drawPolygonActive = false;
+  adminCountryActive = false;
+  adminStateActive = false;
   analysisButtonActive = true;
   IsRunning = false;
   clickedPoint: { lng: number; lat: number } | null = null;
@@ -689,5 +691,22 @@ export class ModulePajakComponent implements OnInit {
     a.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  updateSelectedAdminLevel(lvl: 'country' | 'state'): void {
+    if (!this.draw || !this.mapInterface) return;
+    if (lvl === 'country') {
+      this.selectedGeometry = null;
+      this.configService.updateSelectedGeometryWithArea(null);
+      this.adminCountryActive = true;
+      this.adminStateActive = false;
+      this.configService.updateSelectedAdminLevel('country');
+    } else if (lvl === 'state') {
+      this.selectedGeometry = null;
+      this.configService.updateSelectedGeometryWithArea(null);
+      this.adminStateActive = true;
+      this.adminCountryActive = false;
+      this.configService.updateSelectedAdminLevel('state');
+    }
   }
 }

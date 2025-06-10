@@ -165,4 +165,5 @@ export interface AppConfig {
     selectedGeometryAreaHa?: number | null;
     adminModeActive: boolean;
     zonalResults?: ZonalResult[];
+    selectedAdminLevel?: string | null;
 }

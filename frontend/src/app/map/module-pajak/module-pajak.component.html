@@ -145,8 +145,16 @@
 
 <!-- Show admin boundary dropdown -->
 <div *ngIf="adminModeActive" class="mt-3 text-center text-14">
-  <p>Click on the map to select an admin boundary</p>
+  <p class="text-muted text-center text-14">Click on the map to select an admin boundary</p>
+  <div class="button-container">
+    <button class="btn" [ngClass]="adminCountryActive ? 'btn-success' : 'btn-secondary'"
+      (click)="updateSelectedAdminLevel('country')">County-Level</button>
+    <button class="btn" [ngClass]="adminStateActive ? 'btn-success' : 'btn-secondary'"
+      (click)="updateSelectedAdminLevel('state')">State-Level</button>
+  </div>
+
 </div>
+
 <br />
 
 <!-- Show selected geometry area -->

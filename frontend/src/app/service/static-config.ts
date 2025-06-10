@@ -497,7 +497,7 @@ export const staticConfig: AppConfig = {
             activeLayerId: "carbon_emissions_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Expected Carbon Emissions 2014',
+                title: 'Total Carbon Emissions 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -521,7 +521,7 @@ export const staticConfig: AppConfig = {
             opacity: 0.9,
             legend: {
                 type: 'continuous',
-                title: 'Total Carbon Emissions 2014',
+                title: 'Expected Carbon Emissions 2014 ',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -656,7 +656,7 @@ export const staticConfig: AppConfig = {
             activeLayerId: "carbon_remaining_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Expected Carbon Remaining 2014',
+                title: 'Total Carbon Remaining 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -679,7 +679,7 @@ export const staticConfig: AppConfig = {
             placed_before: "carbon_remaining_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Total Carbon Remaining 2014',
+                title: 'Expected Carbon Remaining 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,

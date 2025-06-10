@@ -31,6 +31,7 @@ import { LayerGroupComponent } from './layers/layer-group.component';
 import { MapAttributionComponent } from './map-attribution/map-attribution.component';
 import { ExportTaskPanelComponent } from './export-task/export-task-panel.component';
 import { ConfirmExitModalComponent } from './confirm-exit-modal/confirm-exit-modal.component';
+import { USBoundaryLayerComponent } from './layers/us-boundary-layer.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ConfirmExitModalComponent } from './confirm-exit-modal/confirm-exit-mod
     ModuleNavigasiComponent,
     MapAttributionComponent,
     ExportTaskPanelComponent,
-    ConfirmExitModalComponent
+    ConfirmExitModalComponent,
+    USBoundaryLayerComponent
   ],
   imports: [
     CommonModule,

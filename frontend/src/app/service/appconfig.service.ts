@@ -553,6 +553,17 @@ export class AppconfigService {
   
     this.config$.next(updatedConfig);
   }
+
+  public updateSelectedAdminLevel(value: string | null): void {
+    const currentConfig = this.config$.value;
+
+    const updatedConfig: AppConfig = {
+      ...currentConfig,
+      selectedAdminLevel: value ?? null
+    };
+
+    this.config$.next(updatedConfig);
+  }
   
 }
 

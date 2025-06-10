@@ -20,8 +20,15 @@ import { AppConfig } from 'src/app/service/layers.interface';
               *ngFor="let highlightLayer of config.highlight" [highlightLayer] = "highlightLayer"
               [adminModeActive]="config.adminModeActive"
               [config]="config"
+              [selectedAdminLevel]="config.selectedAdminLevel ?? null"
             ></app-highlight-layer>
         </ng-container>
+
+        <app-us-boundary-layer
+              [adminModeActive]="config.adminModeActive"
+              [config]="config"
+              [selectedAdminLevel]="config.selectedAdminLevel ?? null"
+        ></app-us-boundary-layer>
 
         <ng-container *ngFor="let layer of config.layers">
           <ng-container [ngSwitch]="layer.type">
