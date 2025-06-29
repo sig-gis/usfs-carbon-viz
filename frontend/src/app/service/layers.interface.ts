@@ -145,6 +145,8 @@ export interface ZonalResult {
     min: number | string;
     max: number | string;
     avg: number | string;
+    sum: number | string;
+    unit: string;
     pixelval: number | string;
     assetId: string;
     band: string;

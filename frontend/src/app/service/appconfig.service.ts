@@ -195,7 +195,7 @@ export class AppconfigService {
         }
       }
 
-      
+
       if (layer.id === layerId) {
         const newPlacedBefore = this.calculatePlacedBefore(layer, array, index);
         return {
@@ -462,32 +462,62 @@ export class AppconfigService {
   }
 
   // Helper function to recursively collect visible layers (not groups)
-  getVisibleLayersWithBands(): { id: string, url: string, bands?: string[], title: string, description: string }[] {
-    const result: { id: string, url: string, bands?: string[], title: string, description: string }[] = [];
+  getVisibleLayersWithBands(): {
+    id: string;
+    url: string;
+    bands?: string[];
+    title: string;
+    description: string;
+    unit: string;
+  }[] {
+    const result: {
+      id: string;
+      url: string;
+      bands?: string[];
+      title: string;
+      description: string;
+      unit: string;
+    }[] = [];
+
     const currentConfig = this.config$.value;
 
-    function processLayer(layer: ConfigLayer, parentVisible = true, parentTitle?: string) {
+    function processLayer(
+      layer: ConfigLayer,
+      parentVisible = true,
+      parentTitle = '',
+      parentUnit = ''
+    ): void {
       if (!parentVisible) return;
-  
-      if (layer.visible && layer.type !== 'layerGroup') {
+
+      const isLayerGroup = layer.type === 'layerGroup';
+      const isVisibleLayer = layer.visible && !isLayerGroup;
+
+      const layerUnit = layer.legend?.unit ?? parentUnit;
+
+      if (isVisibleLayer) {
+
         result.push({
           id: layer.id,
           url: layer.url?.[0] ?? '',
           bands: layer.eeVisParams?.bands,
           title: parentTitle ? `${parentTitle} - ${layer.title}` : layer.title,
-          description: layer.description
+          description: layer.description ?? '',
+          unit: layerUnit
         });
       }
-  
-      if (layer.type === 'layerGroup' && Array.isArray(layer.groupLayers)) {
-        if (layer.visible) {
-          layer.groupLayers.forEach(child => processLayer(child, true, layer.title));
-        }
+
+      if (isLayerGroup && Array.isArray(layer.groupLayers) && layer.visible) {
+        const groupUnit = layer.legend?.unit ?? parentUnit;
+        const groupTitle = parentTitle ? `${parentTitle} - ${layer.title}` : layer.title;
+
+        layer.groupLayers.forEach(child =>
+          processLayer(child, true, groupTitle, groupUnit)
+        );
       }
     }
 
     if (Array.isArray(currentConfig.layers)) {
-      currentConfig.layers.forEach(layer => processLayer(layer, true));
+      currentConfig.layers.forEach(layer => processLayer(layer));
     }
 
     return result;
@@ -517,7 +547,7 @@ export class AppconfigService {
 
   public updateSelectedGeometryWithArea(geometry: Geometry | null): void {
     const currentConfig = this.config$.value;
-  
+
     let areaHa = 0;
     if (geometry && (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon')) {
       const geojsonFeature: Feature = {
@@ -530,19 +560,19 @@ export class AppconfigService {
     } else if (geometry && (geometry.type === 'Point' || geometry.type === 'LineString')) {
       areaHa = 0;
     }
-  
+
     const updatedConfig: AppConfig = {
       ...currentConfig,
       selectedGeometry: geometry,
       selectedGeometryAreaHa: geometry ? Number(areaHa.toFixed(2)) : null
     };
-  
+
     this.config$.next(updatedConfig);
   }
 
   public updateZonalResults(results: ZonalResult[] | null): void {
     const currentConfig = this.config$.value;
-  
+
     if (!results) {
       results = [];
     }
@@ -550,21 +580,17 @@ export class AppconfigService {
       ...currentConfig,
       zonalResults: results
     };
-  
+
     this.config$.next(updatedConfig);
   }
 
   public updateSelectedAdminLevel(value: string | null): void {
     const currentConfig = this.config$.value;
-
     const updatedConfig: AppConfig = {
       ...currentConfig,
       selectedAdminLevel: value ?? null
     };
-
     this.config$.next(updatedConfig);
   }
-  
+
 }
-
-

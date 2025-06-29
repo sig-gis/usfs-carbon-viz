@@ -87,7 +87,7 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         // Load GeoJSON from assets
-        this.http.get<FeatureCollection>('/assets/data/us-boundary.geojson').subscribe({
+        this.http.get<FeatureCollection>('/assets/data/us-boundary-simplify.json').subscribe({
             next: (data) => {
                 console.log('US boundary GeoJSON loaded:', data);
                 this.geojsonData = data;

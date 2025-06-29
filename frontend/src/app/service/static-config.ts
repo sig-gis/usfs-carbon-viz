@@ -77,7 +77,7 @@ export const staticConfig: AppConfig = {
         },
         {
             id: "fsim_fire_intensity_group",
-            title: "Flame Length Probability 2016",
+            title: "Flame Length Probability 2014",
             description: "Flame Length Category",
             type: "layerGroup",
             url: [],
@@ -357,7 +357,7 @@ export const staticConfig: AppConfig = {
         {
             id: "carbon_total_initial",
             title: "Total Initial Forest Carbon 2014",
-            description: "Calculated by simulating TreeMap stands in the fire and fuels extension to the forest vegetation simulator and extracting the total stand carbon from the carbon table",
+            description: "Calculated by simulating TreeMap stands in the Fire and Fuels Extension to the Forest Vegetation Simulator and extracting the total stand carbon from the carbon table",
             type: "eeTiles",
             url: [
                 // "projects/usfs-carbon-viz-test/assets/Carbon/TM_2014_Carbon_TotalInitial"
@@ -510,7 +510,7 @@ export const staticConfig: AppConfig = {
         {
             id: "expected_annual_carbon_emissions",
             title: "Expected Annual Forest Carbon Emissions 2014",
-            description: "Calculated using the expected carbon emissions framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
+            description: "Calculated using the expected carbon emissions framework laid out in the Comparative Risk Assessment Framework for Wildland Fire Management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/Carbon/Emissions/TM2014_Carbon_Emissions"
@@ -668,7 +668,7 @@ export const staticConfig: AppConfig = {
         {
             id: "expected_carbon_remaining",
             title: "Expected Annual Forest Carbon Remaining 2014",
-            description: "Calculated using the expected carbon framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
+            description: "Calculated using the expected carbon framework laid out in the Comparative Risk Assessment Framework for Wildland Fire Management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/Carbon/Remaining/TM2014_Carbon_Remaining_BINNED_B7"
@@ -701,7 +701,7 @@ export const staticConfig: AppConfig = {
         {
             id: "carbon_market_initial",
             title: "Total Initial Standing Live and Dead Tree Carbon 2014",
-            description: "Calculated by simulating TreeMap stands in the fire and fuels extension to the forest vegetation simulator and extracting the carbon estimates from four poos: aboveground total live, standing dead, aboveground dead, and belowground dead.",
+            description: "Calculated by simulating TreeMap stands in the Fire and Fuels Extension to the Forest Vegetation Simulator and extracting the carbon estimates from four poos: aboveground total live, standing dead, aboveground dead, and belowground dead.",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-backup/assets/CarbonMarket/TM2014_CarbonMarket_Initial_BINNED"
@@ -840,7 +840,7 @@ export const staticConfig: AppConfig = {
             activeLayerId: "carbon_market_emissions_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Calculated by isolating the no-fire and post-fire above and belowground standing tree carbon pools.',
+                title: 'Standing Live and Dead TreeLoss 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -853,7 +853,7 @@ export const staticConfig: AppConfig = {
         {
             id: "expected_annual_carbon_market_emissions",
             title: "Expected Annual Carbon Loss from Standing Live and Dead Trees 2014",
-            description: "Calculated using the expected carbon emissions framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
+            description: "Calculated using the expected carbon emissions framework laid out in the Comparative Risk Assessment Framework for Wildland Fire Management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Emissions/TM2014_CarbonMarket_Loss"
@@ -997,7 +997,7 @@ export const staticConfig: AppConfig = {
             activeLayerId: "carbon_market_remaining_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Expected Carbon Remaining from Standing Live and Dead Trees 2014',
+                title: 'Total Carbon Remaining from Standing Live and Dead Trees 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -1009,7 +1009,7 @@ export const staticConfig: AppConfig = {
         {
             id: "expected_carbon_market_remaining",
             title: "Expected Annual Carbon Remaining in Standing Live and Dead Trees 2014",
-            description: "Calculated using the expected carbon framework laid out in the comparative risk assessment framework for wildland fire management (Calkin et al. 2011)",
+            description: "Calculated using the expected carbon framework laid out in the Comparative Risk Assessment Framework for Wildland Fire Management (Calkin et al. 2011)",
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-backup/assets/CarbonMarket/Remaining/TM2014_CarbonMarket_Remaining_BINNED_B7"
@@ -1020,7 +1020,7 @@ export const staticConfig: AppConfig = {
             placed_before: "carbon_market_remaining_byfl_1",
             legend: {
                 type: 'continuous',
-                title: 'Total Carbon Remaining from Standing Live and Dead Trees 2014',
+                title: 'Expected Carbon Remaining from Standing Live and Dead Trees 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
@@ -1086,7 +1086,7 @@ export const staticConfig: AppConfig = {
                     minValue: 0,
                     maxValue: 6.20,
                     // palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
-                    palette:  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
+                    palette: ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
                 }
             },
             placed_before: "rangeland_total_initial_carbon",
@@ -1096,7 +1096,7 @@ export const staticConfig: AppConfig = {
                 // "max": 0.45,
                 "max": 0.95,
                 // "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
-                "palette":  ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']    
+                "palette": ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
             }
         },
         {
@@ -1187,8 +1187,7 @@ export const staticConfig: AppConfig = {
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
-        
         // ...other layers...
-    ], 
+    ],
     adminModeActive: false,
 };

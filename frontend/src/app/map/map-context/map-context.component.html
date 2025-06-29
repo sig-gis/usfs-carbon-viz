@@ -201,20 +201,29 @@
                     <tr class="bg-gray-100">
                       <th class="border border-gray-300 px-2 py-1 text-left">Statistic</th>
                       <th class="border border-gray-300 px-2 py-1 text-left">Value</th>
+                      <th class="border border-gray-300 px-2 py-1 text-left">Unit</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td class="border border-gray-300 px-2 py-1">Min</td>
                       <td class="border border-gray-300 px-2 py-1">{{ result.min }}</td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.unit }}</td>
                     </tr>
                     <tr>
                       <td class="border border-gray-300 px-2 py-1">Mean</td>
                       <td class="border border-gray-300 px-2 py-1">{{ result.avg }}</td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.unit }}</td>
                     </tr>
                     <tr>
                       <td class="border border-gray-300 px-2 py-1">Max</td>
                       <td class="border border-gray-300 px-2 py-1">{{ result.max }}</td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.unit }}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 px-2 py-1">Sum</td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.sum }}</td>
+                      <td class="border border-gray-300 px-2 py-1">{{ result.unit }}</td>
                     </tr>
                   </tbody>
                 </table>

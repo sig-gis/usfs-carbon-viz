@@ -31,11 +31,6 @@ export class EarthEngineService {
           throw new Error('Invalid response: missing token or user');
         }
 
-        // console.log('[EarthEngineService] Token received:', token);
-
-        // console.log('[EarthEngineService] Token received:', token.substring(0, 50) + '...');
-        // console.log('[EarthEngineService] User info:', user);
-
         return from(new Promise<boolean>((resolve, reject) => {
           try {
             // console.log('[EarthEngineService] Setting auth token...');
@@ -50,11 +45,6 @@ export class EarthEngineService {
                 // console.log('[EarthEngineService] Auth token set successfully');
                 // Verify the token was set
                 const authToken = ee.data.getAuthToken();
-                // console.log('[EarthEngineService] Current auth token:', authToken);
-                // console.log('[EarthEngineService] Current auth token:', authToken ? 'present' : 'missing');
-                // console.log('[EarthEngineService] Current auth token:', authToken);
-
-                // console.log('[EarthEngineService] Starting EE initialization...');
                 ee.initialize(
                   'https://earthengine.googleapis.com',
                   'https://earthengine.googleapis.com',
@@ -128,21 +118,27 @@ export class EarthEngineService {
     return this.token$.asObservable();
   }
 
-  calculateZonalStatistics(assetId: string, band: string, region: any): Observable<any> {
+  calculateZonalStatistics(
+    assetId: string,
+    band: string,
+    region: any,
+    unit: string
+  ): Observable<any> {
     return new Observable((observer) => {
       try {
         const image = ee.Image(assetId).select(band);
         const clipped = image.clip(region);
-        // Zonal statistics: mean, min, max
+
+        // Define reducer to calculate mean, min, max, and sum
         const reducer = ee.Reducer.mean()
-        .combine(ee.Reducer.min(), '', true)
-        .combine(ee.Reducer.max(), '', true);
-    
-        // Zonal statistics
+          .combine(ee.Reducer.min(), '', true)
+          .combine(ee.Reducer.max(), '', true)
+          .combine(ee.Reducer.sum(), '', true);
+
         const stats = clipped.reduceRegion({
-          reducer: reducer,
+          reducer,
           geometry: region,
-          scale: 30,
+          scale: 30, // 30m pixel size (e.g., Landsat)
           maxPixels: 1e15
         });
 
@@ -150,11 +146,27 @@ export class EarthEngineService {
           if (error) {
             observer.error(error);
           } else {
+            let sum = result[`${band}_sum`];
+            const mean = result[`${band}_mean`];
+            const min = result[`${band}_min`];
+            const max = result[`${band}_max`];
+
+            console.log('Raw sum (pixel values):', sum);
+
+            // Convert sum to total tons for area if unit is tons/acre
+            if (unit.includes('tons/acre') && typeof sum === 'number') {
+              const ACRE_CONVERSION = 0.2224; // 900 m² / 4046.86 m²
+              sum = sum * ACRE_CONVERSION; // total tons = per-acre value × pixel area in acres × number of pixels (implicitly via reducer sum)
+              console.log('Converted sum (total tons over area):', sum);
+            }
+
             observer.next({
               stats: {
-                mean: result[`${band}_mean`],
-                min: result[`${band}_min`],
-                max: result[`${band}_max`]
+                mean,
+                min,
+                max,
+                sum,
+                unit
               }
             });
             observer.complete();
@@ -166,11 +178,13 @@ export class EarthEngineService {
     });
   }
 
+
+
   getPixelValueAtPoint(assetId: string, band: string, point: any): Observable<any> {
     return new Observable((observer) => {
       try {
         const image = ee.Image(assetId).select(band);
-  
+
         image.reduceRegion({
           reducer: ee.Reducer.first(),
           geometry: point,
@@ -184,12 +198,10 @@ export class EarthEngineService {
             observer.complete();
           }
         });
-  
+
       } catch (error) {
         observer.error(error);
       }
     });
   }
-  
-  
 }

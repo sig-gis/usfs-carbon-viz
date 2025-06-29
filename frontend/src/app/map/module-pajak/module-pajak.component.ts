@@ -328,6 +328,8 @@ export class ModulePajakComponent implements OnInit {
     let completed = 0;
     const total = visibleLayers.length;
 
+    console.log('Running zonal or pixel analysis on layers:', visibleLayers);
+
     let region: any;
     let mode: 'polygon' | 'point';
 
@@ -349,12 +351,15 @@ export class ModulePajakComponent implements OnInit {
 
     visibleLayers.forEach((layer: any) => {
       const assetId = this.getLayerUrlById(this.eeLayers, layer.id);
+
+      console.log(layer);
       if (!assetId) return;
       const band = layer.bands[0];
+      const unit = layer.unit || 'default';
 
       const service$ =
         mode === 'polygon'
-          ? this.eeService.calculateZonalStatistics(assetId, band, region)
+          ? this.eeService.calculateZonalStatistics(assetId, band, region, unit)
           : this.eeService.getPixelValueAtPoint(assetId, band, region);
 
       service$.subscribe({
@@ -368,6 +373,8 @@ export class ModulePajakComponent implements OnInit {
               min: stats['min'] !== null && stats['min'] !== undefined ? Number(stats['min'].toFixed(2)) : 'masked',
               max: stats['max'] !== null && stats['max'] !== undefined ? Number(stats['max'].toFixed(2)) : 'masked',
               avg: stats['mean'] !== null && stats['mean'] !== undefined ? Number(stats['mean'].toFixed(2)) : 'masked',
+              sum: stats['sum'] !== null && stats['sum'] !== undefined ? Number(stats['sum'].toFixed(2)) : 'masked',
+              unit: stats['unit'], 
               pixelval: 0,
               assetId: assetId,
               band: band
@@ -381,6 +388,8 @@ export class ModulePajakComponent implements OnInit {
               min: 0,
               max: 0,
               avg: 0,
+              sum: 0,
+              unit: '', 
               pixelval: val !== null && val !== undefined ? Number(val.toFixed(2)) : 'masked',
               assetId: assetId,
               band: band
