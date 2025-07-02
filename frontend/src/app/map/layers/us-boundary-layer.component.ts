@@ -108,40 +108,70 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
 
     onLayerClick(event: any) {
         if (event.features && event.features.length > 0) {
-            this.popupFeature = event.features[0];
+            const clicked = event.features[0];
             this.popupCoords = [event.lngLat.lng, event.lngLat.lat];
-            this.selectedFeatureCountry = {
-                type: 'FeatureCollection',
-                features: [this.popupFeature]
-            };
+
+            const matchId = clicked.properties?.NAME || clicked.properties?.LSAD;
+
+            // Search for the full geometry from the original GeoJSON
+            const fullFeature = this.geojsonData?.features.find(f =>
+                f.properties?.NAME === matchId || f.properties?.LSAD === matchId
+            );
+
+            if (fullFeature) {
+                this.popupFeature = fullFeature;
+                this.selectedFeatureCountry = {
+                    type: 'FeatureCollection',
+                    features: [JSON.parse(JSON.stringify(fullFeature))]
+                };
+            } else {
+                console.warn('No matching full feature found.');
+            }
         }
     }
+
 
     logGeometry() {
-        if (this.popupFeature?.geometry) {
-            this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
-
-            const bounds = new LngLatBounds();
-            const coords = this.popupFeature.geometry.coordinates.flat(Infinity);
-            for (let i = 0; i < coords.length; i += 2) {
-                bounds.extend([coords[i], coords[i + 1]]);
-            }
-
-            if (this.config?.mapInterface?.map) {
-                const map = this.config.mapInterface.map;
-                const mapWidth = map.getCanvas().width;
-                const padding = 300;
-                const offset: [number, number] = [mapWidth * 0.05, 0];
-
-                map.fitBounds(bounds, {
-                    padding: padding,
-                    offset: offset
-                });
-            }
-
-            this.popupCoords = null;
-        } else {
+        if (!this.popupFeature?.geometry) {
             console.warn('No geometry found.');
+            return;
         }
+
+        this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
+
+        const bounds = new LngLatBounds();
+        const geom = this.popupFeature.geometry;
+
+        const extendBounds = (coords: [number, number][]) => {
+            coords.forEach((coord: [number, number]) => {
+                bounds.extend(coord);
+            });
+        };
+
+        if (geom.type === 'Polygon') {
+            (geom.coordinates as [[number, number][]]).forEach((ring: [number, number][]) => {
+                extendBounds(ring);
+            });
+        } else if (geom.type === 'MultiPolygon') {
+            (geom.coordinates as [[[number, number][]]]).forEach((poly: [[number, number][]]) => {
+                poly.forEach((ring: [number, number][]) => {
+                    extendBounds(ring);
+                });
+            });
+        }
+
+        if (this.config?.mapInterface?.map) {
+            const map = this.config.mapInterface.map;
+            const mapWidth = map.getCanvas().width;
+
+            map.fitBounds(bounds, {
+                padding: 300,
+                offset: [mapWidth * 0.05, 0]
+            });
+        }
+
+        this.popupCoords = null;
     }
+
+
 }

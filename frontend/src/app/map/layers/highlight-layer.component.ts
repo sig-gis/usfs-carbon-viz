@@ -1,39 +1,44 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { ConfigLayer, AppConfig } from 'src/app/service/layers.interface';
 import { AppconfigService } from 'src/app/service/appconfig.service';
-import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
+import { LngLatBounds } from 'maplibre-gl';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-highlight-layer',
   template: `
-    <mgl-vector-source [id]="id" [tiles]="url" [scheme]="'xyz'"></mgl-vector-source>
+    <!-- Load the full GeoJSON as source -->
+    <mgl-geojson-source
+      id="us-state-boundary"
+      [data]="geojsonData"
+    ></mgl-geojson-source>
 
+    <!-- Default boundary lines -->
     <mgl-layer
-      [id]="id"
+      [id]="id + '-outline' "
       type="line"
-      [source]="id"
-      [layout]="{}"
+      source="us-state-boundary"
       [paint]="{
         'line-color': color,
         'line-width': width
       }"
-      [before]="before"
-      [sourceLayer]="sourceLayer"
     ></mgl-layer>
 
+    <!-- Transparent clickable layer -->
     <mgl-layer
       *ngIf="adminModeActive && selectedAdminLevel === 'state'"
       [id]="id + '-clickable'"
       type="fill"
-      [source]="id"
+      source="us-state-boundary"
       [paint]="{
         'fill-color': '#000000',
         'fill-opacity': 0
       }"
-      [sourceLayer]="sourceLayer"
       (layerClick)="onLayerClick($event)"
     ></mgl-layer>
 
+    <!-- Highlighted selected state -->
     <mgl-geojson-source
       *ngIf="selectedFeature && selectedAdminLevel === 'state'"
       id="selected-feature-source"
@@ -42,12 +47,12 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
 
     <mgl-layer
       *ngIf="selectedFeature && selectedAdminLevel === 'state'"
-      id="selected-feature-layer"
+      id="selected-feature-fill"
       type="fill"
       source="selected-feature-source"
       [paint]="{
         'fill-color': '#FF0000',
-        'fill-opacity': 0.1
+        'fill-opacity': 0.2
       }"
     ></mgl-layer>
 
@@ -62,6 +67,7 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
       }"
     ></mgl-layer>
 
+    <!-- Popup with info -->
     <mgl-popup
       *ngIf="popupCoords"
       [lngLat]="popupCoords"
@@ -78,26 +84,27 @@ import { LngLatBounds, Map, MapMouseEvent } from 'maplibre-gl';
 })
 export class HighlightLayerComponent implements OnInit, OnChanges {
   @Input() highlightLayer!: ConfigLayer;
-  @Input() adminModeActive: boolean = false;
-  // @Input() mapInstance!: Map;
+  @Input() adminModeActive = false;
   @Input() config!: AppConfig;
   @Input() selectedAdminLevel: string | null = null;
 
   title!: string;
   id!: string;
-  type!: string;
-  url!: any;
+  url: any;
   sourceLayer?: string;
-  color?: string;
-  width?: number;
-  lineJoin?: 'round' | 'bevel' | 'miter';
-  lineCap?: 'round' | 'butt' | 'square';
+  color: string = 'cyan';
+  width: number = 0.2;
   before?: string;
-  popupCoords: [number, number] | null = null;
-  popupFeature: any = null;
-  selectedFeature: FeatureCollection | null = null;
 
-  constructor(private configService: AppconfigService) { }
+  popupCoords: [number, number] | null = null;
+  popupFeature: Feature | null = null;
+  selectedFeature: FeatureCollection | null = null;
+  geojsonData: FeatureCollection | null = null;
+
+  constructor(
+    private configService: AppconfigService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.title = this.highlightLayer.title;
@@ -106,13 +113,24 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
     this.sourceLayer = this.highlightLayer.sourceLayer;
     this.color = this.highlightLayer.style?.color || 'cyan';
     this.width = this.highlightLayer.style?.width || 0.2;
-    this.lineJoin = this.highlightLayer.layout?.lineJoin || 'round';
-    this.lineCap = this.highlightLayer.layout?.lineCap || 'round';
     this.before = '';
+
+    this.loadGeoJson();
+  }
+
+  loadGeoJson() {
+    this.http.get<FeatureCollection>('/assets/data/us-state-500k-boundary.geojson').subscribe({
+      next: (data) => {
+        this.geojsonData = data;
+      },
+      error: (err) => {
+        console.error('Failed to load US state boundary:', err);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['adminModeActive'] && changes['adminModeActive'].currentValue === false) {
+    if (changes['adminModeActive']?.currentValue === false) {
       this.selectedFeature = null;
       this.popupCoords = null;
       this.popupFeature = null;
@@ -120,43 +138,64 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   }
 
   onLayerClick(event: any) {
-    if (event.features && event.features.length > 0) {
-      this.popupFeature = event.features[0];
-      this.popupCoords = [event.lngLat.lng, event.lngLat.lat];
+    if (!event.features || event.features.length === 0) return;
+
+    const clicked = event.features[0];
+    const matchId = clicked.properties?.STATEFP;
+    this.popupCoords = [event.lngLat.lng, event.lngLat.lat];
+
+    const fullFeature = this.geojsonData?.features.find(
+      (f: Feature) => f.properties?.STATEFP === matchId
+    );
+
+    if (fullFeature) {
+      this.popupFeature = fullFeature;
       this.selectedFeature = {
         type: 'FeatureCollection',
-        features: [this.popupFeature]
+        features: [JSON.parse(JSON.stringify(fullFeature))]
       };
+    } else {
+      console.warn('Could not find full geometry for STATEFP:', matchId);
     }
   }
 
   logGeometry() {
-    if (this.popupFeature?.geometry) {
-      this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
-
-      // Zoom to geometry
-      const bounds = new LngLatBounds();
-      const coords = this.popupFeature.geometry.coordinates.flat(Infinity);
-      for (let i = 0; i < coords.length; i += 2) {
-        bounds.extend([coords[i], coords[i + 1]]);
-      }
-
-      if (this.config?.mapInterface?.map) {
-        const map = this.config.mapInterface.map; // Now safe to use
-        const mapWidth = map.getCanvas().width;
-        const padding = 300;
-        const offset: [number, number] = [mapWidth * 0.05, 0]; // 25% of the map width to the right
-
-        map.fitBounds(bounds, {
-          padding: padding,
-          offset: offset
-        });
-      }
-
-      // Close the popup after selecting geometry
-      this.popupCoords = null;
-    } else {
-      console.log('No geometry found on feature.');
+    if (!this.popupFeature?.geometry) {
+      console.log('No geometry found.');
+      return;
     }
+
+    this.configService.updateSelectedGeometryWithArea(this.popupFeature.geometry);
+
+    const bounds = new LngLatBounds();
+    const geom = this.popupFeature.geometry;
+
+    const extendBounds = (coords: [number, number][]) => {
+      coords.forEach((coord) => bounds.extend(coord));
+    };
+
+    if (geom.type === 'Polygon') {
+      (geom.coordinates as [number, number][][]).forEach((ring) => {
+        extendBounds(ring as [number, number][]);
+      });
+    } else if (geom.type === 'MultiPolygon') {
+      (geom.coordinates as [number, number][][][]).forEach((poly) => {
+        poly.forEach((ring) => {
+          extendBounds(ring as [number, number][]);
+        });
+      });
+    }
+
+    const map = this.config?.mapInterface?.map;
+    if (map) {
+      const mapWidth = map.getCanvas().width;
+      map.fitBounds(bounds, {
+        padding: 300,
+        offset: [mapWidth * 0.05, 0]
+      });
+    }
+
+    this.popupCoords = null;
   }
+
 }
