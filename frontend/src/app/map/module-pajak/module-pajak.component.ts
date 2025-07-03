@@ -22,7 +22,7 @@ export class ModulePajakComponent implements OnInit {
   @Input() config!: AppConfig;
   @Output() changeLegend = new EventEmitter<string>();
 
-  selectedGeometryAreaHa: number | null = null;
+  selectedGeometryAreaAcre: number | null = null;
   private configSub!: Subscription;
 
   gisService = inject(MapServiceService);
@@ -60,7 +60,7 @@ export class ModulePajakComponent implements OnInit {
   uploadModeActive = false;
   drawPointActive = false;
   drawPolygonActive = false;
-  adminCountryActive = false;
+  adminCountyActive = false;
   adminStateActive = false;
   analysisButtonActive = true;
   IsRunning = false;
@@ -117,14 +117,14 @@ export class ModulePajakComponent implements OnInit {
     this.configService.config$
       .pipe(
         map((config) => ({
-          area: config.selectedGeometryAreaHa ?? null,
+          area: config.selectedGeometryAreaAcre ?? null,
           geom: config.selectedGeometry ?? null
         })),
         distinctUntilChanged((a, b) => a.area === b.area && JSON.stringify(a.geom) === JSON.stringify(b.geom)),
         takeUntil(this.destroy$)
       )
       .subscribe(({ area, geom }) => {
-        this.selectedGeometryAreaHa = area;
+        this.selectedGeometryAreaAcre = area;
         this.selectedGeometry = geom;
         if ((area && geom)) {
           this.analysisButtonActive = true;
@@ -453,7 +453,8 @@ export class ModulePajakComponent implements OnInit {
         "gl-draw-line-active.hot",
         "gl-draw-point-point-stroke-inactive.hot",
         "gl-draw-point-point-stroke-active.hot",
-        'US_States',
+        'US_States-outline',
+        'us-boundary-line',
       ];
       if (!this.mapInterface) return;
       for (const layerId of drawLayerIds) {
@@ -555,7 +556,6 @@ export class ModulePajakComponent implements OnInit {
     this.configService.updateZonalResults(null);
   }
 
-
   onFileUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -569,7 +569,6 @@ export class ModulePajakComponent implements OnInit {
       this.handleShapefileUpload(file);
       return;
     }
-
 
     // Fallback for KML / GeoJSON
     const reader = new FileReader();
@@ -702,19 +701,19 @@ export class ModulePajakComponent implements OnInit {
     URL.revokeObjectURL(url);
   }
 
-  updateSelectedAdminLevel(lvl: 'country' | 'state'): void {
+  updateSelectedAdminLevel(lvl: 'county' | 'state'): void {
     if (!this.draw || !this.mapInterface) return;
-    if (lvl === 'country') {
+    if (lvl === 'county') {
       this.selectedGeometry = null;
       this.configService.updateSelectedGeometryWithArea(null);
-      this.adminCountryActive = true;
+      this.adminCountyActive = true;
       this.adminStateActive = false;
-      this.configService.updateSelectedAdminLevel('country');
+      this.configService.updateSelectedAdminLevel('county');
     } else if (lvl === 'state') {
       this.selectedGeometry = null;
       this.configService.updateSelectedGeometryWithArea(null);
       this.adminStateActive = true;
-      this.adminCountryActive = false;
+      this.adminCountyActive = false;
       this.configService.updateSelectedAdminLevel('state');
     }
   }

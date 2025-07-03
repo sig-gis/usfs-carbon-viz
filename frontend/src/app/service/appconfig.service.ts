@@ -280,6 +280,7 @@ export class AppconfigService {
     this.config$.next(updatedConfig);
   }
 
+
   public reorderLayers(map: Map, currentIndex: string, previousIndex: string, movedLayerId: string, beforeLayerid?: string, setBuilding?: string, moveItem?: boolean, setTop?: string): void {
     console.log("REORDER LAYER");
 
@@ -548,7 +549,7 @@ export class AppconfigService {
   public updateSelectedGeometryWithArea(geometry: Geometry | null): void {
     const currentConfig = this.config$.value;
 
-    let areaHa = 0;
+    let areaAcre = 0;
     if (geometry && (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon')) {
       const geojsonFeature: Feature = {
         type: 'Feature',
@@ -556,19 +557,20 @@ export class AppconfigService {
         properties: {}
       };
       const squareMeters = area(geojsonFeature);
-      areaHa = squareMeters / 10_000;
+      areaAcre = squareMeters / 4046.8564224;
     } else if (geometry && (geometry.type === 'Point' || geometry.type === 'LineString')) {
-      areaHa = 0;
+      areaAcre = 0;
     }
 
     const updatedConfig: AppConfig = {
       ...currentConfig,
       selectedGeometry: geometry,
-      selectedGeometryAreaHa: geometry ? Number(areaHa.toFixed(2)) : null
+      selectedGeometryAreaAcre: geometry ? Number(areaAcre.toFixed(2)) : null
     };
 
     this.config$.next(updatedConfig);
   }
+
 
   public updateZonalResults(results: ZonalResult[] | null): void {
     const currentConfig = this.config$.value;

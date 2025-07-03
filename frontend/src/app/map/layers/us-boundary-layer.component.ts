@@ -19,12 +19,13 @@ import { LngLatBounds } from 'maplibre-gl';
             source="us-boundary"
             [paint]="{
             'line-color': 'cyan',
-            'line-width': 1.5
+            'line-width': 0.5
             }"
+     
         ></mgl-layer>
 
         <mgl-layer
-            *ngIf="adminModeActive && selectedAdminLevel === 'country'"
+            *ngIf="adminModeActive && selectedAdminLevel === 'county'"
             id="us-boundary-clickable"
             type="fill"
             source="us-boundary"
@@ -36,13 +37,13 @@ import { LngLatBounds } from 'maplibre-gl';
         ></mgl-layer>
 
         <mgl-geojson-source
-        *ngIf="selectedFeatureCountry && selectedAdminLevel === 'country'"
+        *ngIf="selectedFeatureCounty && selectedAdminLevel === 'county'"
         id="selected-feature-source"
-        [data]="selectedFeatureCountry"
+        [data]="selectedFeatureCounty"
         ></mgl-geojson-source>
 
         <mgl-layer
-        *ngIf="selectedFeatureCountry && selectedAdminLevel === 'country'"
+        *ngIf="selectedFeatureCounty && selectedAdminLevel === 'county'"
         id="selected-feature-outline"
         type="line"
         source="selected-feature-source"
@@ -75,7 +76,7 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
     geojsonData: FeatureCollection | null = null;
     popupCoords: [number, number] | null = null;
     popupFeature: any = null;
-    selectedFeatureCountry: FeatureCollection | null = null;
+    selectedFeatureCounty: FeatureCollection | null = null;
 
     color: string = '#00FFFF';
     width: number = 1.5;
@@ -87,9 +88,8 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         // Load GeoJSON from assets
-        this.http.get<FeatureCollection>('/assets/data/us-boundary-simplify.json').subscribe({
+        this.http.get<FeatureCollection>('/assets/data/conus_county_20m.geojson').subscribe({
             next: (data) => {
-                console.log('US boundary GeoJSON loaded:', data);
                 this.geojsonData = data;
             },
             error: (err) => {
@@ -100,7 +100,7 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['adminModeActive'] && changes['adminModeActive'].currentValue === false) {
-            this.selectedFeatureCountry = null;
+            this.selectedFeatureCounty = null;
             this.popupCoords = null;
             this.popupFeature = null;
         }
@@ -111,16 +111,16 @@ export class USBoundaryLayerComponent implements OnInit, OnChanges {
             const clicked = event.features[0];
             this.popupCoords = [event.lngLat.lng, event.lngLat.lat];
 
-            const matchId = clicked.properties?.NAME || clicked.properties?.LSAD;
+            const matchId = clicked.properties?.GEOID;
 
             // Search for the full geometry from the original GeoJSON
             const fullFeature = this.geojsonData?.features.find(f =>
-                f.properties?.NAME === matchId || f.properties?.LSAD === matchId
+                f.properties?.GEOID === matchId
             );
 
             if (fullFeature) {
                 this.popupFeature = fullFeature;
-                this.selectedFeatureCountry = {
+                this.selectedFeatureCounty = {
                     type: 'FeatureCollection',
                     features: [JSON.parse(JSON.stringify(fullFeature))]
                 };

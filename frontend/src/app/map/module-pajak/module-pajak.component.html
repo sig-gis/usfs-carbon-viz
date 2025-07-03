@@ -20,7 +20,7 @@
           <p>Lat: {{ clickedPoint.lat | number:'1.5-5' }}, Lng: {{ clickedPoint.lng | number:'1.5-5' }}</p>
         </div>
         <ng-template #showArea>
-          <h2>{{ selectedGeometryAreaHa ?? 0 }} Ha</h2>
+          <h2>{{ selectedGeometryAreaAcre ?? 0 }} acre</h2>
         </ng-template>
       </div>
     </div>
@@ -147,8 +147,8 @@
 <div *ngIf="adminModeActive" class="mt-3 text-center text-14">
   <p class="text-muted text-center text-14">Click on the map to select an admin boundary</p>
   <div class="button-container">
-    <button class="btn" [ngClass]="adminCountryActive ? 'btn-success' : 'btn-secondary'"
-      (click)="updateSelectedAdminLevel('country')">County-Level</button>
+    <button class="btn" [ngClass]="adminCountyActive ? 'btn-success' : 'btn-secondary'"
+      (click)="updateSelectedAdminLevel('county')">County-Level</button>
     <button class="btn" [ngClass]="adminStateActive ? 'btn-success' : 'btn-secondary'"
       (click)="updateSelectedAdminLevel('state')">State-Level</button>
   </div>
@@ -158,29 +158,29 @@
 <br />
 
 <!-- Show selected geometry area -->
-<div *ngIf="selectedGeometryAreaHa || clickedPoint"
+<div *ngIf="selectedGeometryAreaAcre || clickedPoint"
   class="border border-2 border-primary border-dashed rounded p-2 bg-light mx-auto d-flex flex-column"
   style="max-width: 600px;">
   <div class="text-10 max-w-xs">
     <h6 class="font-semibold mb-2">Selected Geometry Info</h6>
 
-    <div *ngIf="drawModeActive && selectedGeometryAreaHa">
+    <div *ngIf="drawModeActive && selectedGeometryAreaAcre">
       <span class="inline-block w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
       Draw Mode — You drew this point/polygon.
     </div>
 
-    <div *ngIf="uploadModeActive && selectedGeometryAreaHa">
+    <div *ngIf="uploadModeActive && selectedGeometryAreaAcre">
       <span class="inline-block w-3 h-3 bg-red-500 rounded-full mr-2"></span>
       Upload Mode — Polygon uploaded from file.
       <div *ngIf="uploadedFileName">Selected file: {{ uploadedFileName }}</div>
     </div>
 
-    <div *ngIf="adminModeActive && selectedGeometryAreaHa">
+    <div *ngIf="adminModeActive && selectedGeometryAreaAcre">
       <span class="inline-block w-3 h-3 bg-green-600 rounded-full mr-2"></span>
       Admin Mode — Selected from admin features.
     </div>
 
-    <div *ngIf="!drawModeActive && !uploadModeActive && !adminModeActive && !selectedGeometryAreaHa && !clickedPoint">
+    <div *ngIf="!drawModeActive && !uploadModeActive && !adminModeActive && !selectedGeometryAreaAcre && !clickedPoint">
       <span class="inline-block w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
       Identify Mode (Draw Mode, Upload Mode, or Admin Mode)
     </div>
@@ -206,10 +206,10 @@
       <div class="row text-12">
         <div class="col-9">
           <label class="layer-title form-check-label mb-0">
-            Total Area (ha)
+            Total Area (acre)
           </label>
           <div class="form-text mt-0" style="font-size: 10px">
-            {{ selectedGeometryAreaHa }} Ha
+            {{ selectedGeometryAreaAcre }} acre
           </div>
         </div>
         <div class="col-3">
@@ -223,14 +223,14 @@
   </div>
 </div>
 
-<div *ngIf="selectedGeometryAreaHa !== null && selectedGeometryAreaHa > 40000000" class="text-muted text-12 mt-1">
+<div *ngIf="selectedGeometryAreaAcre !== null && selectedGeometryAreaAcre > 40000000" class="text-muted text-12 mt-1">
   <p>
     The selected area is quite large, which may lead to longer processing times or slower results.
     Consider reducing the area if faster analysis is needed.
   </p>
 </div>
 
-<div *ngIf="selectedGeometryAreaHa !== null && selectedGeometryAreaHa > 0 && selectedGeometryAreaHa < 50" class="text-muted text-12 mt-1">
+<div *ngIf="selectedGeometryAreaAcre !== null && selectedGeometryAreaAcre > 0 && selectedGeometryAreaAcre < 50" class="text-muted text-12 mt-1">
   <p>
     The selected area is very small. Are you sure you want to proceed with the analysis?
   </p>

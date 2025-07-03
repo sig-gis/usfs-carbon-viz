@@ -24,8 +24,7 @@ export class EarthEngineService {
 
     return this.http.post<any>('https://app.wildfireriskcarbon.org/api/auth/usfs', {}).pipe(
       switchMap((response) => {
-        console.log('[EarthEngineService] Backend response:', response);
-
+        // console.log('[EarthEngineService] Backend response:', response);
         const { token, user } = response;
         if (!token || !user) {
           throw new Error('Invalid response: missing token or user');
@@ -151,13 +150,10 @@ export class EarthEngineService {
             const min = result[`${band}_min`];
             const max = result[`${band}_max`];
 
-            console.log('Raw sum (pixel values):', sum);
-
             // Convert sum to total tons for area if unit is tons/acre
             if (unit.includes('tons/acre') && typeof sum === 'number') {
               const ACRE_CONVERSION = 0.2224; // 900 m² / 4046.86 m²
               sum = sum * ACRE_CONVERSION; // total tons = per-acre value × pixel area in acres × number of pixels (implicitly via reducer sum)
-              console.log('Converted sum (total tons over area):', sum);
             }
 
             observer.next({
@@ -177,8 +173,6 @@ export class EarthEngineService {
       }
     });
   }
-
-
 
   getPixelValueAtPoint(assetId: string, band: string, point: any): Observable<any> {
     return new Observable((observer) => {

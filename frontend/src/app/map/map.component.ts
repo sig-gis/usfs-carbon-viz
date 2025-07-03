@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../service/layers.interface';
@@ -22,9 +22,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public config$: Observable<AppConfig> = new Observable<AppConfig>();
   configService = inject(AppconfigService);
-  // showExitModal = false;
   pendingTasks: ExportTask[] = [];
   visibilityTriggered = false;
+
+  private authRenewalSubscription?: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,12 +36,18 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const map_code = this.activatedRoute.snapshot.paramMap.get('map_code');
+
     this.eeService.authenticate().subscribe({
       next: () => {
         this.config$ = this.configService.getConfig(map_code ?? 'tata_ruang');
-        // this.config$.subscribe(config => {
-        //   console.log(config);
-        // });
+
+        // Set up auto-renew authentication every 15 minutes (3000000 ms)
+        this.authRenewalSubscription = interval(900000).subscribe(() => {
+          this.eeService.authenticate().subscribe({
+            next: () => console.log('Earth Engine token renewed'),
+            error: err => console.error('Token renewal failed:', err)
+          });
+        });
       },
       error: err => {
         console.error('Earth Engine authentication failed:', err);
@@ -54,6 +61,7 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     window.removeEventListener('beforeunload', this.handleUnload);
+    this.authRenewalSubscription?.unsubscribe();
   }
 
   handleVisibilityChange = (): void => {
@@ -61,7 +69,6 @@ export class MapComponent implements OnInit, OnDestroy {
       const tasks = this.exportTaskService.getCurrentTasks();
       if (tasks.length > 0) {
         this.pendingTasks = tasks;
-        // this.showExitModal = true;
         this.visibilityTriggered = true;
       }
     }
@@ -75,9 +82,6 @@ export class MapComponent implements OnInit, OnDestroy {
       this.http.get(`${environment.gee_backend_baseurl}/export-cancel/${task.taskId}`, {}).subscribe();
     });
     this.exportTaskService.clearTasks();
-    // event.preventDefault();
-    // event.returnValue = '';
-    
   };
 
   handleExitDecision(confirmed: boolean) {
@@ -87,10 +91,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.http.get(`${environment.gee_backend_baseurl}/export-cancel/${task.taskId}`, {}).subscribe();
       });
       this.exportTaskService.clearTasks();
-      // this.showExitModal = false;
       this.visibilityTriggered = false;
     } else {
-      // this.showExitModal = false;
       this.visibilityTriggered = false;
     }
   }

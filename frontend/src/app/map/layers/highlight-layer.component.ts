@@ -8,13 +8,11 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-highlight-layer',
   template: `
-    <!-- Load the full GeoJSON as source -->
     <mgl-geojson-source
       id="us-state-boundary"
       [data]="geojsonData"
     ></mgl-geojson-source>
 
-    <!-- Default boundary lines -->
     <mgl-layer
       [id]="id + '-outline' "
       type="line"
@@ -25,7 +23,6 @@ import { HttpClient } from '@angular/common/http';
       }"
     ></mgl-layer>
 
-    <!-- Transparent clickable layer -->
     <mgl-layer
       *ngIf="adminModeActive && selectedAdminLevel === 'state'"
       [id]="id + '-clickable'"
@@ -38,7 +35,6 @@ import { HttpClient } from '@angular/common/http';
       (layerClick)="onLayerClick($event)"
     ></mgl-layer>
 
-    <!-- Highlighted selected state -->
     <mgl-geojson-source
       *ngIf="selectedFeature && selectedAdminLevel === 'state'"
       id="selected-feature-source"
@@ -67,7 +63,6 @@ import { HttpClient } from '@angular/common/http';
       }"
     ></mgl-layer>
 
-    <!-- Popup with info -->
     <mgl-popup
       *ngIf="popupCoords"
       [lngLat]="popupCoords"
@@ -111,8 +106,8 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
     this.id = this.highlightLayer.id;
     this.url = this.highlightLayer.url;
     this.sourceLayer = this.highlightLayer.sourceLayer;
-    this.color = this.highlightLayer.style?.color || 'cyan';
-    this.width = this.highlightLayer.style?.width || 0.2;
+    this.color = this.highlightLayer.style?.color || '#0395c0';
+    this.width = this.highlightLayer.style?.width || 1.5;
     this.before = '';
 
     this.loadGeoJson();
@@ -138,6 +133,7 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   }
 
   onLayerClick(event: any) {
+    console.log('Layer clicked:', event.features);
     if (!event.features || event.features.length === 0) return;
 
     const clicked = event.features[0];

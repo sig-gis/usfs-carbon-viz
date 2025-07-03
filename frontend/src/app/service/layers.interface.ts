@@ -164,7 +164,7 @@ export interface AppConfig {
     layers: ConfigLayer[];
     analysis?: Analysis[];
     selectedGeometry?: GeoJSON.Geometry | null;
-    selectedGeometryAreaHa?: number | null;
+    selectedGeometryAreaAcre?: number | null;
     adminModeActive: boolean;
     zonalResults?: ZonalResult[];
     selectedAdminLevel?: string | null;

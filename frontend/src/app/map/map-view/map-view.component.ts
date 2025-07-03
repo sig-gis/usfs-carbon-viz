@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Map, MapMouseEvent } from 'maplibre-gl';
+import { Map, MapMouseEvent, StyleSpecification } from 'maplibre-gl';
 import { AppconfigService } from 'src/app/service/appconfig.service';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
@@ -67,6 +67,7 @@ export class MapViewComponent implements OnInit {
 
   map!: Map;
   draw!: MapboxDraw;
+  private drawInitialized = false;
 
   ngOnInit(): void { }
 
@@ -74,130 +75,70 @@ export class MapViewComponent implements OnInit {
     this.map = map;
     this.configService.setMap(map);
 
+    if (!this.drawInitialized) {
+      this.initializeDrawControl();
+      this.drawInitialized = true;
+    }
+
+    (this.map as any).addControl(this.draw);
+    this.configService.setDrawControl(this.draw);
+    
+    this.moveLayersToTop();
+  }
+
+  onMapClick(evt: MapMouseEvent): void {
+    // console.log('Map clicked:', evt.lngLat);
+    // this.moveLayersToTop();
+  }
+
+  private initializeDrawControl(): void {
     const drawStyles = [
       {
-        'id': 'gl-draw-polygon-fill',
-        'type': 'fill',
+        'id': 'gl-draw-polygon-fill', 'type': 'fill',
         'filter': ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
-        'paint': {
-          'fill-color': '#D20C0C',
-          'fill-outline-color': '#D20C0C',
-          'fill-opacity': 0.1
-        }
+        'paint': { 'fill-color': '#D20C0C', 'fill-outline-color': '#D20C0C', 'fill-opacity': 0.1 }
       },
       {
-        'id': 'gl-draw-polygon-stroke-active',
-        'type': 'line',
+        'id': 'gl-draw-polygon-stroke-active', 'type': 'line',
         'filter': ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
-        'layout': {
-          'line-cap': 'round',
-          'line-join': 'round'
-        },
-        'paint': {
-          'line-color': '#D20C0C',
-          'line-dasharray': [0.2, 2],
-          'line-width': 2
-        }
+        'layout': { 'line-cap': 'round', 'line-join': 'round' },
+        'paint': { 'line-color': '#D20C0C', 'line-dasharray': [0.2, 2], 'line-width': 2 }
       },
       {
-        'id': 'gl-draw-polygon-stroke-inactive',
-        'type': 'line',
+        'id': 'gl-draw-polygon-stroke-inactive', 'type': 'line',
         'filter': ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'false']],
-        'layout': {
-          'line-cap': 'round',
-          'line-join': 'round'
-        },
-        'paint': {
-          'line-color': '#D20C0C',
-          'line-width': 2
-        }
+        'layout': { 'line-cap': 'round', 'line-join': 'round' },
+        'paint': { 'line-color': '#D20C0C', 'line-width': 2 }
       },
       {
-        'id': 'gl-draw-line-inactive',
-        'type': 'line',
+        'id': 'gl-draw-line-inactive', 'type': 'line',
         'filter': ['all', ['==', '$type', 'LineString'], ['==', 'active', 'false']],
-        'layout': {
-          'line-cap': 'round',
-          'line-join': 'round'
-        },
-        'paint': {
-          'line-color': '#D20C0C',
-          'line-width': 2
-        }
+        'layout': { 'line-cap': 'round', 'line-join': 'round' },
+        'paint': { 'line-color': '#D20C0C', 'line-width': 2 }
       },
       {
-        'id': 'gl-draw-line-active',
-        'type': 'line',
+        'id': 'gl-draw-line-active', 'type': 'line',
         'filter': ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
-        'layout': {
-          'line-cap': 'round',
-          'line-join': 'round'
-        },
-        'paint': {
-          'line-color': '#D20C0C',
-          'line-dasharray': [0.2, 2],
-          'line-width': 2
-        }
+        'layout': { 'line-cap': 'round', 'line-join': 'round' },
+        'paint': { 'line-color': '#D20C0C', 'line-dasharray': [0.2, 2], 'line-width': 2 }
       },
       {
-        'id': 'gl-draw-point-point-stroke-inactive',
-        'type': 'circle',
+        'id': 'gl-draw-point-point-stroke-inactive', 'type': 'circle',
         'filter': ['all', ['==', '$type', 'Point'], ['==', 'meta', 'feature']],
-        'paint': {
-          'circle-radius': 5,
-          'circle-color': '#D20C0C'
-        }
+        'paint': { 'circle-radius': 5, 'circle-color': '#D20C0C' }
       },
       {
-        'id': 'gl-draw-point-point-stroke-active',
-        'type': 'circle',
+        'id': 'gl-draw-point-point-stroke-active', 'type': 'circle',
         'filter': ['all', ['==', '$type', 'Point'], ['==', 'meta', 'feature'], ['==', 'active', 'true']],
-        'paint': {
-          'circle-radius': 7,
-          'circle-color': '#D20C0C'
-        }
+        'paint': { 'circle-radius': 7, 'circle-color': '#D20C0C' }
       }
     ];
 
     this.draw = new MapboxDraw({
       displayControlsDefault: false,
-      controls: {
-        polygon: true,
-        point: true,
-        trash: true
-      },
+      controls: { polygon: true, point: true, trash: true },
       styles: drawStyles
     });
-
-    // Add control to the map safely
-    (this.map as any).addControl(this.draw);
-
-    //  Move draw layers to the top after they're added
-    setTimeout(() => {
-      const drawLayerIds = [
-        'gl-draw-polygon-fill',
-        'gl-draw-polygon-stroke-active',
-        'gl-draw-polygon-stroke-inactive',
-        'gl-draw-line-inactive',
-        'gl-draw-line-active',
-        'gl-draw-point-point-stroke-inactive',
-        'gl-draw-point-point-stroke-active',
-        'cb_2018_us_state_500k'
-      ];
-
-      for (const layerId of drawLayerIds) {
-        if ((this.map as any).getLayer(layerId)) {
-          (this.map as any).moveLayer(layerId);
-        }
-      }
-    }, 100);
-
-    // Share draw instance
-    this.configService.setDrawControl(this.draw);
-  }
-
-  onMapClick(evt: MapMouseEvent): void {
-    // console.log('Map clicked:', evt.lngLat);
   }
 
   updateStyle(selectedStyle: string): void {
@@ -213,5 +154,30 @@ export class MapViewComponent implements OnInit {
     if (selected) {
       this.map.setStyle(selected, { diff: true });
     }
+  }
+
+  private moveLayersToTop(): void {
+    // Use a timeout to ensure all layers have been added to the map before moving them.
+    setTimeout(() => {
+      const drawLayerIds = [
+        'gl-draw-polygon-fill', 'gl-draw-polygon-stroke-active', 'gl-draw-polygon-stroke-inactive',
+        'gl-draw-line-inactive', 'gl-draw-line-active', 'gl-draw-point-point-stroke-inactive',
+        'gl-draw-point-point-stroke-active',
+      ];
+
+      const boundaryLayerIds = [
+        'us-boundary-line',
+        'US_States-outline',
+      ];
+      
+      // Combine the lists. By moving boundary layers last, we ensure they are on top.
+      const allLayersToMove = [...drawLayerIds, ...boundaryLayerIds];
+
+      allLayersToMove.forEach(layerId => {
+        if (this.map.getLayer(layerId)) {
+          this.map.moveLayer(layerId);
+        }
+      });
+    }, 200);
   }
 }
