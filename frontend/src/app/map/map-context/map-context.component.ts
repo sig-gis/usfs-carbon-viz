@@ -326,7 +326,6 @@ export class MapContextComponent implements OnInit, OnChanges {
     // const region = this.config?.selectedGeometry?.coordinates;
     const defaultRegion = [[]];
 
-    console.log(this.config.selectedGeometry)
     const region =
       this.config?.selectedGeometry?.type === 'Polygon'
         ? [this.config.selectedGeometry.coordinates]
@@ -343,7 +342,7 @@ export class MapContextComponent implements OnInit, OnChanges {
     };
     this.http.post<any>(`${environment.gee_backend_baseurl}/export-to-gcs/`, payload).subscribe(res => {
       const fileId = res.fileId;
-      this.exportTaskService.addTask({ fileId, band, title: layerTitle, status: 'pending', taskId: res.taskId });
+      this.exportTaskService.addTask({ fileId, band, title: layerTitle, status: 'pending', taskId: res.taskId, geometryType: this.config.selectedGeometry?.type || 'Polygon' });
 
       const poll = setInterval(() => {
         this.http.get<any>(`${environment.gee_backend_baseurl}/export-status/${fileId}`).subscribe(status => {

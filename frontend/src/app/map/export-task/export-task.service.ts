@@ -8,6 +8,7 @@ export interface ExportTask {
   status: 'pending' | 'ready' | 'error' | 'deleted';
   downloadUrl?: string;
   taskId: string; 
+  geometryType: string;
 }
 
 @Injectable({ providedIn: 'root' })
