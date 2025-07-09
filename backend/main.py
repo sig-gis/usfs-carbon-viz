@@ -22,7 +22,7 @@ app.add_middleware(
 
 # Use default gcloud credentials
 credentials, project_id = default()
-ee.Initialize(credentials, project='usfs-carbon-viz-test')
+#ee.Initialize(credentials, project='usfs-carbon-viz-test')
 
 # Path to your service account JSON key
 SERVICE_ACCOUNT_KEY_PATH = '/home/tkunlamai/gcloud/usfs-carbon-tool-test-sa-key.json'
@@ -35,7 +35,7 @@ credentials = service_account.Credentials.from_service_account_file(
 # IMPORTANT: Replace 'your-google-cloud-project-id' with the actual
 # alphanumeric ID of the Google Cloud Project where your GCS bucket resides
 # and where your service account is defined.
-# ee.Initialize(credentials=credentials, project='usfs-carbon-viz-test')
+ee.Initialize(credentials=credentials, project='usfs-carbon-viz-test')
 
 # Constants
 BUCKET_NAME = 'gee-export-location'
