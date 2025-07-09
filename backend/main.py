@@ -22,7 +22,7 @@ app.add_middleware(
 
 # Use default gcloud credentials
 credentials, project_id = default()
-#ee.Initialize(credentials, project='usfs-carbon-viz-test')
+ee.Initialize(credentials, project='usfs-carbon-viz-test')
 
 # Path to your service account JSON key
 SERVICE_ACCOUNT_KEY_PATH = '/home/tkunlamai/gcloud/usfs-carbon-tool-test-sa-key.json'
@@ -35,7 +35,7 @@ credentials = service_account.Credentials.from_service_account_file(
 # IMPORTANT: Replace 'your-google-cloud-project-id' with the actual
 # alphanumeric ID of the Google Cloud Project where your GCS bucket resides
 # and where your service account is defined.
-ee.Initialize(credentials=credentials, project='usfs-carbon-viz-test')
+# ee.Initialize(credentials=credentials, project='usfs-carbon-viz-test')
 
 # Constants
 BUCKET_NAME = 'gee-export-location'
@@ -93,12 +93,20 @@ def delete_exported_files(bucket_name: str, file_id: str):
             deleted.append(blob.name)
     return deleted
 
+
 # POST /export-to-gcs/ - Trigger export
 @app.post("/export-to-gcs/")
 async def export_to_gcs(req: ExportRequest):
     check_asset_access(req.assetId)
 
-    geometry = ee.Geometry.Polygon(req.region)
+    # Handle Polygon and MultiPolygon
+    if req.geometryType == "Polygon":
+        geometry = ee.Geometry.Polygon(req.region)
+    elif req.geometryType == "MultiPolygon":
+        geometry = ee.Geometry.MultiPolygon(req.region)
+    else:
+        raise HTTPException(status_code=400, detail="Unsupported geometry type")
+
     image = ee.Image(req.assetId).select(req.band).clip(geometry)
     file_id = generate_file_id(req.band, req.layerId)
     
@@ -114,10 +122,7 @@ async def export_to_gcs(req: ExportRequest):
         fileFormat="GeoTIFF"
     )
     task.start()
-
-    # Save task reference for canceling later
     TASKS[task.id] = task
-
     return {
         "message": "Export started",
         "taskId": task.id,

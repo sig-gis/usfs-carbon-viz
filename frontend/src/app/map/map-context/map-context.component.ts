@@ -46,7 +46,7 @@ export class MapContextComponent implements OnInit, OnChanges {
     private http: HttpClient,
     public exportTaskService: ExportTaskService
   ) { }
-  
+
   ngOnInit() {
     if (this.config.mapInterface?.map) {
       this.setupLayers();
@@ -106,9 +106,9 @@ export class MapContextComponent implements OnInit, OnChanges {
     const buildingIndex = this.config.layers.findIndex(layer => layer.placed_before === 'building');
 
     // If not found, return all layers in `above`, none in `under`
-  if (buildingIndex === -1) {
-    return { above: this.config.layers, under: [] };
-  }
+    if (buildingIndex === -1) {
+      return { above: this.config.layers, under: [] };
+    }
 
     // Split the array based on the found index
     const above = this.config.layers.slice(0, buildingIndex);
@@ -155,8 +155,8 @@ export class MapContextComponent implements OnInit, OnChanges {
 
     const allUnderBuildingFirstId = this.allUnderBuilding?.[0]?.id;
     const setTop = event.previousContainer.data[0] === allUnderBuildingFirstId
-    ? this.allAboveBuilding[1]?.id
-    : this.allAboveBuilding[0]?.id;
+      ? this.allAboveBuilding[1]?.id
+      : this.allAboveBuilding[0]?.id;
 
     // Check early exit conditions
     if (event.previousIndex === event.currentIndex) return;
@@ -324,32 +324,27 @@ export class MapContextComponent implements OnInit, OnChanges {
 
   exportImage(layerTitle: string, assetId: string, band: string, layerId: string) {
     // const region = this.config?.selectedGeometry?.coordinates;
-    const defaultRegion = [[[
-      -121.0, 43.5
-    ], [
-      -121.0, 44.5
-    ], [
-      -120.0, 44.5
-    ], [
-      -120.0, 43.5
-    ], [
-      -121.0, 43.5
-      ]]];
-    
-    const region = this.config?.selectedGeometry?.type === 'Polygon'
-    ? this.config.selectedGeometry.coordinates
-    : defaultRegion;
-    
+    const defaultRegion = [[]];
+
+    console.log(this.config.selectedGeometry)
+    const region =
+      this.config?.selectedGeometry?.type === 'Polygon'
+        ? [this.config.selectedGeometry.coordinates]
+        : this.config?.selectedGeometry?.type === 'MultiPolygon'
+          ? this.config.selectedGeometry.coordinates
+          : defaultRegion;
+
     const payload = {
       assetId: assetId,
       band: band,
       region: region,
       layerId: layerId,
+      geometryType: this.config.selectedGeometry?.type || 'Polygon',
     };
     this.http.post<any>(`${environment.gee_backend_baseurl}/export-to-gcs/`, payload).subscribe(res => {
       const fileId = res.fileId;
-      this.exportTaskService.addTask({ fileId, band, title: layerTitle, status: 'pending' , taskId: res.taskId});
-  
+      this.exportTaskService.addTask({ fileId, band, title: layerTitle, status: 'pending', taskId: res.taskId });
+
       const poll = setInterval(() => {
         this.http.get<any>(`${environment.gee_backend_baseurl}/export-status/${fileId}`).subscribe(status => {
           if (status.ready) {
