@@ -10,7 +10,7 @@ export const environment = {
   // backend_baseurl                       : 'http://localhost:12351',
   backend_baseurl                       : 'http://38.47.70.195:12351',
   token_header: 'Bearer',
-  gee_backend_baseurl                 : 'https://app.wildfireriskcarbon.org/v1/api',
+  gee_backend_baseurl                   : 'https://app.wildfireriskcarbon.org/v1/api',
 
   // router use hash for development & no hash for production
   router_hash                           : false,

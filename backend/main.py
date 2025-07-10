@@ -21,20 +21,17 @@ app.add_middleware(
 )
 
 # Use default gcloud credentials
-credentials, project_id = default()
+# credentials, project_id = default()
 #ee.Initialize(credentials, project='usfs-carbon-viz-test')
 
 # Path to your service account JSON key
 SERVICE_ACCOUNT_KEY_PATH = '/home/tkunlamai/gcloud/usfs-carbon-tool-test-sa-key.json'
+# SERVICE_ACCOUNT_KEY_PATH = '/Users/thannarot/Work/Sig/Code/usfs-2/usfs-carbon-tool-test-sa-key.json'
 SCOPES = ['https://www.googleapis.com/auth/earthengine', 'https://www.googleapis.com/auth/devstorage.full_control']
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_KEY_PATH,
     scopes=SCOPES
 )
-
-# IMPORTANT: Replace 'your-google-cloud-project-id' with the actual
-# alphanumeric ID of the Google Cloud Project where your GCS bucket resides
-# and where your service account is defined.
 ee.Initialize(credentials=credentials, project='usfs-carbon-viz-test')
 
 # Constants
@@ -51,8 +48,9 @@ TASKS: Dict[str, ee.batch.Task] = {}
 class ExportRequest(BaseModel):
     assetId: str
     band: str
-    region: List[List[List[float]]]
+    region: List[List[List[List[float]]]]
     layerId: str
+    geometryType: str 
 
 # Helper: Check asset access
 def check_asset_access(asset_id: str):
@@ -69,7 +67,7 @@ def generate_file_id(band: str, layerId: str) -> str:
 
 # Helper: List exported files
 def list_exported_files(bucket_name: str, file_id: str):
-    client = storage.Client()
+    client = storage.Client(credentials=credentials, project='usfs-carbon-viz-test')
     bucket = client.bucket(bucket_name)
     blobs = bucket.list_blobs()
     return [
@@ -83,7 +81,7 @@ def list_exported_files(bucket_name: str, file_id: str):
 
 # Helper: Delete exported files
 def delete_exported_files(bucket_name: str, file_id: str):
-    client = storage.Client()
+    client = storage.Client(credentials=credentials, project='usfs-carbon-viz-test')
     bucket = client.bucket(bucket_name)
     blobs = bucket.list_blobs()
     deleted = []
@@ -98,11 +96,8 @@ def delete_exported_files(bucket_name: str, file_id: str):
 @app.post("/export-to-gcs/")
 async def export_to_gcs(req: ExportRequest):
     check_asset_access(req.assetId)
-
     # Handle Polygon and MultiPolygon
-    if req.geometryType == "Polygon":
-        geometry = ee.Geometry.Polygon(req.region)
-    elif req.geometryType == "MultiPolygon":
+    if req.geometryType == "MultiPolygon" or req.geometryType == "Polygon":
         geometry = ee.Geometry.MultiPolygon(req.region)
     else:
         raise HTTPException(status_code=400, detail="Unsupported geometry type")

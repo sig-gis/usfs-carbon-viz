@@ -351,8 +351,7 @@ export class ModulePajakComponent implements OnInit {
 
     visibleLayers.forEach((layer: any) => {
       const assetId = this.getLayerUrlById(this.eeLayers, layer.id);
-
-      console.log(layer);
+      
       if (!assetId) return;
       const band = layer.bands[0];
       const unit = layer.unit || 'default';
