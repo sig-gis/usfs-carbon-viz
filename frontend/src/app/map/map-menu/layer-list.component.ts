@@ -107,12 +107,10 @@ export class LayerListComponent implements OnInit {
 
   toggleSlider() {
     this.sliderVisible = !this.sliderVisible;
-    // console.log(this.sliderVisible, "Slider Visibility 2");
   }
 
   onSliderChange() {
     this.configService.changeOpacity(this.id, this.opacity);
-    // console.log(this.sliderVisible, "Slider Visibility 3");
   }
 
 

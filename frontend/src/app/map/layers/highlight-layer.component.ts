@@ -133,7 +133,6 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
   }
 
   onLayerClick(event: any) {
-    console.log('Layer clicked:', event.features);
     if (!event.features || event.features.length === 0) return;
 
     const clicked = event.features[0];
@@ -157,7 +156,6 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
 
   logGeometry() {
     if (!this.popupFeature?.geometry) {
-      console.log('No geometry found.');
       return;
     }
 
@@ -190,7 +188,6 @@ export class HighlightLayerComponent implements OnInit, OnChanges {
         offset: [mapWidth * 0.05, 0]
       });
     }
-
     this.popupCoords = null;
   }
 

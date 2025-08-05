@@ -46,7 +46,7 @@
               [cdkDropListConnectedTo]="['underBuilding']" (cdkDropListDropped)="drop($event)">
               <ng-container *ngFor="let layer of splitLayers().above">
                 <ng-container *ngIf="layer.visible">
-                  <app-legend-list class="example-box" [layer]="layer" cdkDrag [attr.data-id]="layer.id">
+                  <app-legend-list  class="example-box" [layer]="layer" cdkDrag [attr.data-id]="layer.id" [config]="config">
                   </app-legend-list>
                 </ng-container>
               </ng-container>
@@ -125,7 +125,6 @@
 
 
     <ng-container *ngIf="config?.zonalResults?.length; else emptyArray">
-
       <div *ngIf="config?.selectedGeometry?.type == 'Point'; else displayZonal">
         <div class="zonal-results-list">
           <div class="result-card">
@@ -255,7 +254,7 @@
 
   <div id="Download" [ngClass]="currentTab == 0 ? 'tabcontent-inactive' : 'tabcontent'"
     *ngIf="currentLegend == 'Download'">
-    <ng-container *ngIf="config?.zonalResults?.length; else emptyDownloadArray">
+    <ng-container *ngIf="config?.zonalResults?.length && config?.selectedGeometry?.type !== 'Point'; else emptyDownloadArray">
       <div class="zonal-results-list">
         <div *ngFor="let result of config.zonalResults;" class="result-card">
           <div class="card-container">
@@ -298,7 +297,7 @@
           <path fill="none" d="M0 0h32v32H0z" />
         </svg>
         <br /><br />
-        <span>No Active Analysis</span>
+        <!-- <span>No Active Analysis</span> -->
         <br /><br />
         <span>Select or Draw Area to Start Analyse</span>
       </div>

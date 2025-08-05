@@ -328,8 +328,6 @@ export class ModulePajakComponent implements OnInit {
     let completed = 0;
     const total = visibleLayers.length;
 
-    console.log('Running zonal or pixel analysis on layers:', visibleLayers);
-
     let region: any;
     let mode: 'polygon' | 'point';
 

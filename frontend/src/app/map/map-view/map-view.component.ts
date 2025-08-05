@@ -33,7 +33,7 @@ import { AppConfig } from 'src/app/service/layers.interface';
         <ng-container *ngFor="let layer of config.layers">
           <ng-container [ngSwitch]="layer.type">
             <ng-container *ngSwitchCase="'layerGroup'">
-              <app-layer-group [layer]="layer"></app-layer-group>
+              <app-layer-group [layer]="layer" [config]="config"></app-layer-group>
             </ng-container>
             <ng-container *ngSwitchCase="'wms'">
               <app-wms-layer [layer]="layer"></app-wms-layer>

@@ -119,7 +119,6 @@ export class ModulePerizinanComponent implements OnInit {
       .subscribe((geoJsonData: any) => {
         this.ngZone.run(() => {
           if (geoJsonData && geoJsonData.properties) {
-            console.log(geoJsonData);
             this.geoJsonData = {
               output: {
                 type: "perizinan",

@@ -119,8 +119,6 @@ export class ModuleNavigasiComponent implements OnInit {
               };
 
               this.configService.addHighlight(this.highlightLayer);
-              // Uncomment the following line if you want to zoom to the geojson
-              console.log("Geojson rute: ", geojson);
               this.gisService.zoomtogeojson(geojson, this.mapInterface);
             } else {
               console.error('GeoJSON is undefined');

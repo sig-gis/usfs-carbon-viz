@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigLayer } from 'src/app/service/layers.interface';
+import { ConfigLayer, AppConfig } from 'src/app/service/layers.interface';
 
 @Component({
   selector: 'app-layer-group',
@@ -31,11 +31,12 @@ import { ConfigLayer } from 'src/app/service/layers.interface';
 export class LayerGroupComponent implements OnInit {
 
   @Input() layer!: ConfigLayer;
+  @Input() config!: AppConfig;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Layer Group Init " + this.layer);
+    console.log("Layer Group Init ");
   }
 
   prepareGroupLayer(groupLayer: ConfigLayer): ConfigLayer {

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import area from '@turf/area';
 import { Geometry, Feature } from 'geojson';
-
+import { filter, take } from 'rxjs/operators';
 import { staticConfig } from './static-config';
 
 @Injectable({
@@ -18,6 +18,8 @@ import { staticConfig } from './static-config';
 })
 export class AppconfigService {
   layerconfig: AppConfig = staticConfig;
+  private map!: Map;
+  private mapReady$ = new BehaviorSubject<Map | null>(null);
 
   constructor(private httpClient: HttpClient, private eeService: EarthEngineService) { }
 
@@ -56,7 +58,6 @@ export class AppconfigService {
       // Return unchanged layer
       return of(layer);
     };
-
     // Process all layers
     const updates = layers.map(layer => processLayer(layer));
     return forkJoin(updates) as Observable<ConfigLayer[]>;
@@ -298,8 +299,6 @@ export class AppconfigService {
     // Get actual layer IDs for move operation
     const actualMovedId = getActualLayerId(movedLayerId);
     let actualBeforeId = getActualLayerId(beforeLayerid || '');
-
-    console.log("Set placed before", actualBeforeId);
 
     // Move layer in map using actual layer IDs
     if (actualMovedId) {
@@ -593,6 +592,47 @@ export class AppconfigService {
       selectedAdminLevel: value ?? null
     };
     this.config$.next(updatedConfig);
+  }
+
+  public setLayerOpacity(map: Map, layerId: string, opacity: number): void {
+    if (!map || !map.getLayer(layerId)) {
+      console.warn(`Layer ${layerId} not found`);
+      return;
+    }
+  
+    const layer = map.getLayer(layerId);
+  
+    // Handle different layer types
+    switch (layer.type) {
+      case 'fill':
+        map.setPaintProperty(layerId, 'fill-opacity', opacity);
+        break;
+      case 'line':
+        map.setPaintProperty(layerId, 'line-opacity', opacity);
+        break;
+      case 'circle':
+        map.setPaintProperty(layerId, 'circle-opacity', opacity);
+        break;
+      case 'symbol':
+        map.setPaintProperty(layerId, 'icon-opacity', opacity);
+        map.setPaintProperty(layerId, 'text-opacity', opacity);
+        break;
+      case 'raster':
+        map.setPaintProperty(layerId, 'raster-opacity', opacity);
+        break;
+      default:
+        console.warn(`Unsupported layer type: ${layer.type}`);
+    }
+  }
+  
+  public getAllMapLayers(): string[] {
+    if (!this.map) {
+      console.warn("Map is not initialized.");
+      return [];
+    }
+  
+    const style = this.map.getStyle();
+    return style.layers.map(layer => layer.id);
   }
 
 }

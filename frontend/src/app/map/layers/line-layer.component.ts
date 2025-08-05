@@ -45,8 +45,6 @@ export class LineLayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("WMS init");
-
     this.title = this.layer.title;
     this.id = this.layer.id;
     this.url = this.layer.url[0];
