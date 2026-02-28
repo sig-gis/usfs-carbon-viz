@@ -32,15 +32,16 @@ export const staticConfig: AppConfig = {
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014_BINNED"
-                // "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014"
             ],
+            rawAssetUrl: "projects/usfs-carbon-viz-test/assets/FSIM/Burn_Probability/BP_2014",
+            rawBand: "b1",
             visible: false,
             group: "fsim",
             opacity: 0.9,
             legend: {
                 type: 'graduated',
-                title: 'Burn Probability 2014 (%)',
-                unit: '%',
+                title: 'Burn Probability 2014',
+                unit: '',
                 symbols: [
                     { value: '0 ', color: '#ffffff' },   // 0 - White (inside CONUS only)
                     { value: '0-0.0001', color: '#0000ff' },   // 1 - Blue
@@ -197,15 +198,16 @@ export const staticConfig: AppConfig = {
             type: "eeTiles",
             url: [
                 "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040_BINNED"
-                // "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040"
             ],
+            rawAssetUrl: "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040",
+            rawBand: "b1",
             visible: false,
             group: "fsim_cc",
             opacity: 0.9,
             legend: {
                 type: 'graduated',
-                title: 'Projected Burn Prob. 2047 (%)',
-                unit: '%',
+                title: 'Projected Burn Prob. 2047',
+                unit: '',
                 symbols: [
                     { value: '0 ', color: '#ffffff' },   // 0 - White (inside CONUS only)
                     { value: '0-0.0001', color: '#0000ff' },   // 1 - Blue

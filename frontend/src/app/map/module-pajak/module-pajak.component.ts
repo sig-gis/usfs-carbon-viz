@@ -322,6 +322,32 @@ export class ModulePajakComponent implements OnInit {
     return null;
   }
 
+  // Get raw (non-binned) asset URL and band for point analysis
+  getRawAssetInfo(layers: any[], id: string): { assetId: string; band: string } | null {
+    for (const layer of layers) {
+      if (layer.id === id) {
+        if (layer.rawAssetUrl && layer.rawBand) {
+          return { assetId: layer.rawAssetUrl, band: layer.rawBand };
+        }
+        if (layer.url?.length > 0) {
+          return { assetId: layer.url[0], band: layer.eeVisParams?.bands?.[0] || 'b1' };
+        }
+      }
+      if (layer.type === 'layerGroup' && Array.isArray(layer.groupLayers)) {
+        const found = layer.groupLayers.find((subLayer: any) => subLayer.id === id);
+        if (found) {
+          if (found.rawAssetUrl && found.rawBand) {
+            return { assetId: found.rawAssetUrl, band: found.rawBand };
+          }
+          if (found.url?.length > 0) {
+            return { assetId: found.url[0], band: found.eeVisParams?.bands?.[0] || 'b1' };
+          }
+        }
+      }
+    }
+    return null;
+  }
+
   runZonalOrPixelAnalysis(): void {
     const visibleLayers = this.configService.getVisibleLayersWithBands();
     const results: ZonalResult[] = [];
@@ -349,15 +375,20 @@ export class ModulePajakComponent implements OnInit {
 
     visibleLayers.forEach((layer: any) => {
       const assetId = this.getLayerUrlById(this.eeLayers, layer.id);
-      
+
       if (!assetId) return;
       const band = layer.bands[0];
       const unit = layer.unit || 'default';
 
+      // For point analysis, use raw (non-binned) asset if available
+      const rawInfo = mode === 'point' ? this.getRawAssetInfo(this.eeLayers, layer.id) : null;
+      const pointAssetId = rawInfo?.assetId || assetId;
+      const pointBand = rawInfo?.band || band;
+
       const service$ =
         mode === 'polygon'
           ? this.eeService.calculateZonalStatistics(assetId, band, region, unit)
-          : this.eeService.getPixelValueAtPoint(assetId, band, region);
+          : this.eeService.getPixelValueAtPoint(pointAssetId, pointBand, region);
 
       service$.subscribe({
         next: (res) => {
@@ -371,13 +402,13 @@ export class ModulePajakComponent implements OnInit {
               max: stats['max'] !== null && stats['max'] !== undefined ? Number(stats['max'].toFixed(2)) : 'masked',
               avg: stats['mean'] !== null && stats['mean'] !== undefined ? Number(stats['mean'].toFixed(2)) : 'masked',
               sum: stats['sum'] !== null && stats['sum'] !== undefined ? Number(stats['sum'].toFixed(2)) : 'masked',
-              unit: stats['unit'], 
+              unit: stats['unit'],
               pixelval: 0,
               assetId: assetId,
               band: band
             });
           } else {
-            const val = res?.[band];
+            const val = res?.[pointBand];
             results.push({
               id: layer.id,
               title: layer.title || 'UNDIFINED',
@@ -386,10 +417,10 @@ export class ModulePajakComponent implements OnInit {
               max: 0,
               avg: 0,
               sum: 0,
-              unit: '', 
-              pixelval: val !== null && val !== undefined ? Number(val.toFixed(2)) : 'masked',
-              assetId: assetId,
-              band: band
+              unit: '',
+              pixelval: val !== null && val !== undefined ? Number(val.toFixed(6)) : 'masked',
+              assetId: pointAssetId,
+              band: pointBand
             });
           }
 

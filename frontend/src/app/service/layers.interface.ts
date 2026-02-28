@@ -135,6 +135,8 @@ export interface ConfigLayer {
     eeVisParams?: any;
     activeLayerId?: string;
     sourceLayer?: string;
+    rawAssetUrl?: string;  // Non-binned asset URL for point analysis
+    rawBand?: string;      // Band name for the raw asset
     //SEMENTAR DI BUAT OPTIONAL
 }
 
