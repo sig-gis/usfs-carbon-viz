@@ -380,15 +380,15 @@ export class ModulePajakComponent implements OnInit {
       const band = layer.bands[0];
       const unit = layer.unit || 'default';
 
-      // For point analysis, use raw (non-binned) asset if available
-      const rawInfo = mode === 'point' ? this.getRawAssetInfo(this.eeLayers, layer.id) : null;
-      const pointAssetId = rawInfo?.assetId || assetId;
-      const pointBand = rawInfo?.band || band;
+      // Always use raw (non-binned) asset for analysis if available
+      const rawInfo = this.getRawAssetInfo(this.eeLayers, layer.id);
+      const analysisAssetId = rawInfo?.assetId || assetId;
+      const analysisBand = rawInfo?.band || band;
 
       const service$ =
         mode === 'polygon'
-          ? this.eeService.calculateZonalStatistics(assetId, band, region, unit)
-          : this.eeService.getPixelValueAtPoint(pointAssetId, pointBand, region);
+          ? this.eeService.calculateZonalStatistics(analysisAssetId, analysisBand, region, unit)
+          : this.eeService.getPixelValueAtPoint(analysisAssetId, analysisBand, region);
 
       service$.subscribe({
         next: (res) => {
@@ -404,11 +404,11 @@ export class ModulePajakComponent implements OnInit {
               sum: stats['sum'] !== null && stats['sum'] !== undefined ? Number(stats['sum'].toFixed(2)) : 'masked',
               unit: stats['unit'],
               pixelval: 0,
-              assetId: assetId,
-              band: band
+              assetId: analysisAssetId,
+              band: analysisBand
             });
           } else {
-            const val = res?.[pointBand];
+            const val = res?.[analysisBand];
             results.push({
               id: layer.id,
               title: layer.title || 'UNDIFINED',
@@ -419,8 +419,8 @@ export class ModulePajakComponent implements OnInit {
               sum: 0,
               unit: '',
               pixelval: val !== null && val !== undefined ? Number(val.toFixed(6)) : 'masked',
-              assetId: pointAssetId,
-              band: pointBand
+              assetId: analysisAssetId,
+              band: analysisBand
             });
           }
 
