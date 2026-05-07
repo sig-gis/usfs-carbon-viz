@@ -197,9 +197,9 @@ export const staticConfig: AppConfig = {
             description: "Projected annual burn probability for the conterminous United States, circa 2047",
             type: "eeTiles",
             url: [
-                "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040_BINNED"
+                "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2047_BINNED"
             ],
-            rawAssetUrl: "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2040",
+            rawAssetUrl: "projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Burn_Probability/CC_BP_2047",
             rawBand: "b1",
             visible: false,
             group: "fsim_cc",
@@ -258,7 +258,7 @@ export const staticConfig: AppConfig = {
                     title: "< 2 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP1_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP1_2047"],
                     visible: true,
                     opacity: 0.9,
                     eeVisParams: {
@@ -273,7 +273,7 @@ export const staticConfig: AppConfig = {
                     title: "2-4 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP2_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP2_2047"],
                     visible: false,
                     opacity: 0.9,
                     eeVisParams: {
@@ -288,7 +288,7 @@ export const staticConfig: AppConfig = {
                     title: "4-6 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP3_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP3_2047"],
                     visible: false,
                     opacity: 0.9,
                     eeVisParams: {
@@ -303,7 +303,7 @@ export const staticConfig: AppConfig = {
                     title: "6-8 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP4_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP4_2047"],
                     visible: false,
                     opacity: 0.9,
                     eeVisParams: {
@@ -318,7 +318,7 @@ export const staticConfig: AppConfig = {
                     title: "8-12 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP5_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP5_2047"],
                     visible: false,
                     opacity: 0.9,
                     eeVisParams: {
@@ -333,7 +333,7 @@ export const staticConfig: AppConfig = {
                     title: ">12 feet",
                     description: "Flame length probability",
                     type: "eeTiles",
-                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP6_2040"],
+                    url: ["projects/usfs-carbon-viz-test/assets/Climate_Change_FSIM/Fire_Intensity_Level/CC_FLP6_2047"],
                     visible: false,
                     opacity: 0.9,
                     eeVisParams: {
@@ -413,7 +413,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 9.79,
+                        // "max": 9.79,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -429,7 +430,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 11.47,
+                        // "max": 11.47,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -445,7 +447,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 13.49,
+                        // "max": 13.49,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -461,7 +464,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 14.49,
+                        // "max": 14.49,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -477,7 +481,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 17.50,
+                        // "max": 17.50,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -493,7 +498,8 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 17.50,
+                        // "max": 17.50,
+                        "max": 60,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
@@ -529,14 +535,14 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 14,
+                    maxValue: 0.1,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 0.0078,
+                "max": 0.1,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -772,7 +778,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b1'],
                         "min": 0,
-                        "max": 0.086,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -788,7 +794,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b2'],
                         "min": 0,
-                        "max": 0.53,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -804,7 +810,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b3'],
                         "min": 0,
-                        "max": 1.84,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -820,7 +826,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b4'],
                         "min": 0,
-                        "max": 2.72,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -836,7 +842,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b5'],
                         "min": 0,
-                        "max": 3.69,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 },
@@ -852,7 +858,7 @@ export const staticConfig: AppConfig = {
                     eeVisParams: {
                         "bands": ['b6'],
                         "min": 0,
-                        "max": 4.11,
+                        "max": 4,
                         "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                     }
                 }
@@ -864,7 +870,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 40,
+                    maxValue: 4,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             }
@@ -888,14 +894,14 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 0.55,
+                    maxValue: 0.1,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
             eeVisParams: {
                 "bands": ['b7'],
                 "min": 0,
-                "max": 0.0056,
+                "max": 0.1,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -1089,7 +1095,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 14.68,
+                    maxValue: 5,
                     palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
@@ -1097,7 +1103,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 2.34,
+                "max": 5,
                 "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
@@ -1118,7 +1124,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 6.20,
+                    maxValue: 1,
                     // palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                     palette: ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
                 }
@@ -1128,14 +1134,14 @@ export const staticConfig: AppConfig = {
                 "bands": ['b1'],
                 "min": 0,
                 // "max": 0.45,
-                "max": 0.95,
+                "max": 1,
                 // "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 "palette": ['4D2610', '5A2E15', '783F1F', 'F9D395', '2B8C52', '0A449E']
             }
         },
         {
             id: "rangeland_expected_carbon_emission",
-            title: "Total Conditional Rangeland Carbon Emission 2014",
+            title: "Total Conditional Rangeland Carbon Emissions 2014",
             description: "Represents the total rangeland carbon emissions from burning",
             type: "eeTiles",
             url: [
@@ -1146,11 +1152,11 @@ export const staticConfig: AppConfig = {
             opacity: 0.9,
             legend: {
                 type: 'continuous',
-                title: 'Total Conditional Rangeland Carbon Emission 2014',
+                title: 'Total Conditional Rangeland Carbon Emissions 2014',
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 11.71,
+                    maxValue: 4,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
@@ -1159,7 +1165,7 @@ export const staticConfig: AppConfig = {
                 "bands": ['b1'],
                 "min": 0,
                 // "max": 1.91,
-                "max": 1.61,
+                "max": 4,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
@@ -1180,7 +1186,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 14.68,
+                    maxValue: 4,
                     palette: ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
                 }
             },
@@ -1188,7 +1194,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 2.35,
+                "max": 4,
                 "palette": ['3e1f0d', '5a2e15', '783f1f', '97542b', 'b66c3b', 'd1864e', 'e6a062', 'f2ba7a', 'f9d395', 'e1e9a5', 'b4da90', '84c87c', '53b069', '2b8c52', '0a643a', '166e5c', '105a80', '0a449e']
             }
         },
@@ -1209,7 +1215,7 @@ export const staticConfig: AppConfig = {
                 unit: 'tons/acre',
                 symbols: {
                     minValue: 0,
-                    maxValue: 1.11,
+                    maxValue: 0.1,
                     palette: ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
                 }
             },
@@ -1217,7 +1223,7 @@ export const staticConfig: AppConfig = {
             eeVisParams: {
                 "bands": ['b1'],
                 "min": 0,
-                "max": 0.011,
+                "max": 0.1,
                 "palette": ['ffffcc', 'fbec9a', 'f4cc68', 'eca855', 'e48751', 'd2624d', 'a54742', '73382f', '422818', '1a1a01']
             }
         },
